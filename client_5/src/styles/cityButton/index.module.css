@@ -1,0 +1,59 @@
+.city {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+.city:hover .city__text {
+    fill: rgb(255, 248, 182);
+    color: rgb(255, 248, 182);
+    transition: color 0.2s ease-in-out;
+    
+}
+.city:hover .city__span > svg {
+    fill: rgb(255, 248, 182);
+    transition: fill 0.2s ease-in-out;
+}
+.city__span {
+    padding-top: 4px;
+    margin-right: 9px;
+}
+.city__span svg {
+    fill: #fafbfc;
+    width: 11px;
+    height: 11px;
+    transition: fill 0.2s ease-in-out;
+}
+@media (max-width: 950px) {
+    .city__span svg {
+        fill: #fafbfc;
+        width: 16px;
+        height: 16px;
+   }
+}
+.city__span.dark_mode svg {
+    fill: #f2f2f2;
+}
+.city__text {
+    position: relative;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.002em;
+    text-decoration-line: underline;
+    color: #fafbfc;
+    transition: color 0.2s ease-in-out;
+}
+@media (max-width: 950px) {
+    .city__text {
+        font-size: 16px;
+        color: #fafbfc;
+   }
+    .city__text.dark_mode {
+        color: #f2f2f2;
+   }
+}

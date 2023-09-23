@@ -1,0 +1,25 @@
+
+.goods_slider {
+    margin: 120px auto 0;
+    max-width: 1260px;
+    padding: 0 20px;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    
+}
+
+.name {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0;
+
+}
+
+.swiper_overflow {
+    overflow: visible !important;
+}

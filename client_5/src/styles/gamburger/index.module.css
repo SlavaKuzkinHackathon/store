@@ -1,0 +1,38 @@
+.ham3 {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 400ms;
+    user-select: none;
+}
+.ham3 path{
+    fill: none;
+    transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+    stroke: #4e4c4c;
+    stroke-width: 5.5;
+    stroke-linecap: round;
+}
+.ham3.active {
+    transform: rotate(45deg);
+}
+.ham3 .top {
+    stroke-dasharray: 40 160;
+}
+.ham3 .middle {
+    stroke-dasharray: 40 142;
+    transform-origin: 50%;
+    transition: transform 400ms;
+}
+.ham3 .bottom {
+    stroke-dasharray: 40 85;
+    transform-origin: 50%;
+    transition: transform 400ms, stroke-dashoffset 400ms;
+}
+.ham3.active .top {
+    stroke-dashoffset: -64px;
+}
+.ham3.active .middle {
+    transform: rotate(90deg);
+}
+.ham3.active .bottom {
+    stroke-dashoffset: -64px;
+}
