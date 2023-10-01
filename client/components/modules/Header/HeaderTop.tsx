@@ -1,6 +1,7 @@
-import CityButton from '@/components/elements/CityButton/CityButton'
-import styles from '@/styles/header/index.module.scss'
 import Link from 'next/link'
+import CityButton from '@/components/elements/CityButton/CityButton'
+import ProfileDropdown from './ProfileDropdown'
+import styles from '@/styles/header/index.module.scss'
 
 const HeaderTop = () => {
   console.log(' ')
@@ -15,10 +16,14 @@ const HeaderTop = () => {
                 <a className={styles.header__nav__list__item__link}>Каталог</a>
               </Link>
               <Link href="/about" passHref legacyBehavior>
-                <a className={styles.header__nav__list__item__link}>О компании</a>
+                <a className={styles.header__nav__list__item__link}>
+                  О компании
+                </a>
               </Link>
               <Link href="'/shiping-payment'" passHref legacyBehavior>
-                <a className={styles.header__nav__list__item__link}>Доставка и оплата</a>
+                <a className={styles.header__nav__list__item__link}>
+                  Доставка и оплата
+                </a>
               </Link>
               <Link href="/contacts" passHref legacyBehavior>
                 <a className={styles.header__nav__list__item__link}>Контакты</a>
@@ -26,6 +31,7 @@ const HeaderTop = () => {
             </li>
           </ul>
         </nav>
+        <ProfileDropdown />
       </div>
     </div>
   )
