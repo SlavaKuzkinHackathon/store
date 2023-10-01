@@ -1,3 +1,4 @@
+import CityButton from '@/components/elements/CityButton/CityButton'
 import styles from '@/styles/header/index.module.scss'
 import Link from 'next/link'
 
@@ -6,6 +7,7 @@ const HeaderTop = () => {
   return (
     <div className={styles.header__top}>
       <div className={`container ${styles.header__top__container}`}>
+        <CityButton />
         <nav className={styles.header__nav}>
           <ul className={styles.header__nav__list}>
             <li className={styles.header__nav__list__item}>
