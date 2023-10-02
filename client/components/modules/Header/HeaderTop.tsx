@@ -15,16 +15,22 @@ const HeaderTop = () => {
               <Link href="/catalog" passHref legacyBehavior>
                 <a className={styles.header__nav__list__item__link}>Каталог</a>
               </Link>
+            </li>
+            <li className={styles.header__nav__list__item}>
               <Link href="/about" passHref legacyBehavior>
                 <a className={styles.header__nav__list__item__link}>
                   О компании
                 </a>
               </Link>
+            </li>
+            <li className={styles.header__nav__list__item}>
               <Link href="'/shiping-payment'" passHref legacyBehavior>
                 <a className={styles.header__nav__list__item__link}>
                   Доставка и оплата
                 </a>
               </Link>
+            </li>
+            <li className={styles.header__nav__list__item}>
               <Link href="/contacts" passHref legacyBehavior>
                 <a className={styles.header__nav__list__item__link}>Контакты</a>
               </Link>
