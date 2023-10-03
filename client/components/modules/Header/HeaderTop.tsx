@@ -4,7 +4,6 @@ import ProfileDropdown from './ProfileDropdown'
 import styles from '@/styles/header/index.module.scss'
 
 const HeaderTop = () => {
-  console.log(' ')
   return (
     <div className={styles.header__top}>
       <div className={`container ${styles.header__top__container}`}>
