@@ -26,13 +26,13 @@ const HeaderBottom = () => {
         </h1>
         <div className={styles.header__search}>
           <SearchInput />
-          <button>
-            <span>
+          <button className={`${styles.header__search__btn} ${styles.dark_mode}`}>
+            <span className={styles.header__search__btn__span}>
               <SearchSvg />
             </span>
           </button>
         </div>
-        <div className=''>
+        <div className={styles.header__shopping_cart}>
             <ModeToggler />
             <CartPopup />
         </div>
