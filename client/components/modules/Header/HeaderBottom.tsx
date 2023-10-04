@@ -5,6 +5,7 @@ import Link from 'next/link'
 import SearchSvg from '@/components/elements/SearchSvg/SearchSvg'
 import SearchInput from '@/components/elements/Header/SearchInput'
 import ModeToggler from '@/components/elements/ModeToggler/ModeToggler'
+import CartPopup from './CartPopup/CartPopup'
 import styles from '@/styles/header/index.module.scss'
 
 const HeaderBottom = () => {
@@ -33,7 +34,7 @@ const HeaderBottom = () => {
         </div>
         <div className=''>
             <ModeToggler />
-            <button>Корзина</button>
+            <CartPopup />
         </div>
       </div>
     </div>
