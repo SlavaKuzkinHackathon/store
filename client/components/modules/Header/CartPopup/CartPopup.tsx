@@ -20,7 +20,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
     return (
       <div className={styles.cart} ref={ref}>
         <button
-          className={`${styles.cart__btn} ${styles.dark_mode}`}
+          className={`${styles.cart__btn} ${darkModeClass}`}
           onClick={toggleCartDropDown}
         >
           {!!shoppingCart.length && (
@@ -49,7 +49,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                 ) : (
                   <li className={styles.cart__popup__empty}>
                     <span
-                      className={`${styles.cart__popup__empty__text} ${styles.dark_mode}`}
+                      className={`${styles.cart__popup__empty__text} ${darkModeClass}`}
                     >
                       Корзина пуста
                     </span>
@@ -59,7 +59,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
               <div className={styles.cart__popup__footer}>
                 <div className={styles.cart__popup__footer__total}>
                   <span
-                    className={`${styles.cart__popup__footer__text} ${styles.dark_mode}`}
+                    className={`${styles.cart__popup__footer__text} ${darkModeClass}`}
                   >
                     Общая сумма заказа:
                   </span>

@@ -21,20 +21,20 @@ const HeaderBottom = () => {
             <a className={styles.header__logo__link}>
               <img src="/img/logo.svg" alt="лого" />
               <span
-                className={`${styles.header__logo__link__text} ${darkModeClass}`}
+                className={styles.header__logo__link__text}
               >Фабрика мягкой мебели</span>
             </a>
           </Link>
         </h1>
         <div className={styles.header__search}>
           <SearchInput />
-          <button className={`${styles.header__search__btn} ${styles.dark_mode}`}>
+          <button className={`${styles.header__search__btn} ${darkModeClass}`}>
             <span className={styles.header__search__btn__span}>
               <SearchSvg />
             </span>
           </button>
         </div>
-        <div className={styles.header__shopping_cart}>
+        <div className={`${styles.header__shopping_cart} ${darkModeClass}`}>
             {!isMedia950 && <ModeToggler />}
             <CartPopup />
         </div>
