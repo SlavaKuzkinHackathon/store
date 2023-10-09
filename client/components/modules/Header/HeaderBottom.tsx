@@ -7,8 +7,10 @@ import SearchInput from '@/components/elements/Header/SearchInput'
 import ModeToggler from '@/components/elements/ModeToggler/ModeToggler'
 import CartPopup from './CartPopup/CartPopup'
 import styles from '@/styles/header/index.module.scss'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const HeaderBottom = () => {
+  const  isMedia950 = useMediaQuery(950)
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   return (
@@ -33,7 +35,7 @@ const HeaderBottom = () => {
           </button>
         </div>
         <div className={styles.header__shopping_cart}>
-            <ModeToggler />
+            {!isMedia950 && <ModeToggler />}
             <CartPopup />
         </div>
       </div>
