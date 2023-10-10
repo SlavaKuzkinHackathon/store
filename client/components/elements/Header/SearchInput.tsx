@@ -23,10 +23,12 @@ const SearchInput = () => {
         ...inputStyles,
         control: (defaultStyles) =>({
           ...controlStyles(defaultStyles, mode),
+          backgroundColor: '#ffffff',
+
         }),
         input: (defaultStyles) =>({
           ...defaultStyles,
-          color: mode === 'dark' ? '#f2f2f2' : '#222222'
+          color: '#222222'
         }),
         menu: (defaultStyles) => ({
           ...menuStyles(defaultStyles, mode)

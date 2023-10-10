@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import CityButton from '@/components/elements/CityButton/CityButton'
 import ProfileDropdown from './ProfileDropdown'
-import styles from '@/styles/header/index.module.scss'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import ModeToggler from '@/components/elements/ModeToggler/ModeToggler'
 import { useStore } from 'effector-react'
 import { $mode } from '@/context/mode'
+import styles from '@/styles/header/index.module.scss'
 
 const HeaderTop = () => {
   const isMedia950 = useMediaQuery(950)
