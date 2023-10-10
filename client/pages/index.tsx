@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Header from '@/components/modules/Header/Header'
+import Footer from '@/components/modules/Footer/Footer'
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <h1>Press</h1>
         <div className="overlay" />
       </main>
+      <Footer />
     </>
   )
 }
