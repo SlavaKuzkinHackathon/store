@@ -6,46 +6,75 @@ import ModeToggler from '@/components/elements/ModeToggler/ModeToggler'
 import { useStore } from 'effector-react'
 import { $mode } from '@/context/mode'
 import styles from '@/styles/header/index.module.scss'
+import { usePopup } from '@/hooks/usePopup'
 
 const HeaderTop = () => {
   const isMedia950 = useMediaQuery(950)
   const mode = useStore($mode)
+
+  const { toggleOpen, open, closePopup } = usePopup()
+
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   return (
     <div className={styles.header__top}>
       <div className={`container ${styles.header__top__container}`}>
         {!isMedia950 && <CityButton />}
         {isMedia950 && (
-          <button className={`${styles.burger_menu} ${darkModeClass}`}>
+          <button
+            onClick={toggleOpen}
+            className={`${styles.burger_menu} ${
+              open ? styles.open : ''
+            } ${darkModeClass}`}
+          >
             <span />
             <span />
             <span />
           </button>
         )}
-        <nav className={styles.header__nav}>
+        <nav
+          className={`${styles.header__nav} ${
+            open ? styles.open : ''
+          } ${darkModeClass}`}
+        >
           <ul className={styles.header__nav__list}>
             <li className={styles.header__nav__list__item}>
               <Link href="/catalog" passHref legacyBehavior>
-                <a className={styles.header__nav__list__item__link}>Каталог</a>
+                <a
+                  className={`${styles.header__nav__list__item__link} ${darkModeClass}`}
+                  onClick={closePopup}
+                >
+                  Каталог
+                </a>
               </Link>
             </li>
             <li className={styles.header__nav__list__item}>
               <Link href="/about" passHref legacyBehavior>
-                <a className={styles.header__nav__list__item__link}>
+                <a
+                  className={`${styles.header__nav__list__item__link} ${darkModeClass}`}
+                  onClick={closePopup}
+                >
                   О компании
                 </a>
               </Link>
             </li>
             <li className={styles.header__nav__list__item}>
               <Link href="'/shiping-payment'" passHref legacyBehavior>
-                <a className={styles.header__nav__list__item__link}>
+                <a
+                  className={`${styles.header__nav__list__item__link} ${darkModeClass}`}
+                  onClick={closePopup}
+                >
                   Доставка и оплата
                 </a>
               </Link>
             </li>
             <li className={styles.header__nav__list__item}>
               <Link href="/contacts" passHref legacyBehavior>
-                <a className={styles.header__nav__list__item__link}>Контакты</a>
+                <a
+                  className={`${styles.header__nav__list__item__link} ${darkModeClass}`}
+                  onClick={closePopup}
+                >
+                  Контакты
+                </a>
               </Link>
             </li>
             {isMedia950 && (
