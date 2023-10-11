@@ -1,59 +1,160 @@
-import Link from 'next/link';
+/* eslint-disable @next/next/no-img-element */
+import MarkerSvg from '@/components/elements/MarkerSvg/MarkerSvg'
 import styles from '@/styles/footer/index.module.scss'
-
+import FooterLogo from './FooterLogo'
+import OnlineStoreContent from './OnlineStoreContent'
+import UslugiCompany from './UslugiCompany'
+import Link from 'next/link'
+import PhoneSvg from '@/components/elements/PhoneSvg/PhoneSvg'
+import MailSvg from '@/components/elements/MailSvg/MailSvg'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
+import Accordion from '@/components/elements/Accordion/Accordion'
 
 const Footer = () => {
+  const isMedia750 = useMediaQuery(750)
+  const isMedia500 = useMediaQuery(500)
+
   return (
-    <section className={styles.footer}>
-      <div className={styles.container}>
-        <div className={styles.main}>
-          <Link href='/'>
-            <img src="/img/logo.svg" alt="лого" className={`logo ${styles.logo_footer}`} width="120" height="60" />
-          </Link>
-          <p className={styles.text}>Фабрика мягкой мебели &copy; 1999 - {new Date().getFullYear()}</p>
-        </div>
-
-        <div className={styles.column}>
-          <h3 className={styles.column_head}>КАТЕГОРИИ</h3>
-          <Link href={'/'} className="link">Главная</Link>
-          <Link href={'/catalog'} className="link">Каталог</Link>
-          <Link href={''} className="link">Изготовление на заказ</Link>
-        </div>
-
-        <div className={styles.column}>
-          <h3 className={styles.column_head}>СЕРВИС</h3>
-          <Link className="link" href={'/shiping-payment'}>Доставка и оплата</Link>
-          <Link className="link" href={'/wholesale-buyers'}>Оптовым покупателям</Link>
-          <Link href='/about' className="link">О нас</Link>
-        </div>
-
-        <div className={styles.column}>
-          <h3 className={styles.column_head}>КОНТАКТЫ</h3>
-          <Link href="tel:+79139135547" className="link">+7(913) 913-11-11</Link>
-          <Link href="/contacts" className="link">Адреса салонов</Link>
-          <Link href="mailto:mebel-petrova@mail.ru" className="link">Написать нам</Link>
-
-
-          <nav className={styles.icons}>
-            <ul className={styles.icons__links}>
-              <li>
-                <Link href='#'>
-                  <img className={styles.icon} src="/img/whatsapp.svg" width="25" height="25" alt="WhatsApp" />
+    <footer className={styles.footer}>
+      <div className={styles.footer__container}>
+        <div className={styles.footer__top}>
+          {!isMedia750 && <FooterLogo />}
+          <div className={styles.footer__top__inner}>
+            <div className={styles.footer__top__item}>
+              {!isMedia500 && (
+                <>
+                  <h3 className={styles.footer__top__item__title}>
+                    Интернет-магазин
+                  </h3>
+                  <OnlineStoreContent />
+                </>
+              )}
+              {isMedia500 && (
+                <Accordion
+                  title="Услуги компании"
+                  titleClass={styles.footer__top__item__title}
+                  arrowOpenClass={styles.open}
+                >
+                  <OnlineStoreContent />
+                  <div style={{ height: 17 }} />
+                </Accordion>
+              )}
+            </div>
+            <div className={styles.footer__top__item}>
+              {!isMedia500 && (
+                <>
+                  <h3 className={styles.footer__top__item__title}>
+                    Услуги компании
+                  </h3>
+                  <UslugiCompany />
+                </>
+              )}
+              {isMedia500 && (
+                <Accordion
+                  title="Услуги компании"
+                  titleClass={styles.footer__top__item__title}
+                  arrowOpenClass={styles.open}
+                >
+                  <UslugiCompany />
+                  <div style={{ height: 17 }} />
+                </Accordion>
+              )}
+            </div>
+          </div>
+          <div className={styles.footer__top__item}>
+            <h3 className={styles.footer__top__item__title}>Контакты</h3>
+            <ul
+              className={`${styles.footer__top__item__list} ${styles.footer__top__item__contacts}`}
+            >
+              <li className={styles.footer__top__item__list__item}>
+                <Link href="/contacts" passHref legacyBehavior>
+                  <a className={styles.footer__top__item__list__item__link}>
+                    <span>Адреса салонов: </span>
+                    <span>
+                      г.Новосибирск ТВЦ "Большая Медведица​" ул.Светлановская,
+                      50 49 сектор; 2 этаж​
+                    </span>
+                    <span>г.Новосибирск ул.Сибиряков-Гвардейцев, 49/1 к1</span>
+                    <span>
+                      <MarkerSvg />
+                    </span>
+                  </a>
                 </Link>
               </li>
-              <li>
-                <Link href='#'>
-                  <img className={styles.icon} src="/img/telegram.svg" width="25" height="25" alt="Telegram" />
-                </Link>
+              <li className={styles.footer__top__item__list__item}>
+                <a
+                  href="tel:+79111362322"
+                  className={styles.footer__top__item__list__item__link}
+                >
+                  <span>Наш контактный телефон: </span>
+                  <span>+7(913)136-23-22</span>
+                  <span>
+                    <PhoneSvg />
+                  </span>
+                </a>
+              </li>
+              <li className={styles.footer__top__item__list__item}>
+                <a
+                  href="mailto:jess.888@yandex.ru"
+                  className={styles.footer__top__item__list__item__link}
+                >
+                  <span>Email: </span>
+                  <span>jess.888@yandex.ru</span>
+                  <span>
+                    <MailSvg />
+                  </span>
+                </a>
               </li>
             </ul>
-          </nav>
-
+          </div>
         </div>
 
+        <div className={styles.footer__bottom}>
+          <div className={styles.footer__bottom__block}>
+            <div className={styles.footer__bottom__block__left}>
+              <h3 className={styles.footer__bottom__block__title}>
+                Мы принимаем к оплате:
+              </h3>
+              <ul className={styles.footer__bottom__block__pay}>
+                <li className={styles.footer__bottom__block__pay__item}>
+                  <img src="/img/master-card.png" alt="master-card" />
+                </li>
+                <li className={styles.footer__bottom__block__pay__item}>
+                  <img src="/img/visa.png" alt="visa" />
+                </li>
+              </ul>
+            </div>
+            <div className={styles.footer__bottom__block__right}>
+              <h3 className={styles.footer__bottom__block__title}>
+                Мы в соцсетях:
+              </h3>
+              <ul className={styles.footer__bottom__block__social}>
+                <li className={styles.footer__bottom__block__social__item}>
+                  <a
+                    href="#"
+                    className={
+                      styles.footer__bottom__block__social__item_telega
+                    }
+                  />
+                </li>
+                <li className={styles.footer__bottom__block__social__item}>
+                  <a
+                    href="#"
+                    className={styles.footer__bottom__block__social__item_wsapp}
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+          {isMedia750 && <FooterLogo />}
+          <div className={styles.footer__bottom__block}>
+            <p className={styles.footer__bottom__block__copyright}>
+              © «Фабрика мягкой мебели» 1999 - {new Date().getFullYear()}.
+            </p>
+          </div>
+        </div>
       </div>
-    </section>
-
-  );
+    </footer>
+  )
 }
 export default Footer

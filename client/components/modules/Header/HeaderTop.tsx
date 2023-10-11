@@ -48,17 +48,17 @@ const HeaderTop = () => {
               </Link>
             </li>
             <li className={styles.header__nav__list__item}>
-              <Link href="/about" passHref legacyBehavior>
+              <Link href="/uslugi" passHref legacyBehavior>
                 <a
                   className={`${styles.header__nav__list__item__link} ${darkModeClass}`}
                   onClick={closePopup}
                 >
-                  О компании
+                  Услуги
                 </a>
               </Link>
             </li>
             <li className={styles.header__nav__list__item}>
-              <Link href="'/shiping-payment'" passHref legacyBehavior>
+              <Link href='/shiping-payment' passHref legacyBehavior>
                 <a
                   className={`${styles.header__nav__list__item__link} ${darkModeClass}`}
                   onClick={closePopup}
