@@ -116,7 +116,7 @@ const Reviews: FC<ReviewsProps> = ({ productId, reviews }) => {
       ) : (
         <p className={styles.linkText}>
           Войдите, чтобы оставить отзыв.
-          <Link href={RouteNames.LOGIN}>
+          <Link href={RouteNames.LOGIN} passHref legacyBehavior>
             <a className={styles.link}>Войти</a>
           </Link>
         </p>

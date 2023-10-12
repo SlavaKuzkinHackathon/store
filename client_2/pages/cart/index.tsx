@@ -200,7 +200,7 @@ export default function CartPage(): JSX.Element {
                   ) : (
                     <p className={styles.linkText}>
                       Для заказа необходимо войти в аккаунт
-                      <Link href={RouteNames.LOGIN}>
+                      <Link href={RouteNames.LOGIN} passHref legacyBehavior>
                         <a className={styles.link}>Войти</a>
                       </Link>
                     </p>
@@ -271,7 +271,7 @@ export default function CartPage(): JSX.Element {
             ) : (
               <p className={styles.linkText}>
                 Войдите, чтобы увидеть свои заказы
-                <Link href={RouteNames.LOGIN}>
+                <Link href={RouteNames.LOGIN} passHref legacyBehavior>
                   <a className={styles.link}>Войти</a>
                 </Link>
               </p>

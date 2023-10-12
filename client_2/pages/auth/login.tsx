@@ -101,7 +101,7 @@ export default function LoginPage(): JSX.Element {
           </Formik>
           <p className={styles.linkText}>
             Нет аккаунта?
-            <Link href={RouteNames.REGISTRATION}>
+            <Link href={RouteNames.REGISTRATION} passHref legacyBehavior>
               <a className={styles.link}>Зарегистрироваться</a>
             </Link>
           </p>

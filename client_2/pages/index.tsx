@@ -27,7 +27,7 @@ export default function Home() {
           {catalogList.map((catalog) => {
             return (
               <li key={catalog.id} className="item">
-                <Link href={`${RouteNames.CATALOG}/${catalog.id}`}>
+                <Link href={`${RouteNames.CATALOG}/${catalog.id}`} passHref legacyBehavior>
                   <a className={classNames("link", "linkCatalog")}>
                     {catalog.name}
                   </a>

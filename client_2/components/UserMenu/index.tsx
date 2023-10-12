@@ -22,7 +22,7 @@ const UserMenu: FC = () => {
       {isLogged ? (
         <span className={styles.name}>{isAdmin ? "Админ" : userData.name}</span>
       ) : (
-        <Link href={RouteNames.LOGIN}>
+        <Link href={RouteNames.LOGIN} passHref legacyBehavior>
           <Tooltip placement="bottom" title="Войти">
             <a className={classNames(styles.link, styles.userLink)}>
               <UserOutlined />
@@ -43,7 +43,7 @@ const UserMenu: FC = () => {
         </Tooltip>
       )}
       {isAdmin ? (
-        <Link href={RouteNames.ADMIN}>
+        <Link href={RouteNames.ADMIN} passHref legacyBehavior>
           <Tooltip placement="bottom" title="Админ-панель">
             <a className={styles.link}>
               <PlusCircleOutlined />
@@ -52,7 +52,7 @@ const UserMenu: FC = () => {
         </Link>
       ) : (
         <div className={styles.cartBox}>
-          <Link href={RouteNames.CART}>
+          <Link href={RouteNames.CART} passHref legacyBehavior>
             <Tooltip placement="bottom" title="Корзина">
               <a className={styles.link}>
                 <ShoppingCartOutlined />

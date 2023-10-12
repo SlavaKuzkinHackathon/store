@@ -12,7 +12,7 @@ const Header: FC = () => {
   const { catalogList } = useAppSelector((state) => state.catalog);
   return (
     <header className={styles.wrapper}>
-      <Link href="/">
+      <Link href="/" passHref legacyBehavior>
         <a className={styles.logo}>Tableware Fair</a>
       </Link>
       <div className={styles.userMenu}>
@@ -21,7 +21,7 @@ const Header: FC = () => {
       <nav className={styles.menu}>
         <ul className="list">
           <li className="item">
-            <Link href={RouteNames.HOST}>
+            <Link href={RouteNames.HOST} passHref legacyBehavior>
               <a className={classNames("link", styles.menuLink)}>Главная</a>
             </Link>
           </li>
@@ -35,7 +35,7 @@ const Header: FC = () => {
                     return {
                       key: index + 1,
                       label: (
-                        <Link href={`${RouteNames.CATALOG}/${catalog.id}`}>
+                        <Link href={`${RouteNames.CATALOG}/${catalog.id}`} passHref legacyBehavior>
                           <a>{catalog.name}</a>
                         </Link>
                       ),
@@ -53,14 +53,14 @@ const Header: FC = () => {
             </Dropdown>
           </li>
           <li className="item">
-            <Link href={RouteNames.DELIVERY}>
+            <Link href={RouteNames.DELIVERY} passHref legacyBehavior>
               <a className={classNames("link", styles.menuLink)}>
                 Доставка и оплата
               </a>
             </Link>
           </li>
           <li className="item">
-            <Link href={RouteNames.CONTACTS}>
+            <Link href={RouteNames.CONTACTS} passHref legacyBehavior>
               <a className={classNames("link", styles.menuLink)}>Контакты</a>
             </Link>
           </li>

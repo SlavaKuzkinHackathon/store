@@ -10,7 +10,7 @@ import { Rate } from "antd";
 const Card: FC<IProduct> = ({ id, image, name, price, rating }) => {
   return (
     <div className={styles.wrapper}>
-      <Link href={`${RouteNames.PRODUCT}/${id}`}>
+      <Link href={`${RouteNames.PRODUCT}/${id}`} passHref legacyBehavior>
         <a className={styles.link}>
           <div className={styles.inner}>
             <div className={styles.image}>
