@@ -23,3 +23,7 @@ export interface IAccordion {
     boxShadowStyle?: string
     callback?: (arg0: boolean) => void
   }
+
+ export interface ILayoutProps{
+    children: React.ReactNode
+ } 
