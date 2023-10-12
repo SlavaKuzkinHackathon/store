@@ -71,13 +71,14 @@ const Footer = () => {
                   <a className={styles.footer__top__item__list__item__link}>
                     <span>Адреса салонов: </span>
                     <span>
-                      г.Новосибирск ТВЦ "Большая Медведица​" ул.Светлановская,
-                      50 49 сектор; 2 этаж​
-                    </span>
-                    <span>г.Новосибирск ул.Сибиряков-Гвардейцев, 49/1 к1</span>
-                    <span>
+                      {' '}
                       <MarkerSvg />
                     </span>
+                    <span>
+                      г.Новосибирск ТВЦ "Большая Медведица​" ул.Светлановская,50
+                      49 сектор;  2 этаж​.
+                    </span>
+                    <span> г.Новосибирск ул.Сибиряков-Гвардейцев, 49/1 к1.</span>
                   </a>
                 </Link>
               </li>
@@ -87,10 +88,10 @@ const Footer = () => {
                   className={styles.footer__top__item__list__item__link}
                 >
                   <span>Наш контактный телефон: </span>
-                  <span>+7(913)136-23-22</span>
                   <span>
                     <PhoneSvg />
                   </span>
+                  <span>+7(913)136-23-22</span>
                 </a>
               </li>
               <li className={styles.footer__top__item__list__item}>
@@ -99,10 +100,10 @@ const Footer = () => {
                   className={styles.footer__top__item__list__item__link}
                 >
                   <span>Email: </span>
-                  <span>jess.888@yandex.ru</span>
                   <span>
                     <MailSvg />
                   </span>
+                  <span>jess.888@yandex.ru</span>
                 </a>
               </li>
             </ul>
