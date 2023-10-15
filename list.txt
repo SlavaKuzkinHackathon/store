@@ -42,4 +42,4 @@ INSERT INTO roles VALUES (2, 'ADMIN');
 
 INSERT INTO users_roles VALUES (2, 2);
 
-6.00.37
+3.44.12
