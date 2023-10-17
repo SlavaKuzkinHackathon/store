@@ -1,9 +1,9 @@
-import AuthPage from "./AuthPage"
+import AuthPage_2 from "@/components/templates/AuthPage/AuthPage"
 
 
 const Auth = () => {
 return (
-    <AuthPage/>
+    <AuthPage_2/>
 )
 }
 
