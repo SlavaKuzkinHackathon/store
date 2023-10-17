@@ -1,7 +1,4 @@
 import Head from 'next/head'
-import Header from '@/components/modules/Header/Header'
-import Footer from '@/components/modules/Footer/Footer'
-import Layout from '@/components/layout/Layout'
 
 export default function Home() {
   return (
@@ -12,12 +9,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
         <main>
           <h1>Press</h1>
           <div className="overlay" />
         </main>
-      </Layout>
     </>
   )
 }
