@@ -23,8 +23,8 @@
   &.dark_mode {
     background: #2d2d2d;
     box-shadow:
-      0 0 20px 0 #d4d1d1,
-      0 5px 5px 0 #d4d1d1;
+      0 0 20px 0 #9c9a9a,
+      0 5px 5px 0 #9c9a9a;
   }
   input {
     outline: 0;
@@ -40,8 +40,12 @@
       background: #2d2d2d;
       color: #f2f2f2;
       box-shadow:
-        0 0 20px 0 #d4d1d1,
-        0 5px 5px 0 #d4d1d1;
+        0 0 20px 0 #9c9a9a,
+        0 5px 5px 0 #9c9a9a;
+        &:hover{
+          background: #f2f2f2;
+          color: #2d2d2d;
+        }
     }
   }
   .button {
@@ -67,8 +71,8 @@
       background: #2d2d2d;
       color: #f2f2f2;
       box-shadow:
-        0 0 20px 0 #d4d1d1,
-        0 5px 5px 0#d4d1d1;
+        0 0 20px 0 #9c9a9a,
+        0 5px 5px 0#9c9a9a;
       &:hover {
         background: linear-gradient(
           90deg,
@@ -106,4 +110,3 @@
 .form button:focus {
   background: rgba(97, 163, 117, 1);
 }
-
