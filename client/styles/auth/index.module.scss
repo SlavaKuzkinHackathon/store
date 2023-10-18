@@ -20,6 +20,16 @@
     0 0 20px 0 rgba(0, 0, 0, 0.2),
     0 5px 5px 0 rgba(0, 0, 0, 0.24);
 
+
+  @media (max-width: 430px) {
+    width: 330px;
+  }
+
+  @media (max-width: 350px) {
+    right: 5%;
+    width: 270px;
+  } 
+
   &.dark_mode {
     background: #2d2d2d;
     box-shadow:
@@ -42,10 +52,10 @@
       box-shadow:
         0 0 20px 0 #9c9a9a,
         0 5px 5px 0 #9c9a9a;
-        &:hover{
-          background: #f2f2f2;
-          color: #2d2d2d;
-        }
+      &:hover {
+        background: #f2f2f2;
+        color: #2d2d2d;
+      }
     }
   }
   .button {
@@ -84,7 +94,7 @@
     }
   }
   .register_form {
-    display:block;
+    display: block;
   }
 
   .message {
@@ -103,7 +113,6 @@
       }
     }
   }
-
 }
 .form button:hover,
 .form button:active,

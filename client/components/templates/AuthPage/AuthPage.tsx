@@ -14,7 +14,7 @@ const AuthPage = () => {
     <div className={styles.login_page}>
       <div className={`${styles.form} ${darkModeClass}`}>
         <div>
-          {action === true? (
+          {action === true ? (
             <div></div>
           ) : (
             <form className={styles.login_form}>
