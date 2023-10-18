@@ -32,7 +32,7 @@ const AuthPage = () => {
                 Войти
               </button>
               <p className={`${styles.message} ${darkModeClass}`}>
-                Отсутствует регистрации?{' '}
+                Отсутствует регистрация?{' '}
                 <Link href={''} passHref legacyBehavior>
                   <a
                     className={`${styles.a} ${darkModeClass}`}
