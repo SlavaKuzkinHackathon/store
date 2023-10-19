@@ -42,6 +42,6 @@ INSERT INTO roles VALUES (2, 'ADMIN');
 
 INSERT INTO users_roles VALUES (2, 2);
 
-3.54.40
+3.10.00
 
 https://codepen.io/anthonymarkreynolds/pen/qJBazW
