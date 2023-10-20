@@ -12,11 +12,12 @@ const EmailInput = ({ register, errors }: IAuthPageInput) => {
         {...register('email', {
           required: 'Введите Email!',
           pattern: {
-            value: /\S+@\S+\.\S+/,
+            value:
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+(ru)))$/i,
             message: 'Неправильный Email!',
           },
         })}
-        className={`${styles.input} ${darkModeClass}`}
+        className={`${styles.form_input} ${darkModeClass}`}
         type="email"
         placeholder="Email"
       />
@@ -28,3 +29,8 @@ const EmailInput = ({ register, errors }: IAuthPageInput) => {
 }
 
 export default EmailInput
+
+/* /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/i */
+/* /\S+@\S+\.\S+/ */
+
+

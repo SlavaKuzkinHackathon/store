@@ -15,7 +15,7 @@ const PasswordInput = ({ register, errors }: IAuthPageInput) => {
           minLength: 4,
           maxLength: 20,
         })}
-        className={`${styles.input} ${darkModeClass}`}
+        className={`${styles.form_input} ${darkModeClass}`}
         type="password"
         placeholder="Password"
       />

@@ -1,4 +1,3 @@
-//import Link from 'next/link'
 import NameInput from '@/components/elements/AuthPage/NameInput'
 import { $mode } from '@/context/mode'
 import styles from '@/styles/auth/index.module.scss'
@@ -8,7 +7,7 @@ import { IInputs } from '@/types/auth_f'
 import EmailInput from '@/components/elements/AuthPage/EmailInput'
 import PasswordInput from '@/components/elements/AuthPage/PasswordInput'
 
-const SignUpForm = (/* { switchForm }: { switchForm: () => void } */) => {
+const SignUpForm = () => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
@@ -20,8 +19,10 @@ const SignUpForm = (/* { switchForm }: { switchForm: () => void } */) => {
   } = useForm<IInputs>()
 
   const onSubmit = (data: IInputs) => {
+    resetField('name')
+    resetField('email')
+    resetField('password')
     console.log(data)
-    //switchForm
   }
 
   return (

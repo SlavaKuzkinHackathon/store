@@ -55,28 +55,8 @@ const AuthPage = () => {
           {action === false ? (
             <div></div>
           ) : (
-            /*             <form className={styles.register_form}>
-              <input
-                className={`${styles.input} ${darkModeClass}`}
-                type="text"
-                placeholder="Имя"
-              />
-              <input
-                className={`${styles.input} ${darkModeClass}`}
-                type="password"
-                placeholder="Пароль"
-              />
-              <input
-                className={`${styles.input} ${darkModeClass}`}
-                type="text"
-                placeholder="email"
-              />
-              <button className={`${styles.button} ${darkModeClass}`}>
-                Регистрация
-              </button> */
             <div>
               <SignUpForm /> 
-
               <p className={`${styles.message} ${darkModeClass}`}>
                 Зарегистрированны ?{' '}
                 <Link href="" passHref legacyBehavior>
@@ -92,7 +72,6 @@ const AuthPage = () => {
                 </Link>
               </p>
             </div>
-            /* </form> */
           )}
         </div>
       </div>

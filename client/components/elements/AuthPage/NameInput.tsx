@@ -20,7 +20,7 @@ const NameInput = ({ register, errors }: IAuthPageInput) => {
             message: 'Недопустимое значение!',
           },
         })}
-        className={`${styles.input} ${darkModeClass}`}
+        className={`${styles.form_input} ${darkModeClass}`}
         type="text"
         placeholder="Имя"
       />
