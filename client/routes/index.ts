@@ -1,6 +1,6 @@
 export enum RouteNames {
   HOST = "/",
-  LOGIN = "/auth/login",
+  LOGIN = "/auth",
   REGISTRATION = "/auth/registration",
   CART = "/cart",
   CATALOG = "/catalog",

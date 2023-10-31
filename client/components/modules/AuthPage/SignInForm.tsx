@@ -6,10 +6,11 @@ import { IInputs, ISignInFx} from '@/types/auth_f'
 import EmailInput from '@/components/elements/AuthPage/EmailInput'
 import PasswordInput from '@/components/elements/AuthPage/PasswordInput'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import { userSlice } from '@/store /slices/userSlice'
 import { RouteNames } from '@/routes'
 import { AuthAsyncActionCreators } from '@/store /asyncActionCreators/auth'
+import { useEffect } from 'react'
 
 const SignInForm = (): JSX.Element => {
   const mode = useStore($mode)
@@ -18,13 +19,21 @@ const SignInForm = (): JSX.Element => {
   const { error, isLogged } = useAppSelector((state) => state.user)
   const dispatch = useAppDispatch()
   const { push } = useRouter()
+
   if (error) {
     alert(error)
     dispatch(userSlice.actions.setError(''))
   }
-  if (isLogged) {
+
+ useEffect(() => {
+    if (isLogged) {
+      router.back();
+    }
+  }, [isLogged]);
+
+/*   if (isLogged) {
     push(RouteNames.HOST)
-  }
+  } */
 
   const {
     register,

@@ -1,4 +1,60 @@
+import { FC } from 'react'
 import { useStore } from 'effector-react'
+import { $mode } from '@/context/mode'
+import styles from '@/styles/userMenu/index.module.scss'
+import { useAppDispatch, useAppSelector } from '@/hooks'
+import Link from 'next/link'
+import { RouteNames } from '@/routes'
+import { Tooltip } from 'antd'
+import classNames from 'classnames'
+import {
+  LogoutOutlined,
+  PlusCircleOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { AuthAsyncActionCreators } from '@/store /asyncActionCreators/auth'
+
+const ProfileDropDown: FC = () => {
+  const mode = useStore($mode)
+  const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+
+  const { isLogged, isAdmin, userData } = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch()
+
+  return (
+    <div className={styles.wrapper}>
+      {isLogged ? (
+        <span className={styles.name}>{isAdmin ? "Админ" : userData.name}</span>
+      ) : (
+        <Link href={RouteNames.LOGIN} passHref legacyBehavior>
+          <Tooltip placement="bottom" title="Войти">
+            <a className={classNames(styles.link, styles.userLink)}>
+              <UserOutlined />
+            </a>
+          </Tooltip>
+        </Link>
+      )}
+      {isLogged && (
+        <Tooltip placement="bottom" title="Выйти">
+          <button
+            onClick={() => {
+              dispatch(AuthAsyncActionCreators.logout());
+            }}
+            className={styles.button}
+          >
+            <LogoutOutlined />
+          </button>
+        </Tooltip>
+      )}
+      
+    </div>
+  )
+}
+
+export default ProfileDropDown
+
+/* import { useStore } from 'effector-react'
 import { forwardRef } from 'react'
 import ProfileSvg from '@/components/elements/ProfileSvg/ProfileSvg'
 import { $mode } from '@/context/mode'
@@ -57,3 +113,4 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
 ProfileDropDown.displayName = 'ProfileDropDown'
 
 export default withClickOutside(ProfileDropDown)
+ */
