@@ -13,15 +13,13 @@ export interface IAuthPageInput {
 }
 
 export interface ISignUpFx {
-    url: string,
-    username: string,
+    name: string,
     email: string,
     password: string,
 }
 
 export interface ISignInFx {
-    url: string,
-    username: string,
+    email: string,
     password: string,
 }
 

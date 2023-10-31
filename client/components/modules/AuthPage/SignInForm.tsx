@@ -1,53 +1,56 @@
-
-
-
-/* 
-import Link from 'next/link'
-import NameInput from '../../Elements/AuthPage/NameInput'
+import { $mode } from '@/context/mode'
+import styles from '@/styles/auth/index.module.scss'
+import { useStore } from 'effector-react'
 import { useForm } from 'react-hook-form'
-import { IInputs } from '../../../types/auth_f'
-import PasswordInput from '../../Elements/AuthPage/PasswordInput'
-import { signInFx } from '../../../app/api/auth'
-import { useState } from 'react'
-import {showAuthError} from '@/utils/errors'
-import styles from '@/styles/auth.module.css'
-import spinnerStyles from '@/styles/spinner/spinner.module.css'
+import { IInputs, ISignInFx} from '@/types/auth_f'
+import EmailInput from '@/components/elements/AuthPage/EmailInput'
+import PasswordInput from '@/components/elements/AuthPage/PasswordInput'
+import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useRouter } from 'next/router'
+import { userSlice } from '@/store /slices/userSlice'
+import { RouteNames } from '@/routes'
+import { AuthAsyncActionCreators } from '@/store /asyncActionCreators/auth'
 
-const SignInForm = () => {
+const SignInForm = (): JSX.Element => {
+  const mode = useStore($mode)
+  const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
-    const [spinner, setSpinner] = useState(false)
+  const { error, isLogged } = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch()
+  const { push } = useRouter()
+  if (error) {
+    alert(error)
+    dispatch(userSlice.actions.setError(''))
+  }
+  if (isLogged) {
+    push(RouteNames.HOST)
+  }
 
-    const { register, formState: { errors }, handleSubmit, resetField } = useForm<IInputs>()
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    resetField,
+  } = useForm<IInputs>()
 
-    const onSubmit = async (data: IInputs) => {
-        try {
-            setSpinner(true)
-            await signInFx({
-                url: '/users/login',
-                username: data.name,
-                password: data.password,
-            })
-            resetField('name'),
-                resetField('password')
-        } catch (error) {
-            showAuthError(error)
-        } finally {
-            setSpinner(false)
-        }
-
-    }
-
-    return (
-        <form className={styles.login_form} onSubmit={handleSubmit(onSubmit)}>
-            <NameInput register={register} errors={errors} />
-            <PasswordInput register={register} errors={errors} />
-            <button className={styles.form_button}>
-                {spinner ? <div className={spinnerStyles.spinner} /> : ' Войти'}
-            </button>
-            <p className={styles.message}>Нет аккаунта? <Link href='./registerPage'>Зарегистрироваться</Link></p>
-        </form>
-
+  const onSubmit = (data: ISignInFx) => {
+    resetField('email')
+    resetField('password')
+    dispatch(
+      AuthAsyncActionCreators.login( data.email, data.password)
     )
-}
+  }
 
-export default SignInForm */
+  return (
+    <form className={styles.register_form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={`${styles.input} ${darkModeClass}`}>
+        <EmailInput register={register} errors={errors} />
+        <PasswordInput register={register} errors={errors} />
+        <button className={`${styles.button} ${darkModeClass}`}>
+          Войти
+        </button>
+      </div>
+    </form>
+  )
+}
+export default SignInForm

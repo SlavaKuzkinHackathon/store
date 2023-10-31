@@ -4,6 +4,7 @@ import styles from '@/styles/auth/index.module.scss'
 import { useStore } from 'effector-react'
 import { useState } from 'react'
 import SignUpForm from '@/components/modules/AuthPage/SignUpForm'
+import SignInForm from '@/components/modules/AuthPage/SignInForm'
 
 const AuthPage = () => {
   const mode = useStore($mode)
@@ -18,20 +19,8 @@ const AuthPage = () => {
           {action === true ? (
             <div></div>
           ) : (
-            <form className={styles.login_form}>
-              <input
-                className={`${styles.input} ${darkModeClass}`}
-                type="text"
-                placeholder="Имя"
-              />
-              <input
-                className={`${styles.input} ${darkModeClass}`}
-                type="password"
-                placeholder="Пароль"
-              />
-              <button className={`${styles.button} ${darkModeClass}`}>
-                Войти
-              </button>
+            <div>
+              <SignInForm />
               <p className={`${styles.message} ${darkModeClass}`}>
                 Отсутствует регистрация?{' '}
                 <Link href={''} passHref legacyBehavior>
@@ -46,7 +35,7 @@ const AuthPage = () => {
                   </a>
                 </Link>
               </p>
-            </form>
+            </div>
           )}
         </div>
 
@@ -56,7 +45,7 @@ const AuthPage = () => {
             <div></div>
           ) : (
             <div>
-              <SignUpForm /> 
+              <SignUpForm />
               <p className={`${styles.message} ${darkModeClass}`}>
                 Зарегистрированны ?{' '}
                 <Link href="" passHref legacyBehavior>

@@ -15,6 +15,6 @@ export class LoginUserDto {
     description: 'Пароль пользователя',
   })
   @IsNotEmpty({ message: 'Пустое значение пароля' })
-  @Length(8, 99, { message: 'Пароль должен быть не меньше 8 знаков' })
+  @Length(4, 99, { message: 'Пароль должен быть не меньше 4 знаков' })
   readonly password: string;
 }
