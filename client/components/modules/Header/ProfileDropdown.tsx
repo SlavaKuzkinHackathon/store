@@ -1,60 +1,4 @@
-import { FC } from 'react'
 import { useStore } from 'effector-react'
-import { $mode } from '@/context/mode'
-import styles from '@/styles/userMenu/index.module.scss'
-import { useAppDispatch, useAppSelector } from '@/hooks'
-import Link from 'next/link'
-import { RouteNames } from '@/routes'
-import { Tooltip } from 'antd'
-import classNames from 'classnames'
-import {
-  LogoutOutlined,
-  PlusCircleOutlined,
-  ShoppingCartOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { AuthAsyncActionCreators } from '@/store /asyncActionCreators/auth'
-
-const ProfileDropDown: FC = () => {
-  const mode = useStore($mode)
-  const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
-
-  const { isLogged, isAdmin, userData } = useAppSelector((state) => state.user)
-  const dispatch = useAppDispatch()
-
-  return (
-    <div className={styles.wrapper}>
-      {isLogged ? (
-        <span className={styles.name}>{isAdmin ? "Админ" : userData.name}</span>
-      ) : (
-        <Link href={RouteNames.LOGIN} passHref legacyBehavior>
-          <Tooltip placement="bottom" title="Войти">
-            <a className={classNames(styles.link, styles.userLink)}>
-              <UserOutlined />
-            </a>
-          </Tooltip>
-        </Link>
-      )}
-      {isLogged && (
-        <Tooltip placement="bottom" title="Выйти">
-          <button
-            onClick={() => {
-              dispatch(AuthAsyncActionCreators.logout());
-            }}
-            className={styles.button}
-          >
-            <LogoutOutlined />
-          </button>
-        </Tooltip>
-      )}
-      
-    </div>
-  )
-}
-
-export default ProfileDropDown
-
-/* import { useStore } from 'effector-react'
 import { forwardRef } from 'react'
 import ProfileSvg from '@/components/elements/ProfileSvg/ProfileSvg'
 import { $mode } from '@/context/mode'
@@ -63,12 +7,20 @@ import { AnimatePresence, motion } from 'framer-motion'
 import LogoutSvg from '@/components/elements/LogoutSvg/LogoutSvg'
 import { withClickOutside } from '@/utils/withClickOutside'
 import styles from '@/styles/profileDropDown/index.module.scss'
+import { useAppDispatch, useAppSelector } from '@/hooks'
+import Link from 'next/link'
+import { RouteNames } from '@/routes'
+import { AuthAsyncActionCreators } from '@/store /asyncActionCreators/auth'
+import PlusCircleOutlined from '@/components/elements/PlusCircleOutlined/PlusCircleOutlined'
 
 const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode)
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
     const toggleProfileDropDown = () => setOpen(!open)
+
+    const { isLogged, isAdmin, userData } = useAppSelector((state) => state.user)
+    const dispatch = useAppDispatch()
 
     return (
       <div className={styles.profile} ref={ref}>
@@ -86,22 +38,48 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
               className={`${styles.profile__dropdown} ${darkModeClass}`}
               style={{ transformOrigin: 'right top' }}
             >
-              <li className={styles.profile__dropdown__user}>
-                <span className={`${styles.profile__dropdown__username} ${darkModeClass}`}>Vova</span>
-                <span className={`${styles.profile__dropdown__email} ${darkModeClass}`}>
-                  vova@mail.ru
-                </span>
-              </li>
               <li className={styles.profile__dropdown__item}>
-                <button className={styles.profile__dropdown__item__btn}>
-                  <span className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}>
-                    Выйти
-                  </span>
-                  <span className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}>
-                    <LogoutSvg />
-                  </span>
-                </button>
+                {isLogged ? (
+                  <span className={`${styles.profile__dropdown__username} ${darkModeClass}`}>{isAdmin ? (
+                    <Link href={RouteNames.ADMIN} passHref legacyBehavior>
+                      <button className={styles.profile__dropdown__item__btn}
+                      >
+                        <span className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}>
+                          Админ
+                        </span>
+                        <span className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}>
+                          <PlusCircleOutlined />
+                        </span>
+                      </button>
+                    </Link>
+                  ) : (userData.name)}</span>
+                ) : (
+                  <Link href={RouteNames.LOGIN} passHref legacyBehavior>
+                    <button className={styles.profile__dropdown__item__btn}>
+                      <span className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}>
+                        Войти
+                      </span>
+                    </button>
+                  </Link>
+                )}
               </li>
+              {isLogged &&
+                <Link href={RouteNames.HOST} passHref legacyBehavior>
+                  <li className={styles.profile__dropdown__item}>
+                    <button className={styles.profile__dropdown__item__btn}
+                      onClick={() => {
+                        dispatch(AuthAsyncActionCreators.logout());
+                      }}
+                    >
+                      <span className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}>
+                        Выйти
+                      </span>
+                      <span className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}>
+                        <LogoutSvg />
+                      </span>
+                    </button>
+                  </li>
+                </Link>}
             </motion.ul>
           )}
         </AnimatePresence>
@@ -113,4 +91,3 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
 ProfileDropDown.displayName = 'ProfileDropDown'
 
 export default withClickOutside(ProfileDropDown)
- */
