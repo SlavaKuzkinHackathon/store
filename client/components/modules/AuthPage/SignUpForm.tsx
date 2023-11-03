@@ -11,8 +11,11 @@ import { useRouter } from 'next/router'
 import { userSlice } from '@/store /slices/userSlice'
 import { RouteNames } from '@/routes'
 import { AuthAsyncActionCreators } from '@/store /asyncActionCreators/auth'
+import { useState } from 'react'
+import spinnerStyles from '@/styles/spinner/index.module.scss'
 
 const SignUpForm = (): JSX.Element => {
+  const [spinner, setSpinner] = useState(false)
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
@@ -35,12 +38,22 @@ const SignUpForm = (): JSX.Element => {
   } = useForm<IInputs>()
 
   const onSubmit = (data: ISignUpFx) => {
-    resetField('name')
-    resetField('email')
-    resetField('password')
-    dispatch(
-      AuthAsyncActionCreators.registration(data.name, data.email, data.password)
-    )
+    try {
+      setSpinner(true)
+      resetField('name')
+      resetField('email')
+      resetField('password')
+      dispatch(
+        AuthAsyncActionCreators.registration(
+          data.name,
+          data.email,
+          data.password
+        )
+      )
+    } catch (error) {
+    } finally {
+      setSpinner(false)
+    }
   }
 
   return (
@@ -50,7 +63,7 @@ const SignUpForm = (): JSX.Element => {
         <EmailInput register={register} errors={errors} />
         <PasswordInput register={register} errors={errors} />
         <button className={`${styles.button} ${darkModeClass}`}>
-          Регистрация
+        {spinner ? <div className={spinnerStyles.spinner} /> : 'Регистрация'}
         </button>
       </div>
     </form>
