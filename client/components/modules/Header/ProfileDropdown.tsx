@@ -10,8 +10,9 @@ import styles from '@/styles/profileDropDown/index.module.scss'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import Link from 'next/link'
 import { RouteNames } from '@/routes'
-import { AuthAsyncActionCreators } from '@/store /asyncActionCreators/auth'
+//import { AuthAsyncActionCreators } from '@/store /asyncActionCreators/auth'
 import PlusCircleOutlined from '@/components/elements/PlusCircleOutlined/PlusCircleOutlined'
+import { AuthAsyncActionCreators } from '@/store/asyncActionCreators/auth'
 
 const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
