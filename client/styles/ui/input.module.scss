@@ -1,0 +1,49 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	position: relative;
+}
+.input {
+	outline: none;
+	width: 100%;
+	padding: 10px 12px;
+	font-size: 15px;
+	border-radius: 5px;
+	font-family: 'Montserrat', sans-serif;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	margin-top: 10px;
+	transition: all 0.1s ease-in-out;
+	&::placeholder {
+		transition: all 0.15s ease-in-out;
+	}
+	&:focus {
+		&::placeholder {
+			opacity: 0;
+		}
+	}
+}
+.errorText {
+	margin-top: 3px;
+	font-size: 10px;
+	color: red;
+	opacity: 0.8;
+	padding-left: 3px;
+}
+._ok {
+	border: 1px solid rgba(159, 212, 152, 0.8);
+}
+.icon {
+	&::after {
+		content: '';
+		background-image: url(/images/check_green.svg);
+		background-size: 15px;
+		background-repeat: no-repeat;
+		z-index: 2;
+		position: absolute;
+		top: 23px;
+		right: 7px;
+		width: 15px;
+		height: 15px;
+	}
+}

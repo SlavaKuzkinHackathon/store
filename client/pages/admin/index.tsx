@@ -1,4 +1,4 @@
-import { Tabs } from 'antd'
+//import { Tabs } from 'antd'
 import { Field, Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import * as yup from 'yup'
 import { useRouter } from 'next/router'
@@ -12,6 +12,7 @@ import Section from '@/components/UI/Section'
 import Button from '@/components/UI/Button'
 import { ProductAsyncActionCreators } from '@/store/asyncActionCreators/product'
 import { CatalogAsyncActionCreators } from '@/store/asyncActionCreators/catalog'
+import CategoriesAdmin from '@/components/admin/Categories_admin'
 
 export default function AdminPage(): JSX.Element {
   const [productInfos, setProductInfos] = useState<
@@ -105,10 +106,11 @@ export default function AdminPage(): JSX.Element {
             </button>
           </div>
         </div>
+        {isActive === 'categories' && <CategoriesAdmin />}
 
     {/*     
         {isActive === 'products' && <ProdAdmin />}
-        {isActive === 'categories' && <CategoriesAdmin />}
+        
         {isActive === 'orders' && <OrdersAdmin />}
         {isActive === 'users' && <UsersAdmin />} */}
       </section>
