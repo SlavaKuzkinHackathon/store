@@ -6,7 +6,7 @@ import { useStore } from 'effector-react'
 import { $mode } from '@/context/mode'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { useForm } from 'react-hook-form'
-import { IInputs } from '@/types/auth_f'
+import { ITextInputs } from '@/types/input'
 
 const CategoriesAdmin = () => {
   const [spinner, setSpinner] = useState(false)
@@ -18,7 +18,7 @@ const CategoriesAdmin = () => {
     formState: { errors },
     handleSubmit,
     resetField,
-  } = useForm<IInputs>()
+  } = useForm<ITextInputs>()
 
   return (
     <>
