@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import NextNProgress from 'nextjs-progressbar'
 
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
         <Provider store={store}>
           <Layout>

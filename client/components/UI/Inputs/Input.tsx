@@ -8,14 +8,14 @@ const Input = ({ register, errors }: IAuthTextInput) => {
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   
   return (
-    <label className={styles.wrapper}>
+    <label className={styles.label}>
       <input
         {...register('textInput', {
           required: 'Введите пароль!',
           minLength: 2,
           maxLength: 30,
         })}
-        //className={styles.}
+        className={`${styles.form_input} ${darkModeClass}`}
         type='text'
         placeholder='Название категории'
       />
@@ -28,7 +28,6 @@ const Input = ({ register, errors }: IAuthTextInput) => {
       {errors.textInput && errors.textInput.type === 'maxLength' && (
         <span className={styles.error_alert}>Не более 30 символов!</span>
       )}
-      <span className={styles.icon}></span>
     </label>
   )
 }

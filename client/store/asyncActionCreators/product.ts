@@ -1,9 +1,7 @@
 import { CatalogAPI } from "@/app/api/catalog";
-import { ProductAPI } from "@/app/api/product";
 import { AppDispatch } from "..";
-//import { CatalogAPI } from "../../http/api/catalog";
-//import { ProductAPI } from "../../http/api/product";
 import { productSlice } from "../slices/productSlice";
+import { ProductAPI } from "@/app/api/product";
 
 export const ProductAsyncActionCreators = {
   fetchLimitProductsFromCatalog:

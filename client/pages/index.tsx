@@ -1,6 +1,26 @@
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { ProductAsyncActionCreators } from '@/store/asyncActionCreators/product';
 import Head from 'next/head'
+import { useEffect } from 'react';
+import Link from "next/link"
+import { RouteNames } from '@/routes';
+import classNames from 'classnames';
+import Section from '@/components/UI/Section';
+import SceletonCards from '@/components/SceletonCard';
+import CardList from '@/components/CardList';
 
 export default function Home() {
+  const { catalogList } = useAppSelector((state) => state.catalog);
+  const { newProductsList, popularProductsList, isLoading } = useAppSelector(
+    (state) => state.products
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(ProductAsyncActionCreators.fetchNewAndPopularProducts());
+  }, []);
+  
+
   return (
     <>
       <Head>
@@ -12,6 +32,31 @@ export default function Home() {
         <main>
           <h1>Press</h1>
           <div className="overlay" />
+          <ul className="list">
+          {catalogList.map((catalog) => {
+            return (
+              <li key={catalog.id} className="item">
+                <Link href={`${RouteNames.CATALOG}/${catalog.id}`} passHref legacyBehavior>
+                  <a className={classNames("link", "linkCatalog")}>
+                    {catalog.name}
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <Section title="Новинки">
+        {isLoading ? <SceletonCards /> : <CardList cards={newProductsList} />}
+      </Section>
+      {popularProductsList.length && (
+        <Section title="Популярное">
+          {isLoading ? (
+            <SceletonCards />
+          ) : (
+            <CardList cards={popularProductsList} />
+          )}
+        </Section>
+      )}
         </main>
     </>
   )
