@@ -1,6 +1,6 @@
 import axios from "axios";
-//import { IAuthResponse } from "@/interfaces";
-//import { AuthAPI } from "./api/auth";
+import { IAuthResponse } from "@/interfaces";
+import { AuthAPI } from "./api/auth";
 
 export enum API_URL {
   AUTH = "/auth",

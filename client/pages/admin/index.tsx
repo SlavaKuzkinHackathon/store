@@ -7,11 +7,12 @@ import Button from "../../components/UI/Button";
 import Section from "../../components/UI/Section";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RouteNames } from "../../routes";
-import styles from "@/styles/admin/Admin.module.scss";
+import styles from "./Admin.module.scss";
 import { IProduct } from "../../interfaces";
 import classNames from "classnames";
 import { CatalogAsyncActionCreators } from "../../store/asyncActionCreators/catalog";
 import { ProductAsyncActionCreators } from "../../store/asyncActionCreators/product";
+
 
 export default function AdminPage(): JSX.Element {
   const [productInfos, setProductInfos] = useState<
