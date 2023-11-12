@@ -4,8 +4,8 @@ import { IProduct } from "../../../interfaces";
 import { RouteNames } from "../../../routes";
 import placeholderImage from "../../../public/placeholder-image.jpg";
 import styles from "./Card.module.scss";
+import { getImageURL } from "../../../utils";
 import { Rate } from "antd";
-import { getImageURL } from "@/utils/getImageURL";
 
 const Card: FC<IProduct> = ({ id, image, name, price, rating }) => {
   return (

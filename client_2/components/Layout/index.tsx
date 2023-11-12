@@ -24,10 +24,10 @@ const Layout: FC<LayoutProps> = ({ headTitle, children }) => {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>{headTitle} | TableFair</title> 
-      </Head>
+      </Head> */}
       <div className={styles.wrapper}>
         {isLoading ? (
           <Loader />

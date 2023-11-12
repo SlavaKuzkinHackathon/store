@@ -1,76 +1,76 @@
-import { Tabs } from "antd";
-import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
-import * as yup from "yup";
-import { useRouter } from "next/router";
-import { ChangeEvent, useEffect, useState } from "react";
-import Button from "../../components/UI/Button";
-import Section from "../../components/UI/Section";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { RouteNames } from "../../routes";
-import styles from "./Admin.module.scss";
-import { IProduct } from "../../interfaces";
-import classNames from "classnames";
-import { CatalogAsyncActionCreators } from "../../store/asyncActionCreators/catalog";
-import { ProductAsyncActionCreators } from "../../store/asyncActionCreators/product";
-
+import { Tabs } from 'antd'
+import { Field, Form, Formik, FormikHelpers, FormikProps } from 'formik'
+import * as yup from 'yup'
+import { useRouter } from 'next/router'
+import { ChangeEvent, useEffect, useState } from 'react'
+import Button from '../../components/UI/Button'
+import Section from '../../components/UI/Section'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { RouteNames } from '../../routes'
+import styles from '@/styles/admin/Admin.module.scss'
+import { IProduct } from '../../interfaces'
+import classNames from 'classnames'
+import { CatalogAsyncActionCreators } from '../../store/asyncActionCreators/catalog'
+import { ProductAsyncActionCreators } from '../../store/asyncActionCreators/product'
 
 export default function AdminPage(): JSX.Element {
   const [productInfos, setProductInfos] = useState<
     { id: number; title: string; description: string }[]
-  >([]);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  >([])
+  const [imageFile, setImageFile] = useState<File | null>(null)
 
-  const [selectedCatalogId, setSelectedCatalogId] = useState<number>(0);
-  const { isAdmin, isLogged } = useAppSelector((state) => state.user);
-  const { catalogList } = useAppSelector((state) => state.catalog);
-  const { removedProductsList } = useAppSelector((state) => state.products);
+  const [selectedCatalogId, setSelectedCatalogId] = useState<number>(0)
+  const { isAdmin, isLogged } = useAppSelector((state) => state.user)
+  const { catalogList } = useAppSelector((state) => state.catalog)
+  const { removedProductsList } = useAppSelector((state) => state.products)
 
-  const dispatch = useAppDispatch();
-  const { push } = useRouter();
+  const dispatch = useAppDispatch()
+  const { push } = useRouter()
 
   useEffect(() => {
     if (!isLogged && !isAdmin) {
-      push(RouteNames.HOST);
+      push(RouteNames.HOST)
     }
     if (selectedCatalogId > 0) {
       dispatch(
         ProductAsyncActionCreators.fetchAllProductsFromCatalog(
           selectedCatalogId
         )
-      );
+      )
     }
-  }, [selectedCatalogId, isLogged, isAdmin]);
+  }, [selectedCatalogId, isLogged, isAdmin])
 
   const addProductInfo = () => {
     setProductInfos([
       ...productInfos,
-      { id: Date.now(), title: "", description: "" },
-    ]);
-  };
+      { id: Date.now(), title: '', description: '' },
+    ])
+  }
   const validationAddCatalogSchema = yup.object().shape({
-    catalog: yup.string().required("Введите имя каталога"),
-  });
+    catalog: yup.string().required('Введите имя каталога'),
+  })
   const validationRemoveProductSchema = yup.object().shape({
-    catalogId: yup.number().min(1, "Выберите каталог"),
-    productId: yup.number().min(1, "Выберите товар"),
-  });
+    catalogId: yup.number().min(1, 'Выберите каталог'),
+    productId: yup.number().min(1, 'Выберите товар'),
+  })
   const validationAddProductSchema = yup.object().shape({
-    catalogId: yup.number().min(1, "Выберите каталог"),
-    name: yup.string().required("Введите название товара"),
+    catalogId: yup.number().min(1, 'Выберите каталог'),
+    name: yup.string().required('Введите название товара'),
     price: yup
       .number()
-      .positive("Цена не может быть отрицательной")
-      .required("Введите цену товара"),
-  });
+      .positive('Цена не может быть отрицательной')
+      .required('Введите цену товара'),
+  })
 
   return (
+    <div>
       <Section title="Админ-панель">
         <Tabs defaultActiveKey="1">
           <Tabs.TabPane tab="Добавить товар" key="1">
             <Formik
               initialValues={{
                 id: null,
-                name: "",
+                name: '',
                 price: null,
                 image: null,
                 catalogId: 0,
@@ -80,17 +80,17 @@ export default function AdminPage(): JSX.Element {
               validateOnBlur
               validationSchema={validationAddProductSchema}
               onSubmit={(values, formikHelpers: FormikHelpers<IProduct>) => {
-                const formData = new FormData();
-                formData.append("name", values.name);
-                formData.append("price", values.price.toString());
-                formData.append("info", JSON.stringify(productInfos));
-                formData.append("catalogId", values.catalogId.toString());
-                formData.append("image", imageFile);
-                dispatch(ProductAsyncActionCreators.createProduct(formData));
-                formikHelpers.resetForm();
-                setImageFile(null);
-                setProductInfos([]);
-                formikHelpers.setSubmitting(false);
+                const formData = new FormData()
+                formData.append('name', values.name)
+                formData.append('price', values.price.toString())
+                formData.append('info', JSON.stringify(productInfos))
+                formData.append('catalogId', values.catalogId.toString())
+                formData.append('image', imageFile)
+                dispatch(ProductAsyncActionCreators.createProduct(formData))
+                formikHelpers.resetForm()
+                setImageFile(null)
+                setProductInfos([])
+                formikHelpers.setSubmitting(false)
               }}
             >
               {({
@@ -109,7 +109,7 @@ export default function AdminPage(): JSX.Element {
                     <span className={styles.label}>Каталог:</span>
                     <Field
                       className={styles.input}
-                      name={"catalogId"}
+                      name={'catalogId'}
                       as="select"
                     >
                       <option value={0} disabled>
@@ -120,7 +120,7 @@ export default function AdminPage(): JSX.Element {
                           <option key={item.id} value={item.id}>
                             {item.name}
                           </option>
-                        );
+                        )
                       })}
                     </Field>
                   </label>
@@ -136,7 +136,7 @@ export default function AdminPage(): JSX.Element {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.name}
-                      placeholder={"Введите название"}
+                      placeholder={'Введите название'}
                     />
                   </label>
                   <div className={styles.warning}>
@@ -151,7 +151,7 @@ export default function AdminPage(): JSX.Element {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.price}
-                      placeholder={"Введите цену"}
+                      placeholder={'Введите цену'}
                     />
                   </label>
                   <label className={styles.labelImage}>
@@ -161,7 +161,7 @@ export default function AdminPage(): JSX.Element {
                       type={`file`}
                       name={`image`}
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        setImageFile(e.target.files[0]);
+                        setImageFile(e.target.files[0])
                       }}
                       onBlur={handleBlur}
                       accept=".jpeg,.png,.jpg"
@@ -178,14 +178,13 @@ export default function AdminPage(): JSX.Element {
                               type={`text`}
                               name={`title`}
                               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                const changedProductInfos =
-                                  productInfos.slice();
+                                const changedProductInfos = productInfos.slice()
                                 changedProductInfos.forEach((item) => {
                                   if (item.id === info.id) {
-                                    item.title = e.target.value;
+                                    item.title = e.target.value
                                   }
-                                });
-                                setProductInfos(changedProductInfos);
+                                })
+                                setProductInfos(changedProductInfos)
                               }}
                               value={
                                 productInfos[
@@ -203,14 +202,13 @@ export default function AdminPage(): JSX.Element {
                               type={`text`}
                               name={`description`}
                               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                const changedProductInfos =
-                                  productInfos.slice();
+                                const changedProductInfos = productInfos.slice()
                                 changedProductInfos.forEach((item) => {
                                   if (item.id === info.id) {
-                                    item.description = e.target.value;
+                                    item.description = e.target.value
                                   }
-                                });
-                                setProductInfos(changedProductInfos);
+                                })
+                                setProductInfos(changedProductInfos)
                               }}
                               value={
                                 productInfos[
@@ -227,14 +225,14 @@ export default function AdminPage(): JSX.Element {
                                 productInfos.filter(
                                   (item) => item.id !== info.id
                                 )
-                              );
+                              )
                             }}
                             className={styles.warning}
                           >
                             Удалить
                           </span>
                         </div>
-                      );
+                      )
                     })}
                   <div className="buttonBox">
                     <button
@@ -257,7 +255,7 @@ export default function AdminPage(): JSX.Element {
           <Tabs.TabPane tab="Добавить каталог" key="2">
             <Formik
               initialValues={{
-                catalog: "",
+                catalog: '',
               }}
               validateOnBlur
               validationSchema={validationAddCatalogSchema}
@@ -267,9 +265,9 @@ export default function AdminPage(): JSX.Element {
               ) => {
                 dispatch(
                   CatalogAsyncActionCreators.createCatalog(values.catalog)
-                );
-                formikHelpers.resetForm();
-                formikHelpers.setSubmitting(false);
+                )
+                formikHelpers.resetForm()
+                formikHelpers.setSubmitting(false)
               }}
             >
               {({
@@ -292,7 +290,7 @@ export default function AdminPage(): JSX.Element {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.catalog}
-                    placeholder={"Введите имя нового каталога"}
+                    placeholder={'Введите имя нового каталога'}
                   />
 
                   <div className="buttonBox">
@@ -315,14 +313,14 @@ export default function AdminPage(): JSX.Element {
               onSubmit={async (
                 values,
                 formikHelpers: FormikHelpers<{
-                  productId: number;
-                  catalogId: number;
+                  productId: number
+                  catalogId: number
                 }>
               ) => {
                 dispatch(
                   ProductAsyncActionCreators.removeProduct(values.productId)
-                );
-                formikHelpers.setSubmitting(false);
+                )
+                formikHelpers.setSubmitting(false)
               }}
             >
               {({
@@ -337,11 +335,11 @@ export default function AdminPage(): JSX.Element {
                   </div>
                   <Field
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                      setSelectedCatalogId(+e.target.value);
-                      setFieldValue("catalogId", e.target.value);
+                      setSelectedCatalogId(+e.target.value)
+                      setFieldValue('catalogId', e.target.value)
                     }}
                     className={styles.input}
-                    name={"catalogId"}
+                    name={'catalogId'}
                     as="select"
                   >
                     <option value={0} disabled>
@@ -352,7 +350,7 @@ export default function AdminPage(): JSX.Element {
                         <option key={item.id} value={item.id}>
                           {item.name}
                         </option>
-                      );
+                      )
                     })}
                   </Field>
                   <div className={styles.warning}>
@@ -360,7 +358,7 @@ export default function AdminPage(): JSX.Element {
                   </div>
                   <Field
                     className={styles.input}
-                    name={"productId"}
+                    name={'productId'}
                     as="select"
                   >
                     <option value={0} disabled>
@@ -371,7 +369,7 @@ export default function AdminPage(): JSX.Element {
                         <option key={product.id} value={product.id}>
                           {product.name}
                         </option>
-                      );
+                      )
                     })}
                   </Field>
                   <div className="buttonBox">
@@ -385,5 +383,6 @@ export default function AdminPage(): JSX.Element {
           </Tabs.TabPane>
         </Tabs>
       </Section>
-  );
+    </div>
+  )
 }
