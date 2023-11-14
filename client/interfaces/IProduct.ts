@@ -5,9 +5,9 @@ export default interface IProduct {
   name: string;
   price: number;
   image: string;
-  amount?: number;
+  amount: number;
   rating: number;
-  catalogId?: number;
+  catalogId: number;
   productInfo: { id: number; title: string; description: string }[];
   reviews?: IReview[];
 }

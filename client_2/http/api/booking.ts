@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { API_URL, http } from "..";
+import { API_URL, http } from "../index";
 import { IBookingResponse } from "../../interfaces";
 
 export class BookingAPI {

@@ -1,9 +1,9 @@
-import { FC, ReactNode } from "react";
-import styles from "./Section.module.scss";
+import { FC, ReactNode } from 'react'
+import styles from './Section.module.scss'
 
 interface SectionProps {
-  title: string;
-  children: ReactNode;
+  title: string
+  children: ReactNode
 }
 const Section: FC<SectionProps> = ({ title, children }) => {
   return (
@@ -13,6 +13,6 @@ const Section: FC<SectionProps> = ({ title, children }) => {
         {children}
       </div>
     </div>
-  );
-};
-export default Section;
+  )
+}
+export default Section

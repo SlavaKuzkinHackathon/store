@@ -1,26 +1,26 @@
-import { FC } from "react";
+import { FC } from 'react'
 import {
   LogoutOutlined,
   PlusCircleOutlined,
   ShoppingCartOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import styles from "./UserMenu.module.scss";
-import classNames from "classnames";
-import Link from "next/link";
-import { RouteNames } from "../../routes";
-import { Tooltip } from "antd";
-import { AuthAsyncActionCreators } from "../../store/asyncActionCreators/auth";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+} from '@ant-design/icons'
+import styles from './UserMenu.module.scss'
+import classNames from 'classnames'
+import Link from 'next/link'
+import { RouteNames } from '../../routes'
+import { Tooltip } from 'antd'
+import { AuthAsyncActionCreators } from '../../store/asyncActionCreators/auth'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 
 const UserMenu: FC = () => {
-  const { isLogged, isAdmin, userData } = useAppSelector((state) => state.user);
-  const { products } = useAppSelector((state) => state.cart);
-  const dispatch = useAppDispatch();
+  const { isLogged, isAdmin, userData } = useAppSelector((state) => state.user)
+  const { products } = useAppSelector((state) => state.cart)
+  const dispatch = useAppDispatch()
   return (
     <div className={styles.wrapper}>
       {isLogged ? (
-        <span className={styles.name}>{isAdmin ? "Админ" : userData.name}</span>
+        <span className={styles.name}>{isAdmin ? 'Админ' : userData.name}</span>
       ) : (
         <Link href={RouteNames.LOGIN} passHref legacyBehavior>
           <Tooltip placement="bottom" title="Войти">
@@ -34,7 +34,7 @@ const UserMenu: FC = () => {
         <Tooltip placement="bottom" title="Выйти">
           <button
             onClick={() => {
-              dispatch(AuthAsyncActionCreators.logout());
+              dispatch(AuthAsyncActionCreators.logout())
             }}
             className={styles.button}
           >
@@ -65,6 +65,6 @@ const UserMenu: FC = () => {
         </div>
       )}
     </div>
-  );
-};
-export default UserMenu;
+  )
+}
+export default UserMenu

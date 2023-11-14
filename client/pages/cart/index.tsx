@@ -14,10 +14,8 @@ import { getFormattedDate, getImageURL } from "../../utils";
 import { CartAsyncActionCreators } from "../../store/asyncActionCreators/cart";
 import Loader from "../../components/Loader";
 import { useEffect, useState } from "react";
-import { BookingAPI } from "../../http/api/booking";
 import Modal from "../../components/UI/Modal";
 import { useRouter } from "next/router";
-import Layout from "../../components/Layout";
 
 export default function CartPage(): JSX.Element {
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
@@ -50,7 +48,7 @@ export default function CartPage(): JSX.Element {
   }
 
   return (
-    <Layout headTitle="Корзина">
+    <div>
       {isLoading ? (
         <Loader />
       ) : (
@@ -279,6 +277,6 @@ export default function CartPage(): JSX.Element {
           </Section>
         </>
       )}
-    </Layout>
+    </div>
   );
 }

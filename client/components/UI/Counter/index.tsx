@@ -4,7 +4,7 @@ import styles from "./Counter.module.scss";
 interface CounterProps {
   productId?: number;
   amount?: number;
-  changeAmount?: (num: number, productId?: number) => void;
+  changeAmount: (num: number, productId?: number) => void;
 }
 const Counter: FC<CounterProps> = ({ productId, amount, changeAmount }) => {
   const [count, setCount] = useState<number>(1);

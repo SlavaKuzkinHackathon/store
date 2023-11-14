@@ -1,6 +1,7 @@
+import { BookingAPI } from "@/app/api/booking";
 import { AppDispatch } from "..";
-import { BookingAPI } from "../../http/api/booking";
-import { CatalogAPI } from "../../http/api/catalog";
+//import { BookingAPI } from "../../http/api/booking";
+//import { CatalogAPI } from "../../http/api/catalog";
 import { IProduct } from "../../interfaces";
 import { cartSlice } from "../slices/cartSlice";
 

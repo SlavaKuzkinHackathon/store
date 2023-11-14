@@ -20,7 +20,9 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
     const toggleProfileDropDown = () => setOpen(!open)
 
-    const { isLogged, isAdmin, userData } = useAppSelector((state) => state.user)
+    const { isLogged, isAdmin, userData } = useAppSelector(
+      (state) => state.user
+    )
     const dispatch = useAppDispatch()
 
     return (
@@ -41,46 +43,63 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
             >
               <li className={styles.profile__dropdown__item}>
                 {isLogged ? (
-                  <span className={`${styles.profile__dropdown__username} ${darkModeClass}`}>{isAdmin ? (
-                    <Link href={RouteNames.ADMIN} passHref legacyBehavior>
-                      <button className={styles.profile__dropdown__item__btn}
-                      >
-                        <span className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}>
-                          Админ
-                        </span>
-                        <span className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}>
-                          <PlusCircleOutlined />
-                        </span>
-                      </button>
-                    </Link>
-                  ) : (userData.name)}</span>
+                  <span
+                    className={`${styles.profile__dropdown__username} ${darkModeClass}`}
+                  >
+                    {isAdmin ? (
+                      <Link href={RouteNames.ADMIN} passHref legacyBehavior>
+                        <button className={styles.profile__dropdown__item__btn}>
+                          <span
+                            className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}
+                          >
+                            Админ
+                          </span>
+                          <span
+                            className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}
+                          >
+                            <PlusCircleOutlined />
+                          </span>
+                        </button>
+                      </Link>
+                    ) : (
+                      userData.name
+                    )}
+                  </span>
                 ) : (
                   <Link href={RouteNames.LOGIN} passHref legacyBehavior>
                     <button className={styles.profile__dropdown__item__btn}>
-                      <span className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}>
+                      <span
+                        className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}
+                      >
                         Войти
                       </span>
                     </button>
                   </Link>
                 )}
               </li>
-              {isLogged &&
+              {isLogged && (
                 <Link href={RouteNames.HOST} passHref legacyBehavior>
                   <li className={styles.profile__dropdown__item}>
-                    <button className={styles.profile__dropdown__item__btn}
+                    <button
+                      className={styles.profile__dropdown__item__btn}
                       onClick={() => {
-                        dispatch(AuthAsyncActionCreators.logout());
+                        dispatch(AuthAsyncActionCreators.logout())
                       }}
                     >
-                      <span className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}>
+                      <span
+                        className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}
+                      >
                         Выйти
                       </span>
-                      <span className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}>
+                      <span
+                        className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}
+                      >
                         <LogoutSvg />
                       </span>
                     </button>
                   </li>
-                </Link>}
+                </Link>
+              )}
             </motion.ul>
           )}
         </AnimatePresence>
