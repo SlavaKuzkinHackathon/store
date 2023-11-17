@@ -8,7 +8,7 @@ interface CatalogCreationAttrs {
 
 @Table({ tableName: 'catalogs', createdAt: false, updatedAt: false })
 export class Catalog extends Model<Catalog, CatalogCreationAttrs> {
-  @ApiProperty({ example: 1, description: 'Идентификатор каталога' })
+  @ApiProperty({ example: 1, description: 'Идентификатор категории' })
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
@@ -17,7 +17,7 @@ export class Catalog extends Model<Catalog, CatalogCreationAttrs> {
   })
   id: number;
 
-  @ApiProperty({ example: 'Подносы', description: 'Название каталога' })
+  @ApiProperty({ example: 'Диваны', description: 'Название категории' })
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   name: string;
 

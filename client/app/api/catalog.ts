@@ -26,4 +26,8 @@ export class CatalogAPI {
       name,
     });
   }
+
+  static async deleteOne(id: number): Promise<AxiosResponse<string>>{
+    return http.delete<string>(`${API_URL.CATALOG}/${id}`)
+  }
 }

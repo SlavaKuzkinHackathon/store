@@ -1,4 +1,4 @@
-import { Rate } from "antd";
+/* import { Rate } from "antd";
 import InnerImageZoom from "react-inner-image-zoom";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import Button from "../../components/UI/Button";
@@ -119,3 +119,4 @@ export default function ProductPage({
       </div>
   );
 }
+ */

@@ -34,7 +34,8 @@ CREATE SCHEMA public;
 select * from users;
 select * from roles;
 select * from users_roles;
-select * from categories;
+select * from catalogs;
+select * from products;
 
 INSERT INTO roles VALUES (1, 'USER');
 INSERT INTO roles VALUES (2, 'ADMIN');

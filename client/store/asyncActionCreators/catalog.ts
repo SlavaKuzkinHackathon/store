@@ -22,4 +22,15 @@ export const CatalogAsyncActionCreators = {
         alert(e.response?.data?.massage);
       }
     },
+    removeCatalog:
+    (id: number): any => 
+    async (dispath: AppDispatch) => {
+      try {
+        const response = await CatalogAPI.deleteOne(id)
+        dispath(catalogSlice.actions.removeCatalog({id: +id}))
+        alert(response.data)
+      } catch (e:any) {
+        alert(e.response?.data?.message)
+      }
+    }
 };
