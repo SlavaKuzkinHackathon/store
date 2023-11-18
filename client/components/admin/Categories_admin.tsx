@@ -5,29 +5,45 @@ import Button from '@/components/UI/Button/index'
 import * as yup from 'yup'
 import styles from '@/styles/admin/Admin.module.scss'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 const CategoriesAdmin = () => {
-  const { catalogList } = useAppSelector((state) => state.catalog)
+  const { catalogList, removeCatalogList } = useAppSelector((state) => state.catalog)
   const dispatch = useAppDispatch()
+  const [oldCatalog, newCatalog] = useState(catalogList)
+
+  useEffect(() => {
+    {
+      removeCatalogList.map((_catalog) => {
+        return (
+          <option key={_catalog.id} value={_catalog.id}>
+            {_catalog.name}
+          </option>
+        );
+      })
+    }
+  }, [newCatalog])
 
   const validationAddCatalogSchema = yup.object().shape({
     catalog: yup.string().required('Введите имя новой категории'),
   })
 
+
   return (
-    <div>
+    <div className=''>
       <h1>Категории</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>№</th>
-              <th>Категория</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {catalogList.map((catalog) => (
-              <tr>
+      <table>
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Категория</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            catalogList.map((catalog) => (
+              <tr key={catalog.id}>
                 <td>{catalog.id}</td>
                 <td>{catalog.name}</td>
                 <td>
@@ -35,19 +51,24 @@ const CategoriesAdmin = () => {
                     <button>Изменить</button>
                   </Link>
                   <button
+                   onChange={() => {
+                    newCatalog([]);
+                }}
                     onClick={() => {
                       dispatch(
                         CatalogAsyncActionCreators.removeCatalog(catalog.id)
                       )
-                    }}
+                    }
+                    }
                   >
                     Удалить
                   </button>
                 </td>
               </tr>
             ))}
-          </tbody>
-        </table>
+        </tbody>
+      </table>
+
       <Formik
         initialValues={{
           catalog: '',
