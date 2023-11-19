@@ -1,16 +1,14 @@
 import { useAppSelector } from '@/hooks'
 import { getImageURL } from '@/utils'
 import styles from '@/styles/admin/ProductList.module.scss'
+import CreateProduct from '../CreateProduct'
 
-const ProductsList: React.FC= () => {
+const ProductsList: React.FC = () => {
+  const { allProductsList } = useAppSelector((state) => state.products)
 
-  const {allProductsList } = useAppSelector(
-    (state) => state.products
-  )
-
-  
   return (
     <>
+
       <h1>Диваны</h1>
       <table>
         <thead>
@@ -32,8 +30,7 @@ const ProductsList: React.FC= () => {
               <td>{_product.name}</td>
               <td>₽{_product.price}</td>
               <td>{_product.rating}</td>
-              <td 
-              className={styles.image}>
+              <td className={styles.image}>
                 <img src={getImageURL(_product.image)} alt={_product.name} />
               </td>
               <td>
@@ -44,6 +41,9 @@ const ProductsList: React.FC= () => {
           ))}
         </tbody>
       </table>
+      <div>
+        <CreateProduct />
+      </div>
     </>
   )
 }

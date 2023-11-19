@@ -5,12 +5,9 @@ import Button from '@/components/UI/Button/index'
 import * as yup from 'yup'
 import styles from '@/styles/admin/Admin.module.scss'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 const CategoriesAdmin = () => {
   const { catalogList } = useAppSelector((state) => state.catalog)
-
-  const [action, setAction] = useState(false)
 
   const dispatch = useAppDispatch()
 
