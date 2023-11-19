@@ -1,8 +1,10 @@
 import CategoriesAdmin from '@/components/admin/Categories_admin'
 import styles from '@/styles/admin/index.module.scss'
 import { useState } from 'react'
+import AdminProductsPage from './products'
+import { NextPage } from 'next'
 
-export default function Admin() {
+const Admin: NextPage = () => {
   const [isActive, setIsActive] = useState('categories')
 
   return (
@@ -22,9 +24,9 @@ export default function Admin() {
             </button>
             <button
               className={`${styles.tab} ${
-                isActive === 'goods' && styles.tab_active
+                isActive === 'products' && styles.tab_active
               }`}
-              onClick={() => setIsActive('goods')}
+              onClick={() => setIsActive('products')}
             >
               Товары
             </button>
@@ -47,7 +49,10 @@ export default function Admin() {
           </div>
         </div>
         {isActive === 'categories' && <CategoriesAdmin />}
+        {isActive === 'products' && <AdminProductsPage />}
       </section>
     </>
   )
 }
+
+export default Admin

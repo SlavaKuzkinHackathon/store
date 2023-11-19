@@ -8,29 +8,18 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 const CategoriesAdmin = () => {
-  const { catalogList, removeCatalogList } = useAppSelector((state) => state.catalog)
-  const dispatch = useAppDispatch()
-  const [oldCatalog, newCatalog] = useState(catalogList)
+  const { catalogList } = useAppSelector((state) => state.catalog)
 
-  useEffect(() => {
-    {
-      removeCatalogList.map((_catalog) => {
-        return (
-          <option key={_catalog.id} value={_catalog.id}>
-            {_catalog.name}
-          </option>
-        );
-      })
-    }
-  }, [newCatalog])
+  const [action, setAction] = useState(false)
+
+  const dispatch = useAppDispatch()
 
   const validationAddCatalogSchema = yup.object().shape({
     catalog: yup.string().required('Введите имя новой категории'),
   })
 
-
   return (
-    <div className=''>
+    <div className="">
       <h1>Категории</h1>
       <table>
         <thead>
@@ -40,32 +29,28 @@ const CategoriesAdmin = () => {
             <th></th>
           </tr>
         </thead>
+
         <tbody>
-          {
-            catalogList.map((catalog) => (
-              <tr key={catalog.id}>
-                <td>{catalog.id}</td>
-                <td>{catalog.name}</td>
-                <td>
-                  <Link href={'/'} passHref legacyBehavior>
-                    <button>Изменить</button>
-                  </Link>
+          {catalogList.map((catalog) => (
+            <tr key={catalog.id}>
+              <td>{catalog.id}</td>
+              <td>{catalog.name}</td>
+              <td>
+                <Link href={'/'} passHref legacyBehavior>
+                  <button>Изменить</button>
+                </Link>
                   <button
-                   onChange={() => {
-                    newCatalog([]);
-                }}
                     onClick={() => {
                       dispatch(
                         CatalogAsyncActionCreators.removeCatalog(catalog.id)
                       )
-                    }
-                    }
+                    }}
                   >
                     Удалить
                   </button>
-                </td>
-              </tr>
-            ))}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
 

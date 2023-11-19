@@ -30,12 +30,15 @@ export const ProductAsyncActionCreators = {
         alert(e.response?.data?.message);
       }
     },
-  fetchNewAndPopularProducts: (): any => async (dispatch: AppDispatch) => {
+  fetchNewAndPopularAndAllProducts: (): any => async (dispatch: AppDispatch) => {
     try {
       dispatch(productSlice.actions.setLoading());
       const response = await ProductAPI.getNoveltyAndPopular();
       dispatch(
         productSlice.actions.setNewProductsList(response.data.novelties)
+      );
+      dispatch(
+        productSlice.actions.setAllProductsList(response.data.novelties)
       );
       dispatch(
         productSlice.actions.setPopularProductsList(response.data.populars)

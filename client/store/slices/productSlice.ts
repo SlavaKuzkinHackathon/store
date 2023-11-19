@@ -6,6 +6,7 @@ export interface ProductState {
   removedProductsList: IProduct[];
   limit: number;
   newProductsList: IProduct[];
+  allProductsList: IProduct[]
   popularProductsList: IProduct[];
   isLoading: boolean;
 }
@@ -19,6 +20,7 @@ const initialState: ProductState = {
   },
   removedProductsList: [],
   newProductsList: [],
+  allProductsList: [],
   popularProductsList: [],
 };
 
@@ -34,7 +36,7 @@ export const productSlice = createSlice({
       action: PayloadAction<ICatalogProductsResponse>
     ) => {
       state.productsList = action.payload;
-      state.isLoading = false;
+      //state.isLoading = false;
     },
     setRemovedProductsList: (state, action: PayloadAction<IProduct[]>) => {
       state.removedProductsList = action.payload;
@@ -46,6 +48,9 @@ export const productSlice = createSlice({
     },
     setNewProductsList: (state, action: PayloadAction<IProduct[]>) => {
       state.newProductsList = action.payload;
+    },
+    setAllProductsList: (state, action: PayloadAction<IProduct[]>) => {
+      state.allProductsList = action.payload;
     },
     setPopularProductsList: (state, action: PayloadAction<IProduct[]>) => {
       state.popularProductsList = action.payload;
@@ -59,6 +64,7 @@ export const {
   setProductsList,
   removeProduct,
   setNewProductsList,
+  setAllProductsList,
   setPopularProductsList,
   setRemovedProductsList,
 } = productSlice.actions;

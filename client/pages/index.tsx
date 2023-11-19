@@ -17,7 +17,7 @@ export default function Home() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(ProductAsyncActionCreators.fetchNewAndPopularProducts());
+    dispatch(ProductAsyncActionCreators.fetchNewAndPopularAndAllProducts());
   }, []);
   
 
