@@ -1,0 +1,12 @@
+.image {
+  min-width: 18px;
+  flex: 1 0 100%;
+  margin-bottom: 10px;
+
+  img {
+    height: 10%;
+    width: 10%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+}

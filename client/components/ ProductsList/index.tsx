@@ -1,10 +1,14 @@
 import { useAppSelector } from '@/hooks'
-import { ICatalogProductsResponse, IProduct } from '@/interfaces'
-import Link from 'next/link'
+import { getImageURL } from '@/utils'
+import styles from '@/styles/admin/ProductList.module.scss'
 
-const ProductsList:React.FC = () => {
+const ProductsList: React.FC= () => {
 
-  const { productsList, newProductsList, allProductsList } = useAppSelector((state) => state.products)
+  const {allProductsList } = useAppSelector(
+    (state) => state.products
+  )
+
+  
   return (
     <>
       <h1>Диваны</h1>
@@ -15,9 +19,9 @@ const ProductsList:React.FC = () => {
             <th>Категория</th>
             <th>Название</th>
             <th>Цена</th>
-            {/* <th>Доп.инф</th> */}
             <th>Рейтинг</th>
-            {/* <th>Звезды</th> */}
+            <th>Фото</th>
+            <th>Действия</th>
           </tr>
         </thead>
         <tbody>
@@ -27,13 +31,13 @@ const ProductsList:React.FC = () => {
               <td>{_product.catalogId}</td>
               <td>{_product.name}</td>
               <td>₽{_product.price}</td>
-              {/* <td>{_product.productInfo}</td> */}
               <td>{_product.rating}</td>
-              {/* <td>{_product?.reviews}</td> */}
+              <td 
+              className={styles.image}>
+                <img src={getImageURL(_product.image)} alt={_product.name} />
+              </td>
               <td>
-                <Link href={`/`} passHref legacyBehavior>
-                  <button>Изменить</button>
-                </Link>
+                <button>Изменить</button>
                 <button>Удалить</button>
               </td>
             </tr>

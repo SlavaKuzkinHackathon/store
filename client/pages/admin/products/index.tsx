@@ -5,6 +5,7 @@ import ProductsList from '@/components/ ProductsList/index';
 const AdminProductsPage: NextPage = () => {
   return (
     <>
+        
         <ProductsList/>
     </>
   );
