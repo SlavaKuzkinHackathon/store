@@ -51,6 +51,7 @@ export const productSlice = createSlice({
     },
     setAllProductsList: (state, action: PayloadAction<IProduct[]>) => {
       state.allProductsList = action.payload;
+      state.isLoading = false;
     },
     setPopularProductsList: (state, action: PayloadAction<IProduct[]>) => {
       state.popularProductsList = action.payload;

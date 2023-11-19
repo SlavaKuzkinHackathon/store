@@ -21,7 +21,6 @@ const CreateProduct = (): JSX.Element => {
   const [selectedCatalogId, setSelectedCatalogId] = useState<number>(0);
   const { isAdmin, isLogged } = useAppSelector((state) => state.user);
   const { catalogList } = useAppSelector((state) => state.catalog);
-  const { removedProductsList } = useAppSelector((state) => state.products);
 
   const dispatch = useAppDispatch();
   const { push } = useRouter();
