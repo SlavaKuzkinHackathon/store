@@ -1,20 +1,30 @@
-import { IProduct } from "@/interfaces";
-import { AxiosResponse } from "axios";
-import { API_URL, http } from "../axiosClient";
+import { IProduct } from '@/interfaces'
+import { AxiosResponse } from 'axios'
+import { API_URL, http } from '../axiosClient'
 
 export class ProductAPI {
   static async getOne(id: number): Promise<AxiosResponse<IProduct>> {
-    return http.get<IProduct>(`${API_URL.PRODUCT}/${id}`);
+    return http.get<IProduct>(`${API_URL.PRODUCT}/${id}`)
   }
   static async createOne(formData: FormData): Promise<AxiosResponse<string>> {
     return http.post<string>(API_URL.PRODUCT, formData, {
-      headers: { "Content-type": "multipart/form-data" },
-    });
+      headers: { 'Content-type': 'multipart/form-data' },
+    })
   }
+
+  static async updateProduct(
+    formData: FormData,
+    id: number
+  ): Promise<AxiosResponse<string>> {
+    return http.put<string>(`${API_URL.PRODUCT}/${id}`, formData, {
+      headers: { 'Content-type': 'multipart/form-data' },
+    })
+  }
+
   static async deleteOne(id: number): Promise<AxiosResponse<string>> {
-    return http.delete<string>(`${API_URL.PRODUCT}/${id}`);
+    return http.delete<string>(`${API_URL.PRODUCT}/${id}`)
   }
-/*   static async getNoveltyAndPopular(): Promise<
+  /*   static async getNoveltyAndPopular(): Promise<
     AxiosResponse<{
       novelties: IProduct[];
       populars: IProduct[];
@@ -27,7 +37,7 @@ export class ProductAPI {
   } */
 
   static async getAllProducts(): Promise<AxiosResponse<IProduct[]>> {
-    return http.get<IProduct[]>(API_URL.PRODUCT);
+    return http.get<IProduct[]>(API_URL.PRODUCT)
   }
 
   static async sendReview(
@@ -41,6 +51,6 @@ export class ProductAPI {
       userId,
       review,
       rate,
-    });
+    })
   }
 }
