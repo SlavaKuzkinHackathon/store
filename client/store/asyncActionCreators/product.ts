@@ -4,7 +4,7 @@ import { productSlice } from "../slices/productSlice";
 import { ProductAPI } from "@/app/api/product";
 
 export const ProductAsyncActionCreators = {
-  fetchLimitProductsFromCatalog:
+/*   fetchLimitProductsFromCatalog:
     (catalogId: number, page: number, limit: number, sorting?: string): any =>
     async (dispatch: AppDispatch) => {
       try {
@@ -19,7 +19,7 @@ export const ProductAsyncActionCreators = {
       } catch (e: any) {
         alert(e.response?.data?.message);
       }
-    },
+    }, */
   fetchAllProductsFromCatalog:
     (catalogId: number): any =>
     async (dispatch: AppDispatch) => {
@@ -30,7 +30,7 @@ export const ProductAsyncActionCreators = {
         alert(e.response?.data?.message);
       }
     },
-  fetchNewAndPopularAndAllProducts: (): any => async (dispatch: AppDispatch) => {
+  /* fetchNewAndPopularAndAllProducts: (): any => async (dispatch: AppDispatch) => {
     try {
       dispatch(productSlice.actions.setLoading());
       const response = await ProductAPI.getNoveltyAndPopular();
@@ -46,7 +46,32 @@ export const ProductAsyncActionCreators = {
     } catch (e: any) {
       alert(e.response?.data?.message);
     }
+  }, */
+
+  fetchGetAllProducts: (): any =>async (dispatch: AppDispatch) => {
+    try {
+       const response = await ProductAPI.getAllProducts()
+       dispatch(productSlice.actions.setProductsList(response.data))
+    } catch (e: any) {
+      console.log(e.response?.data?.message)
+      
+    }
   },
+
+
+/*
+fetchAll: (): any => async (dispatch: AppDispatch) => {
+    try {
+      const response = await CatalogAPI.getAll();
+      dispatch(catalogSlice.actions.setList(response.data));
+    } catch (e: any) {
+      console.log(e.response?.data?.massage);
+    }
+  },
+*/
+
+
+
   createProduct:
     (formData: FormData): any =>
     async (dispatch: AppDispatch) => {

@@ -11,13 +11,13 @@ import CardList from '@/components/CardList';
 
 export default function Home() {
   const { catalogList } = useAppSelector((state) => state.catalog);
-  const { newProductsList, popularProductsList, isLoading } = useAppSelector(
+  const { newProductsList, popularProductsList, isLoading , allProductsList} = useAppSelector(
     (state) => state.products
   );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(ProductAsyncActionCreators.fetchNewAndPopularAndAllProducts());
+    dispatch(ProductAsyncActionCreators.fetchGetAllProducts());
   }, []);
   
 
@@ -48,12 +48,12 @@ export default function Home() {
         <Section title="Новинки">
         {isLoading ? <SceletonCards /> : <CardList cards={newProductsList} />}
       </Section>
-      {popularProductsList.length && (
+      {allProductsList.length && (
         <Section title="Популярное">
           {isLoading ? (
             <SceletonCards />
           ) : (
-            <CardList cards={popularProductsList} />
+            <CardList cards={allProductsList} />
           )}
         </Section>
       )}

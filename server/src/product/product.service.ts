@@ -59,6 +59,16 @@ export class ProductService {
         });
     }
   }
+
+
+  async getAllProducts():Promise<Product[]> {
+    const products = await this.productRepository.findAll();;
+
+    return products;
+  }
+
+
+
   async getOneProduct(id: number): Promise<Product> {
     const product = await this.productRepository.findByPk(id, {
       include: [

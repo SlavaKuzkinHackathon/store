@@ -14,7 +14,7 @@ export class ProductAPI {
   static async deleteOne(id: number): Promise<AxiosResponse<string>> {
     return http.delete<string>(`${API_URL.PRODUCT}/${id}`);
   }
-  static async getNoveltyAndPopular(): Promise<
+/*   static async getNoveltyAndPopular(): Promise<
     AxiosResponse<{
       novelties: IProduct[];
       populars: IProduct[];
@@ -24,6 +24,10 @@ export class ProductAPI {
       novelties: IProduct[];
       populars: IProduct[];
     }>(API_URL.PRODUCT);
+  } */
+
+  static async getAllProducts(): Promise<AxiosResponse<IProduct[]>> {
+    return http.get<IProduct[]>(API_URL.PRODUCT);
   }
 
   static async sendReview(

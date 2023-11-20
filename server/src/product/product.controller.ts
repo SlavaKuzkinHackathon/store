@@ -60,20 +60,34 @@ export class ProductController {
     return await this.productService.createProduct(createProductDto, image);
   }
 
+
+  @ApiOperation({ summary: 'Получение всех каталогов' })
+  @ApiResponse({
+    status: 200,
+    type: [Product],
+    description: 'Возвращаются все каталоги',
+  })
+  @Get()
+  async getAllProducts(): Promise<Product[]> {
+    return await this.productService.getAllProducts();
+  }
+
+
+
   @ApiOperation({ summary: 'Получение новинок и популярных товаров' })
   @ApiResponse({
     status: 200,
     description: 'Возвращаются новинки и популярные товары',
   })
-  @Get()
+  @Get('new')
   async getNoveltyAndPopular(): Promise<{
     novelties: Product[];
     populars: Product[];
   }> {
     return await this.productService.getNoveltyAndPopular();
-  }
+  } 
 
-  @ApiOperation({ summary: 'Изменение товара' })
+  @ApiOperation({ summary: 'Изменение товара' }) 
   @ApiResponse({
     status: 200,
     description: 'Товар изменен',

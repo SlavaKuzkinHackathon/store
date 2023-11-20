@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateCatalogDto {
   @ApiProperty({
-    example: 'Подносы',
+    example: 'Диван угловой',
     description: 'Название каталога',
   })
   @IsNotEmpty({ message: 'Нет наименования товара' })

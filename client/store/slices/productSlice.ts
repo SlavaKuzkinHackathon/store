@@ -1,14 +1,14 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IProduct, ICatalog, ICatalogProductsResponse } from "../../interfaces";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IProduct, ICatalog, ICatalogProductsResponse } from '../../interfaces'
 
 export interface ProductState {
-  productsList: ICatalogProductsResponse;
-  removedProductsList: IProduct[];
-  limit: number;
-  newProductsList: IProduct[];
+  productsList: ICatalogProductsResponse
+  removedProductsList: IProduct[]
+  limit: number
+  newProductsList: IProduct[]
   allProductsList: IProduct[]
-  popularProductsList: IProduct[];
-  isLoading: boolean;
+  popularProductsList: IProduct[]
+  isLoading: boolean
 }
 
 const initialState: ProductState = {
@@ -22,52 +22,51 @@ const initialState: ProductState = {
   newProductsList: [],
   allProductsList: [],
   popularProductsList: [],
-};
+}
 
 export const productSlice = createSlice({
-  name: "products",
+  name: 'products',
   initialState,
   reducers: {
     setLoading: (state) => {
-      state.isLoading = true;
+      state.isLoading = true
     },
-    setProductsList: (
+    setProductsList: (state, action: PayloadAction<IProduct[]>) =>{
+      state.allProductsList = action.payload;
+      state.isLoading = false;
+    },
+/*     setProductsList: (
       state,
       action: PayloadAction<ICatalogProductsResponse>
     ) => {
-      state.productsList = action.payload;
+      state.productsList = action.payload
       //state.isLoading = false;
-    },
+    }, */
     setRemovedProductsList: (state, action: PayloadAction<IProduct[]>) => {
-      state.removedProductsList = action.payload;
+      state.removedProductsList = action.payload
     },
     removeProduct: (state, action: PayloadAction<{ id: number }>) => {
       state.removedProductsList = state.removedProductsList.filter(
         (product) => product.id !== action.payload.id
-      );
+      )
     },
     setNewProductsList: (state, action: PayloadAction<IProduct[]>) => {
-      state.newProductsList = action.payload;
-    },
-    setAllProductsList: (state, action: PayloadAction<IProduct[]>) => {
-      state.allProductsList = action.payload;
-      state.isLoading = false;
+      state.newProductsList = action.payload
     },
     setPopularProductsList: (state, action: PayloadAction<IProduct[]>) => {
-      state.popularProductsList = action.payload;
-      state.isLoading = false;
+      state.popularProductsList = action.payload
+      state.isLoading = false
     },
   },
-});
+})
 
 export const {
   setLoading,
   setProductsList,
   removeProduct,
   setNewProductsList,
-  setAllProductsList,
   setPopularProductsList,
   setRemovedProductsList,
-} = productSlice.actions;
+} = productSlice.actions
 
-export default productSlice.reducer;
+export default productSlice.reducer

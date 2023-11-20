@@ -32,7 +32,7 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   })
   id: number;
 
-  @ApiProperty({ example: 'Кружка', description: 'Наименование товара' })
+  @ApiProperty({ example: 'Диван', description: 'Наименование товара' })
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   name: string;
 
