@@ -6,10 +6,10 @@ import { useForm } from 'react-hook-form'
 import { IInputs } from '@/types/auth'
 import EmailInput from '@/components/elements/AuthPage/EmailInput'
 import PasswordInput from '@/components/elements/AuthPage/PasswordInput'
-import { singUpFx } from '@/app/api/auth'
+import { singInFx} from '@/app/api/auth'
 import { toast } from 'react-toastify'
 
-const SignInForm = ({ switchForm }: { switchForm: () => void }) => {
+const SignInForm = () => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
@@ -22,9 +22,8 @@ const SignInForm = ({ switchForm }: { switchForm: () => void }) => {
 
   const onSubmit = async (data: IInputs) => {
     try {
-      const userData = await singUpFx({
+      const userData = await singInFx({
         url: '/auth/login',
-        name: data.name,
         password: data.password,
         email: data.email,
       })
@@ -32,7 +31,6 @@ const SignInForm = ({ switchForm }: { switchForm: () => void }) => {
 
       resetField('email')
       resetField('password')
-      switchForm()
       
     } catch (error) {
       toast.error((error as Error).message)
@@ -42,11 +40,10 @@ const SignInForm = ({ switchForm }: { switchForm: () => void }) => {
   return (
     <form className={styles.register_form} onSubmit={handleSubmit(onSubmit)}>
       <div className={`${styles.input} ${darkModeClass}`}>
-        <NameInput register={register} errors={errors} />
         <EmailInput register={register} errors={errors} />
         <PasswordInput register={register} errors={errors} />
         <button className={`${styles.button} ${darkModeClass}`}>
-          Регистрация
+          Войти
         </button>
       </div>
     </form>

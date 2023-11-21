@@ -9,7 +9,7 @@ import PasswordInput from '@/components/elements/AuthPage/PasswordInput'
 import { singUpFx } from '@/app/api/auth'
 import { toast } from 'react-toastify'
 
-const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
+const SignUpForm = () => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
@@ -33,7 +33,6 @@ const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
       resetField('name')
       resetField('email')
       resetField('password')
-      switchForm()
       
     } catch (error) {
       toast.error((error as Error).message)
