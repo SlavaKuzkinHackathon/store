@@ -6,10 +6,13 @@ import { useForm } from 'react-hook-form'
 import { IInputs } from '@/types/auth'
 import EmailInput from '@/components/elements/AuthPage/EmailInput'
 import PasswordInput from '@/components/elements/AuthPage/PasswordInput'
-import { singInFx} from '@/app/api/auth'
-import { toast } from 'react-toastify'
+import { singInFx } from '@/app/api/auth'
+import { showAuthError } from '@/utils/errors'
+import { useState } from 'react'
+import spinnerStyles from '@/styles/spinner/index.module.scss'
 
 const SignInForm = () => {
+  const [spinner, setSpinner] = useState(false)
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
@@ -22,18 +25,18 @@ const SignInForm = () => {
 
   const onSubmit = async (data: IInputs) => {
     try {
-      const userData = await singInFx({
+      await singInFx({
         url: '/auth/login',
         password: data.password,
         email: data.email,
       })
-      console.log(userData)
-
+      setSpinner(true)
       resetField('email')
       resetField('password')
-      
     } catch (error) {
-      toast.error((error as Error).message)
+      showAuthError(error)
+    } finally {
+      setSpinner(false)
     }
   }
 
@@ -43,7 +46,7 @@ const SignInForm = () => {
         <EmailInput register={register} errors={errors} />
         <PasswordInput register={register} errors={errors} />
         <button className={`${styles.button} ${darkModeClass}`}>
-          Войти
+          {spinner ? <div className={spinnerStyles.spinner} /> : ' Войти'}
         </button>
       </div>
     </form>

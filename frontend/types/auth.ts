@@ -28,4 +28,5 @@ export interface IUser {
   name: string
   userId: number | string
   email: string
+  roles: [{ id: number; value: string }];
 }
