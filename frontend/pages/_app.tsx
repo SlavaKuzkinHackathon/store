@@ -19,7 +19,8 @@ function App({ Component, pageProps }: AppProps) {
       <>
         <Layout>
           <Component {...pageProps} />
-          <ToastContainer
+        </Layout>
+        <ToastContainer
           position="bottom-right"
           hideProgressBar={false}
           closeOnClick
@@ -27,8 +28,8 @@ function App({ Component, pageProps }: AppProps) {
           limit={1}
           theme="light"
         />
-        </Layout>
       </>
+      
     )
   )
 }

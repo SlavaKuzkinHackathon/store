@@ -25,11 +25,13 @@ const SignInForm = () => {
 
   const onSubmit = async (data: IInputs) => {
     try {
-      await singInFx({
+      const userData = await singInFx({
         url: '/auth/login',
         password: data.password,
         email: data.email,
       })
+      console.log(userData);
+      
       setSpinner(true)
       resetField('email')
       resetField('password')

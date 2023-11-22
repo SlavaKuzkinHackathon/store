@@ -9,12 +9,15 @@ import { withClickOutside } from '@/utils/withClickOutside'
 import styles from '@/styles/profileDropDown/index.module.scss'
 import { logoutFx } from '@/app/api/auth'
 import { useRouter } from 'next/router'
+import { $user } from '@/context/user'
 
 const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode)
+    const user = useStore($user)
     const router = useRouter()
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+    
     const toggleProfileDropDown = () => setOpen(!open)
 
     const handleLogout = async () => {
@@ -39,9 +42,9 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
               style={{ transformOrigin: 'right top' }}
             >
               <li className={styles.profile__dropdown__user}>
-                <span className={`${styles.profile__dropdown__username} ${darkModeClass}`}>Vova</span>
+                <span className={`${styles.profile__dropdown__username} ${darkModeClass}`}>{user.name}</span>
                 <span className={`${styles.profile__dropdown__email} ${darkModeClass}`}>
-                  vova@mail.ru
+                  {user.email}
                 </span>
               </li>
               <li className={styles.profile__dropdown__item}>
