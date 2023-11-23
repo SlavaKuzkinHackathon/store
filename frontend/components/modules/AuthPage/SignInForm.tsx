@@ -10,11 +10,14 @@ import { singInFx } from '@/app/api/auth'
 import { showAuthError } from '@/utils/errors'
 import { useState } from 'react'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
+import {jwtDecode}from 'jwt-decode'
+import { useRouter } from 'next/router'
 
 const SignInForm = () => {
   const [spinner, setSpinner] = useState(false)
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+  const route = useRouter()
 
   const {
     register,
@@ -29,12 +32,16 @@ const SignInForm = () => {
         url: '/auth/login',
         password: data.password,
         email: data.email,
+        
       })
-      console.log(userData);
+      const dataToken = jwtDecode(userData.accessToken);
+      console.log(dataToken);
+      
       
       setSpinner(true)
       resetField('email')
       resetField('password')
+      route.push('/')
     } catch (error) {
       showAuthError(error)
     } finally {

@@ -10,11 +10,14 @@ import { singUpFx } from '@/app/api/auth'
 import { showAuthError } from '@/utils/errors'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { useState } from 'react'
+import {jwtDecode}from 'jwt-decode'
+import { useRouter } from 'next/router'
 
 const SignUpForm = () => {
   const [spinner, setSpinner] = useState(false)
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+  const route = useRouter()
 
   const {
     register,
@@ -31,6 +34,8 @@ const SignUpForm = () => {
         password: data.password,
         email: data.email,
       })
+      const dataToken = jwtDecode(userData.accessToken);
+      console.log(dataToken);
 
       if(!userData){
         return
@@ -40,6 +45,7 @@ const SignUpForm = () => {
       resetField('name')
       resetField('email')
       resetField('password')
+      route.push('/')
     } catch (error) {
       showAuthError(error)
     } finally {

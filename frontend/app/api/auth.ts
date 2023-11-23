@@ -1,18 +1,20 @@
 import { createEffect } from 'effector-next'
 import { toast } from 'react-toastify'
 import api from '../axiosClient'
-import { AxiosError } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { HTTPStatus } from '@/constans'
-import { ISignInFx, ISignUpFx } from '@/types/auth'
+import { ISignInFx, ISignUpFx, IUser } from '@/types/auth'
+import { jwtDecode } from 'jwt-decode'
+import IAuthResponse from '@/types/IAuthResponse'
 
 export const singUpFx = createEffect(
   async ({ url, name, password, email }: ISignUpFx) => {
-    const { data } = await api.post(url, { name, password, email })
+    const { data } = await api.post<IAuthResponse>(url, { name, password, email })
 
-    if (data.warningMessage) {
+  /*   if (data.warningMessage) {
       toast.warning(data.warningMessage)
       return
-    }
+    } */
 
     toast.success('Регистрация прошла успешно!')
 
@@ -22,7 +24,7 @@ export const singUpFx = createEffect(
 
 export const singInFx = createEffect(
   async ({ url, email, password }: ISignInFx) => {
-    const { data } = await api.post(url, { email, password })
+    const { data } = await api.post<IAuthResponse>(url, { email, password })
 
     toast.success('Вход выполнен!')
 
@@ -30,7 +32,27 @@ export const singInFx = createEffect(
   }
 )
 
-export const checkUserAuthFx = createEffect(async (url: string) => {
+export const checkUserAuthFx = createEffect(async (token: string | any) => {
+  try {
+    const data = jwtDecode(token)
+
+    const { email, userId, name } = data as IUser
+
+    return { email, userId, name }
+  } catch (error) {
+    const axiosError = error as AxiosError
+
+    if (axiosError.response) {
+      if (axiosError.response.status === HTTPStatus.FORBIDDEN) {
+        return false
+      }
+    }
+
+    toast.error((error as Error).message)
+  }
+})
+
+/* export const checkUserAuthFx = createEffect(async (url: string) => {
   try {
     const { data } = await api.get(url)
 
@@ -46,7 +68,7 @@ export const checkUserAuthFx = createEffect(async (url: string) => {
 
     toast.error((error as Error).message)
   }
-})
+}) */
 
 export const logoutFx = createEffect(async (url: string) => {
   try {
