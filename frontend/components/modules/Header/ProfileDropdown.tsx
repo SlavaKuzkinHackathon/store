@@ -24,6 +24,8 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
       await logoutFx('/auth/logout')
       router.push('/')
     }
+    console.log('user.name', user.name);
+    
 
     return (
       <div className={styles.profile} ref={ref}>

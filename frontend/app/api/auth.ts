@@ -28,6 +28,10 @@ export const singInFx = createEffect(
 
     toast.success('Вход выполнен!')
 
+    localStorage.setItem('auth_connection', jwtDecode(data.accessToken));
+    const dataToken = jwtDecode(data.accessToken);
+    console.log('dataToken', dataToken);
+    
     return data
   }
 )

@@ -8,7 +8,7 @@ export const setUserCity = user.createEvent<{ city: string; street: string }>()
 
 export const $user = user
   .createStore<IUser>({
-    
+
   } as IUser)
   .on(setUser, (_, user) => user)
 

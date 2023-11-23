@@ -42,6 +42,7 @@ const SignInForm = () => {
       resetField('email')
       resetField('password')
       route.push('/')
+      return dataToken
     } catch (error) {
       showAuthError(error)
     } finally {
