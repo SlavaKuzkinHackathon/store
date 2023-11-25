@@ -13,22 +13,19 @@ export interface IAuthPageInput {
 
 export interface ISignUpFx {
   url: string
-  name: string
+  username: string
   password: string
   email: string
 }
 
 export interface ISignInFx {
   url: string
-  email: string
+  username: string
   password: string
 }
 
 export interface IUser {
-  name: string
+  username: string
   userId: number | string
   email: string
-  roles: [{ id: number; value: string }];
 }
-
-

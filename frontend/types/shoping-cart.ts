@@ -1,6 +1,6 @@
 export interface IShoppingCartItem {
   id: number
-  name: string
+  username: string
   price: number
   image: string
   catalogId: number;

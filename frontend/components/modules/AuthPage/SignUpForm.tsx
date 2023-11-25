@@ -10,14 +10,11 @@ import { singUpFx } from '@/app/api/auth'
 import { showAuthError } from '@/utils/errors'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { useState } from 'react'
-import {jwtDecode}from 'jwt-decode'
-import { useRouter } from 'next/router'
 
 const SignUpForm = () => {
   const [spinner, setSpinner] = useState(false)
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
-  const route = useRouter()
 
   const {
     register,
@@ -29,23 +26,19 @@ const SignUpForm = () => {
   const onSubmit = async (data: IInputs) => {
     try {
       const userData = await singUpFx({
-        url: '/auth/registration',
-        name: data.name,
+        url: '/users/signup',
+        username: data.name,
         password: data.password,
         email: data.email,
       })
-      const dataToken = jwtDecode(userData.accessToken);
-      console.log(dataToken);
 
       if(!userData){
         return
       }
       console.log(userData);
-      setSpinner(true)
       resetField('name')
       resetField('email')
       resetField('password')
-      route.push('/')
     } catch (error) {
       showAuthError(error)
     } finally {
@@ -60,7 +53,7 @@ const SignUpForm = () => {
         <EmailInput register={register} errors={errors} />
         <PasswordInput register={register} errors={errors} />
         <button className={`${styles.button} ${darkModeClass}`}>
-          {spinner ? <div className={spinnerStyles.spinner} /> : ' Войти'}
+          {spinner ? <div className={spinnerStyles.spinner} /> : 'Регистрация'}
         </button>
       </div>
     </form>

@@ -46,3 +46,68 @@ INSERT INTO users_roles VALUES (2, 2);
 3.10.00
 
 https://codepen.io/anthonymarkreynolds/pen/qJBazW
+
+
+
+
+
+
+
+LIST ______________________________________________________
+
+
+
+Backend
+server .env 
+POSTGRES_DIALECT=postgres
+POSTGRES_LOGGING=true
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=root
+POSTGRES_DB=petrova
+CLIENT_URL=http://localhost:3000
+
+
+client  .env
+NEXT_PUBLIC_API_BASEURL=http://localhost:5000
+NEXT_PUBLIC_GEPAPI_KEY=05c4b1649f9b41a79ce8257e2d1aacdb
+
+
+
+
+
+sudo su - postgres
+createdb petrova -O postgres
+sudo su - postgres
+psql petrova
+
+psql
+\petrova - таблицы в базе данных
+dropdb  
+
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+-удаление данных, и создание схемы в БД
+select * from "Users";
+select * from "Divans";
+
+1-npx sequelize-cli db:migrate
+2-npm run start:dev
+3-npx sequelize-cli db:seed:all
+
+
+	
+DELETE FROM users;
+
+
+
+UPDATE имя_таблицы
+SET столбец1 = значение1, столбец2 = значение2, ... столбецN = значениеN
+[WHERE условие_обновления]
+
+
+https://github.com/abkiselev/ecom
+https://github.com/TeemPresents/shop-ytb-client
+
+

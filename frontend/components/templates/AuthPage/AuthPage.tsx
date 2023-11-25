@@ -21,7 +21,6 @@ const AuthPage = () => {
           ) : (
             <div>
             <SignInForm />
-            
               <p className={`${styles.message} ${darkModeClass}`}>
                 Отсутствует регистрация?{' '}
                 <Link href={''} passHref legacyBehavior>
@@ -31,7 +30,6 @@ const AuthPage = () => {
                       setAction(true)
                     }}
                   >
-                    {' '}
                     Создать аккаунт
                   </a>
                 </Link>
@@ -56,7 +54,6 @@ const AuthPage = () => {
                       setAction(false)
                     }}
                   >
-                    {' '}
                     Войти
                   </a>
                 </Link>

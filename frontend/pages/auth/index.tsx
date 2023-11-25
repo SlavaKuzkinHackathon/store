@@ -1,10 +1,13 @@
-import AuthPage from "@/components/templates/AuthPage/AuthPage"
-
+import AuthPage from '@/components/templates/AuthPage/AuthPage'
+import useRedirectByUserCheck from '@/hooks/useRedirectByUserCheck'
 
 const Auth = () => {
-return (
-    <AuthPage/>
-)
+    const { shouldLoadContent } = useRedirectByUserCheck(true)
+  return (
+    <>
+       && <AuthPage />
+    </>
+  )
 }
 
 export default Auth

@@ -13,15 +13,17 @@ import spinnerStyles from '@/styles/spinner/index.module.scss'
 
 const SignInForm = () => {
   const [spinner, setSpinner] = useState(false)
+  const mode = useStore($mode)
+  const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+  const route = useRouter()
+  
   const {
     register,
     formState: { errors },
     handleSubmit,
     resetField,
   } = useForm<IInputs>()
-  const mode = useStore($mode)
-  const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
-  const route = useRouter()
+
 
   const onSubmit = async (data: IInputs) => {
     try {

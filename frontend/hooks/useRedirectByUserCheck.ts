@@ -16,7 +16,7 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
   }, [])
 
   const checkUser = async () => {
-    const user = await checkUserAuthFx('/auth/login-check')
+    const user = await checkUserAuthFx('/users/login-check')
 
     if (isAuthPage) {
       if (!user) {
@@ -28,7 +28,11 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
       return
     }
 
- 
+    if (user) {
+      setUser(user)
+      setShouldLoadContent(true)
+      return
+    }
 
     router.push('/')
   }
