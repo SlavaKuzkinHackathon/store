@@ -10,13 +10,24 @@ export const $user = user
   .createStore<IUser>({} as IUser)
   .on(setUser, (_, user) => user)
 
+/*   const token = createDomain()
+  export const setToken = token.createEvent<IUser>()
+  export const $token = token
+  .createStore<IUser>({} as IUser)
+  .on(setToken, (_, newToken) => newToken)
 
-  export const setToken = createEvent<string | null>();
-  export const $token = createStore<string | null>(null);
-  export const $tokenPayload = createStore<IUser | null>(null);
-  
-  $token.on(setToken, (_, newToken) => newToken);
-  $tokenPayload.on(setToken, (_, newToken) => (newToken ? jwtDecode<IUser>(newToken) : null));
+  export const $tokenPayload = token
+  .createStore<IUser | null>(null)
+  .on(setToken, (_, newToken) => (newToken ? jwtDecode<IUser>(newToken) : null)) */
+
+export const setToken = createEvent<string | null>()
+export const $token = createStore<string | null>(null)
+export const $tokenPayload = createStore<IUser | null>(null)
+
+$token.on(setToken, (_, newToken) => newToken)
+$tokenPayload.on(setToken, (_, newToken) =>
+  newToken ? jwtDecode<IUser>(newToken) : null
+)
 
 /* import { IUser } from '@/types/auth'
 import { createDomain, domain } from 'effector-next'
