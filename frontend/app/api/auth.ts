@@ -1,9 +1,11 @@
 import { createEffect } from 'effector-next'
 import { toast } from 'react-toastify'
 import api from '../axiosClient'
-import { AxiosError} from 'axios'
+import { AxiosError } from 'axios'
 import { HTTPStatus } from '@/constans'
-import { ISignInFx, ISignUpFx} from '@/types/auth'
+import { ISignInFx, ISignUpFx, IUser } from '@/types/auth'
+import { jwtDecode } from 'jwt-decode'
+import IAuthResponse from '@/types/IAuthResponse'
 
 export const singUpFx = createEffect(
   async ({ url, username, password, email }: ISignUpFx) => {
@@ -21,24 +23,33 @@ export const singUpFx = createEffect(
 )
 
 export const singInFx = createEffect(
-  async ({ url, username, password }: ISignInFx) => {
-    const { data } = await api.post(url, { username, password })
+  async ({ url, email, password }: ISignInFx) => {
+    const { data } = await api.post(url, { email, password })
 
     toast.success('Вход выполнен!')
 
-    /*  localStorage.setItem('auth_connection', jwtDecode(data.accessToken));
-    const dataToken = jwtDecode(data.accessToken);
-    console.log('dataToken', dataToken); */
-    
+   /*  localStorage.setItem('auth_connection', jwtDecode(data.accessToken))
+    localStorage.setItem('auth', JSON.stringify(data.result));
+    //const dataToken = jwtDecode(data.accessToken)
+    //console.log('dataToken', dataToken)
+    console.log('auth_connection', jwtDecode(data.accessToken)) */
+    //localStorage.setItem('auth_connection', jwtDecode(data.accessToken))
+    localStorage.setItem("token", data.token);
+
     return data
   }
 )
 
-export const checkUserAuthFx = createEffect(async (url: string) => {
+export const checkUserAuthFx = createEffect(async (url: string, token: string | any) => {
   try {
-    const { data } = await api.get(url)
+    //const { data } = await api.get(url)
+    const data = jwtDecode(token);
 
-    return data
+		const { email, userId, name, roles } = data as IUser;
+   
+    
+		return { email, userId, name, roles };
+    //return data
   } catch (error) {
     const axiosError = error as AxiosError
 
@@ -48,7 +59,7 @@ export const checkUserAuthFx = createEffect(async (url: string) => {
       }
     }
 
-    toast.error((error as Error).message)
+    //toast.error((error as Error).message)
   }
 })
 

@@ -1,5 +1,6 @@
 import { IUser } from '@/types/auth'
-import { createDomain } from 'effector-next'
+import { createDomain, createEvent, createStore } from 'effector-next'
+import { jwtDecode } from 'jwt-decode'
 
 const user = createDomain()
 
@@ -10,7 +11,12 @@ export const $user = user
   .on(setUser, (_, user) => user)
 
 
-
+  export const setToken = createEvent<string | null>();
+  export const $token = createStore<string | null>(null);
+  export const $tokenPayload = createStore<IUser | null>(null);
+  
+  $token.on(setToken, (_, newToken) => newToken);
+  $tokenPayload.on(setToken, (_, newToken) => (newToken ? jwtDecode<IUser>(newToken) : null));
 
 /* import { IUser } from '@/types/auth'
 import { createDomain, domain } from 'effector-next'

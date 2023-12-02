@@ -15,17 +15,19 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode)
     const user = useStore($user)
+
     const router = useRouter()
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
-
-
 
     const toggleProfileDropDown = () => setOpen(!open)
 
     const handleLogout = async () => {
-      await logoutFx('/users/logout')
-      router.push('/')
+      await logoutFx('/auth/logout')
+      router.push('/auth')
     }
+
+
+    
     return (
       <div className={styles.profile} ref={ref}>
         <button className={styles.profile__btn} onClick={toggleProfileDropDown}>
@@ -46,7 +48,7 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                 <span
                   className={`${styles.profile__dropdown__username} ${darkModeClass}`}
                 >
-                  {user.username}
+                  {user.name}
                 </span>
                 <span
                   className={`${styles.profile__dropdown__email} ${darkModeClass}`}

@@ -1,7 +1,7 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 export interface IInputs {
-  name: string
+  username: string
   email: string
   password: string
 }
@@ -20,12 +20,34 @@ export interface ISignUpFx {
 
 export interface ISignInFx {
   url: string
-  username: string
+  email: string
   password: string
 }
 
 export interface IUser {
-  username: string
+  name: string
   userId: number | string
   email: string
+  roles: [{ id: number; value: string }]
+}
+
+export interface UserState {
+  userData: IUser
+  isLogged: boolean
+  isAdmin: boolean
+  isLoading: boolean
+  error: string
+}
+
+const initialState: UserState = {
+  userData: {
+    userId: 0,
+    email: '',
+    name: '',
+    roles: [{ id: 0, value: 'USER' }],
+  },
+  isLogged: false,
+  isAdmin: false,
+  isLoading: false,
+  error: '',
 }

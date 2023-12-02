@@ -10,6 +10,7 @@ import { showAuthError } from '@/utils/errors'
 import { useState } from 'react'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { useRouter } from 'next/router'
+import EmailInput from '@/components/elements/AuthPage/EmailInput'
 
 const SignInForm = () => {
   const [spinner, setSpinner] = useState(false)
@@ -27,13 +28,13 @@ const SignInForm = () => {
   const onSubmit = async (data: IInputs) => {
     try {
       setSpinner(true)
-       await singInFx({
-        url: '/users/login',
+      await singInFx({
+        url: '/auth/login',
         password: data.password,
-        username: data.name,
+        email: data.email,
       })
-      
-      resetField('name')
+
+      resetField('email')
       resetField('password')
       route.push('/')
     } catch (error) {
@@ -46,7 +47,7 @@ const SignInForm = () => {
   return (
     <form className={styles.register_form} onSubmit={handleSubmit(onSubmit)}>
       <div className={`${styles.input} ${darkModeClass}`}>
-        <NameInput register={register} errors={errors} />
+        <EmailInput register={register} errors={errors} />
         <PasswordInput register={register} errors={errors} />
         <button className={`${styles.button} ${darkModeClass}`}>
           {spinner ? <div className={spinnerStyles.spinner} /> : ' Войти'}
