@@ -2,6 +2,8 @@ import { checkUserAuthFx } from '@/app/api/auth'
 import { setUser } from '@/context/user'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
+import { jwtDecode } from 'jwt-decode'
+import { IUser } from '@/types/auth'
 
 const useRedirectByUserCheck = (isAuthPage = false) => {
   const [shouldLoadContent, setShouldLoadContent] = useState(false)
@@ -18,6 +20,7 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
   const checkUser = async () => {
     const user = await checkUserAuthFx('/auth/login-check')
 
+
     if (isAuthPage) {
       if (!user) {
         setShouldLoadContent(true)
@@ -32,7 +35,7 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
       setUser(user)
       setShouldLoadContent(true)
       return
-    } 
+    }
 
     router.push('/')
   }

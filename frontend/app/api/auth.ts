@@ -24,8 +24,10 @@ export const singUpFx = createEffect(
 export const singInFx = createEffect(
   async ({ url, email, password }: ISignInFx) => {
     const result = await api.post(url, { email, password })
-    console.log('result' , result);
-    
+
+    const userData: IUser = await jwtDecode(result.data.accessToken)
+    console.log('userData', userData);
+
 
     toast.success('Вход выполнен!')
 
@@ -36,10 +38,14 @@ export const singInFx = createEffect(
     console.log('auth_connection', jwtDecode(data.accessToken)) */
     //localStorage.setItem('auth_connection', jwtDecode(data.accessToken))
     // localStorage.setItem("token", data.token);
-/*     setAuth(true);
-    setUsername(result.data.email) */
-    localStorage.setItem('auth', JSON.stringify(result.data))
-    console.log('auth', JSON.stringify(result.data))
+    /*     setAuth(true);
+        setUsername(result.data.email) */
+    //localStorage.setItem('auth', JSON.stringify(result.data))
+    //localStorage.setItem('auth', JSON.stringify(userData))
+    //localStorage.setItem('auth_connection', jwtDecode(result.data.accessToken))
+    ///console.log('auth', JSON.stringify(result.data))
+
+    localStorage.setItem('auth', JSON.stringify(userData))
 
     return result
   }
@@ -48,13 +54,25 @@ export const singInFx = createEffect(
 export const checkUserAuthFx = createEffect(
   async (url: string, token: string | any) => {
     try {
-      //const { data } = await api.get(url)
-      const data = jwtDecode(token)
+
+      const result = await api.get(url)
+
+      const userData: IUser = await jwtDecode(result.data.accessToken)
+
+      //localStorage.setItem('auth', JSON.stringify(userData))
+
+      return userData
+
+/*       const data: IUser = await jwtDecode(token)
+      //const data = jwtDecode(token)
 
       const { email, userId, name, roles } = data as IUser
 
+      localStorage.setItem('auth', JSON.stringify(data))
+
       return { email, userId, name, roles }
-      //return data
+      //return userData */
+
     } catch (error) {
       const axiosError = error as AxiosError
 

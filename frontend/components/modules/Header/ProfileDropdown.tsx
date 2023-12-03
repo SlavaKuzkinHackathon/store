@@ -16,7 +16,6 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
     const mode = useStore($mode)
     const user = useStore($user)
 
-    localStorage.setItem('auth_content', user.email)
 
     const router = useRouter()
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
