@@ -9,13 +9,14 @@ import { withClickOutside } from '@/utils/withClickOutside'
 import styles from '@/styles/profileDropDown/index.module.scss'
 import { logoutFx } from '@/app/api/auth'
 import { useRouter } from 'next/router'
-import { $tokenPayload, $user } from '@/context/user'
+import { $user } from '@/context/user'
 
 const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode)
     const user = useStore($user)
-    const token = useStore($tokenPayload)
+
+    localStorage.setItem('auth_content', user.email)
 
     const router = useRouter()
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
@@ -27,9 +28,6 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
       router.push('/auth')
     }
 
-console.log('token?.name', token?.name);
-
-    
     return (
       <div className={styles.profile} ref={ref}>
         <button className={styles.profile__btn} onClick={toggleProfileDropDown}>
@@ -50,12 +48,11 @@ console.log('token?.name', token?.name);
                 <span
                   className={`${styles.profile__dropdown__username} ${darkModeClass}`}
                 >
-                  {token?.name}
                   {user.name}
                 </span>
                 <span
                   className={`${styles.profile__dropdown__email} ${darkModeClass}`}
-                >{token?.email}
+                >
                   {user.email}
                 </span>
               </li>

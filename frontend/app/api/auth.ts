@@ -5,7 +5,6 @@ import { AxiosError } from 'axios'
 import { HTTPStatus } from '@/constans'
 import { ISignInFx, ISignUpFx, IUser } from '@/types/auth'
 import { jwtDecode } from 'jwt-decode'
-import IAuthResponse from '@/types/IAuthResponse'
 
 export const singUpFx = createEffect(
   async ({ url, username, password, email }: ISignUpFx) => {
@@ -24,44 +23,51 @@ export const singUpFx = createEffect(
 
 export const singInFx = createEffect(
   async ({ url, email, password }: ISignInFx) => {
-    const { data } = await api.post(url, { email, password })
+    const result = await api.post(url, { email, password })
+    console.log('result' , result);
+    
 
     toast.success('Вход выполнен!')
 
-   /*  localStorage.setItem('auth_connection', jwtDecode(data.accessToken))
+    /*  localStorage.setItem('auth_connection', jwtDecode(data.accessToken))
     localStorage.setItem('auth', JSON.stringify(data.result));
     //const dataToken = jwtDecode(data.accessToken)
     //console.log('dataToken', dataToken)
     console.log('auth_connection', jwtDecode(data.accessToken)) */
     //localStorage.setItem('auth_connection', jwtDecode(data.accessToken))
-    localStorage.setItem("token", data.token);
+    // localStorage.setItem("token", data.token);
+/*     setAuth(true);
+    setUsername(result.data.email) */
+    localStorage.setItem('auth', JSON.stringify(result.data))
+    console.log('auth', JSON.stringify(result.data))
 
-    return data
+    return result
   }
 )
 
-export const checkUserAuthFx = createEffect(async (url: string, token: string | any) => {
-  try {
-    //const { data } = await api.get(url)
-    const data = jwtDecode(token);
+export const checkUserAuthFx = createEffect(
+  async (url: string, token: string | any) => {
+    try {
+      //const { data } = await api.get(url)
+      const data = jwtDecode(token)
 
-		const { email, userId, name, roles } = data as IUser;
-   
-    
-		return { email, userId, name, roles };
-    //return data
-  } catch (error) {
-    const axiosError = error as AxiosError
+      const { email, userId, name, roles } = data as IUser
 
-    if (axiosError.response) {
-      if (axiosError.response.status === HTTPStatus.FORBIDDEN) {
-        return false
+      return { email, userId, name, roles }
+      //return data
+    } catch (error) {
+      const axiosError = error as AxiosError
+
+      if (axiosError.response) {
+        if (axiosError.response.status === HTTPStatus.FORBIDDEN) {
+          return false
+        }
       }
-    }
 
-    //toast.error((error as Error).message)
+      //toast.error((error as Error).message)
+    }
   }
-})
+)
 
 export const logoutFx = createEffect(async (url: string) => {
   try {
