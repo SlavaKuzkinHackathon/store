@@ -8,7 +8,7 @@ interface CounterProps {
 }
 const Counter: FC<CounterProps> = ({ productId, amount, changeAmount }) => {
   const [count, setCount] = useState<number>(1);
-  amount &&
+  /* amount && */
     useEffect(() => {
       setCount(amount);
     }, [amount]);

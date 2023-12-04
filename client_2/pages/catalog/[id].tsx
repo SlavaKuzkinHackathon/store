@@ -30,7 +30,7 @@ export default function CatalogPage(): JSX.Element {
         )
       );
     }
-  }, [id, page, sortChecked]);
+  }, [dispatch, id, page, limit, sortChecked]);
 
   return (
     <Layout

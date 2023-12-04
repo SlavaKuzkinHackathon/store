@@ -5,6 +5,7 @@ import { AxiosError } from 'axios'
 import { HTTPStatus } from '@/constans'
 import { ISignInFx, ISignUpFx, IUser } from '@/types/auth'
 import { jwtDecode } from 'jwt-decode'
+import IAuthResponse from '@/types/IAuthResponse'
 
 export const singUpFx = createEffect(
   async ({ url, username, password, email }: ISignUpFx) => {
@@ -23,10 +24,10 @@ export const singUpFx = createEffect(
 
 export const singInFx = createEffect(
   async ({ url, email, password }: ISignInFx) => {
-    const result = await api.post(url, { email, password })
+    const { data } = await api.post(url, { email, password })
 
-    const userData: IUser = await jwtDecode(result.data.accessToken)
-    console.log('userData', userData);
+    /* const userData: IUser = await jwtDecode(data.accessToken)
+    console.log('userData', userData); */
 
 
     toast.success('Вход выполнен!')
@@ -45,33 +46,40 @@ export const singInFx = createEffect(
     //localStorage.setItem('auth_connection', jwtDecode(result.data.accessToken))
     ///console.log('auth', JSON.stringify(result.data))
 
-    localStorage.setItem('auth', JSON.stringify(userData))
 
-    return result
+    localStorage.setItem('auth_connection', data.token);
+    return data;
+
+    //return jwtDecode(data.accessToken)
   }
 )
 
+
 export const checkUserAuthFx = createEffect(
-  async (url: string, token: string | any) => {
+  async (/* url: string,  */token: string | any) => {
     try {
 
-      const result = await api.get(url)
+      const data = jwtDecode(token);
 
-      const userData: IUser = await jwtDecode(result.data.accessToken)
+      const { email, userId, name } = data as IUser;
+
+      return { email, userId, name };
+
+      //const userData: IUser = await jwtDecode(result.data.accessToken)
 
       //localStorage.setItem('auth', JSON.stringify(userData))
 
-      return userData
+      //return data
 
-/*       const data: IUser = await jwtDecode(token)
-      //const data = jwtDecode(token)
-
-      const { email, userId, name, roles } = data as IUser
-
-      localStorage.setItem('auth', JSON.stringify(data))
-
-      return { email, userId, name, roles }
-      //return userData */
+      /*       const data: IUser = await jwtDecode(token)
+            //const data = jwtDecode(token)
+      
+            const { email, userId, name, roles } = data as IUser
+      
+            localStorage.setItem('auth', JSON.stringify(data))
+      
+            return { email, userId, name, roles }
+            //return userData */
 
     } catch (error) {
       const axiosError = error as AxiosError

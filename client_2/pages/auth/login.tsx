@@ -30,7 +30,7 @@ export default function LoginPage(): JSX.Element {
     if (isLogged) {
       router.back();
     }
-  }, [isLogged]);
+  }, [router, isLogged]);
 
   const validationSchema = yup.object().shape({
     email: yup.string().email("Некорректный email").required("Введите email"),
@@ -101,7 +101,7 @@ export default function LoginPage(): JSX.Element {
           </Formik>
           <p className={styles.linkText}>
             Нет аккаунта?
-            <Link href={RouteNames.REGISTRATION} passHref legacyBehavior>
+            <Link href={RouteNames.REGISTRATION}>
               <a className={styles.link}>Зарегистрироваться</a>
             </Link>
           </p>

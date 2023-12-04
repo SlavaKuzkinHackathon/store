@@ -20,14 +20,14 @@ const Layout: FC<LayoutProps> = ({ headTitle, children }) => {
   useEffect(() => {
     dispatch(AuthAsyncActionCreators.checkAuth());
     dispatch(CatalogAsyncActionCreators.fetchAll());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      {/* <Head>
+      <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <title>{headTitle} | TableFair</title> 
-      </Head> */}
+        <title>{headTitle} | TableFair</title>
+      </Head>
       <div className={styles.wrapper}>
         {isLoading ? (
           <Loader />

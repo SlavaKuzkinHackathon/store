@@ -47,7 +47,7 @@ const Reviews: FC<ReviewsProps> = ({ productId, reviews }) => {
 
   useEffect(() => {
     setReviewsList(reviews);
-  }, []);
+  }, [reviews]);
 
   return (
     <article className={styles.reviews}>
@@ -116,7 +116,7 @@ const Reviews: FC<ReviewsProps> = ({ productId, reviews }) => {
       ) : (
         <p className={styles.linkText}>
           Войдите, чтобы оставить отзыв.
-          <Link href={RouteNames.LOGIN} passHref legacyBehavior>
+          <Link href={RouteNames.LOGIN}>
             <a className={styles.link}>Войти</a>
           </Link>
         </p>

@@ -28,7 +28,7 @@ export interface IUser {
   name: string
   userId: number | string
   email: string
-  roles: [{ id: number; value: string }]
+  //roles: [{ id: number; value: string }]
 }
 
 export interface UserState {
@@ -44,7 +44,7 @@ const initialState: UserState = {
     userId: 0,
     email: '',
     name: '',
-    roles: [{ id: 0, value: 'USER' }],
+    //roles: [{ id: 0, value: 'USER' }],
   },
   isLogged: false,
   isAdmin: false,

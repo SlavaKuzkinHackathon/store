@@ -1,6 +1,6 @@
 import { FC } from "react";
 import ContentLoader from "react-content-loader";
-import { useAppSelector } from "../../store";
+//import { useAppSelector } from "../../store";
 import styles from "./SceletonCard.module.scss";
 
 const SceletonCards: FC = () => {

@@ -39,7 +39,7 @@ export default function AdminPage(): JSX.Element {
         )
       );
     }
-  }, [selectedCatalogId, isLogged, isAdmin]);
+  }, [push, dispatch, selectedCatalogId, isLogged, isAdmin]);
 
   const addProductInfo = () => {
     setProductInfos([

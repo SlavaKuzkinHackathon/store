@@ -43,7 +43,7 @@ export default function CartPage(): JSX.Element {
     if (isLogged) {
       dispatch(CartAsyncActionCreators.fetchBookings(userData.id));
     }
-  }, []);
+  }, [dispatch, isLogged, userData.id]);
 
   if (isAdmin) {
     push(RouteNames.HOST);
@@ -61,7 +61,7 @@ export default function CartPage(): JSX.Element {
                 <p>Спасибо за покупку в нашем магазине.</p>
                 <p>
                   Чтобы отследить статус заказа перейдите в корзину в раздел
-                  "Мои заказы".
+                   Мои заказы.
                 </p>
                 <p>
                   При возникновении вопросов или изменении заказа пишите на нашу
@@ -200,7 +200,7 @@ export default function CartPage(): JSX.Element {
                   ) : (
                     <p className={styles.linkText}>
                       Для заказа необходимо войти в аккаунт
-                      <Link href={RouteNames.LOGIN} passHref legacyBehavior>
+                      <Link href={RouteNames.LOGIN}>
                         <a className={styles.link}>Войти</a>
                       </Link>
                     </p>
@@ -240,8 +240,8 @@ export default function CartPage(): JSX.Element {
                         <div className={styles.bookingItem}>
                           {booking.Bookinginfos.map((item) => {
                             return (
-                              <div>
-                                {item.product.name} ({item.amount} шт.)
+                              <div key={item.product.name}>
+                                 ({item.amount} шт.)
                               </div>
                             );
                           })}
@@ -271,7 +271,7 @@ export default function CartPage(): JSX.Element {
             ) : (
               <p className={styles.linkText}>
                 Войдите, чтобы увидеть свои заказы
-                <Link href={RouteNames.LOGIN} passHref legacyBehavior>
+                <Link href={RouteNames.LOGIN}>
                   <a className={styles.link}>Войти</a>
                 </Link>
               </p>

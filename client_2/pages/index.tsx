@@ -18,7 +18,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(ProductAsyncActionCreators.fetchNewAndPopularProducts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Layout headTitle="Интернет-магазин">
@@ -27,7 +27,7 @@ export default function Home() {
           {catalogList.map((catalog) => {
             return (
               <li key={catalog.id} className="item">
-                <Link href={`${RouteNames.CATALOG}/${catalog.id}`} passHref legacyBehavior>
+                <Link href={`${RouteNames.CATALOG}/${catalog.id}`}>
                   <a className={classNames("link", "linkCatalog")}>
                     {catalog.name}
                   </a>
