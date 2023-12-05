@@ -18,10 +18,16 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
   }, [])
 
   const checkUser = async () => {
-    //const user = await checkUserAuthFx('/auth/login-check')
-    const token = localStorage.getItem('auth_connection');
+    const user = await checkUserAuthFx('/auth/login-check')
+    //localStorage.setItem('auth_connect', user)
+   /*  const token = localStorage.getItem('auth_con');
+		const user = await checkUserAuthFx(token) */
+    //localStorage.setItem('auth_connect', JSON.stringify(user.accessToken))
+    /* const userData: IUser = await jwtDecode(token)
+    const user = await checkUserAuthFx(userData); 
+    const token = localStorage.getItem('auth_con');
 		const user = await checkUserAuthFx(token);
-
+    */
 
     if (isAuthPage) {
       if (!user) {
