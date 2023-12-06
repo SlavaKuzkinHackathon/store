@@ -31,7 +31,7 @@ export interface IUser {
   roles: [{ id: number; value: string }]
 }
 
-export interface UserState {
+export interface IUserState {
   userData: IUser
   isLogged: boolean
   isAdmin: boolean
@@ -39,7 +39,7 @@ export interface UserState {
   error: string
 }
 
-const initialState: UserState = {
+const initialState: IUserState = {
   userData: {
     userId: 0,
     email: '',

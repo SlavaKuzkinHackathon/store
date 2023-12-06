@@ -1,3 +1,4 @@
+
 import { createEffect } from 'effector-next'
 import { toast } from 'react-toastify'
 import api from '../axiosClient'
@@ -5,7 +6,7 @@ import { AxiosError } from 'axios'
 import { HTTPStatus } from '@/constans'
 import { ISignInFx, ISignUpFx, IUser } from '@/types/auth'
 import { jwtDecode } from 'jwt-decode'
-import { setAuth, setUser, setUserName } from '@/context/user'
+import { setUser} from '@/context/user'
 
 export const singUpFx = createEffect(
   async ({ url, name, password, email }: ISignUpFx) => {
@@ -44,10 +45,7 @@ export const checkUserAuthFx = createEffect(async (token: string | any ) => {
 		const { email, userId, name, roles } = data as IUser;
 
 		return { email, userId, name, roles };
-   /*  const { data } = await api.get(url)
 
-
-    return data */
 
   } catch (error) {
     const axiosError = error as AxiosError
@@ -69,3 +67,5 @@ export const logoutFx = createEffect(async (url: string) => {
     toast.error((error as Error).message)
   }
 })
+
+

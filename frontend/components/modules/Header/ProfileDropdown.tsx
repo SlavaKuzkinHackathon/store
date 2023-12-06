@@ -1,3 +1,4 @@
+
 import { useEvent, useStore } from 'effector-react'
 import { forwardRef } from 'react'
 import ProfileSvg from '@/components/elements/ProfileSvg/ProfileSvg'
@@ -9,12 +10,13 @@ import { withClickOutside } from '@/utils/withClickOutside'
 import styles from '@/styles/profileDropDown/index.module.scss'
 import { logoutFx } from '@/app/api/auth'
 import { useRouter } from 'next/router'
-import { $auth, $user, $username } from '@/context/user'
+import { $user, $userstate } from '@/context/user'
 
 const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode)
     const user = useStore($user)
+    const userState= useStore($userstate)
 
 
     const router = useRouter()
