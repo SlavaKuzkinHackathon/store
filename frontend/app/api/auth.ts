@@ -5,10 +5,11 @@ import { AxiosError } from 'axios'
 import { HTTPStatus } from '@/constans'
 import { ISignInFx, ISignUpFx, IUser } from '@/types/auth'
 import { jwtDecode } from 'jwt-decode'
+import { setAuth, setUser, setUserName } from '@/context/user'
 
 export const singUpFx = createEffect(
-  async ({ url, username, password, email }: ISignUpFx) => {
-    const { data } = await api.post(url, { username, password, email })
+  async ({ url, name, password, email }: ISignUpFx) => {
+    const { data } = await api.post(url, { name, password, email })
 
     if (data.warningMessage) {
       toast.warning(data.warningMessage)
@@ -23,26 +24,25 @@ export const singUpFx = createEffect(
 
 export const singInFx = createEffect(
   async ({ url, email, password }: ISignInFx) => {
-    const { data } = await api.post(url, { email, password })
+    const result = await api.post(url, { email, password })
 
-    const userData: IUser = await jwtDecode(data.accessToken)
-    /*.log('userData', userData) */
+    const userData: IUser = await jwtDecode(result.data.accessToken)
+    setUser(userData)
+
+    localStorage.setItem('auth', JSON.stringify(result.data))
 
     toast.success('Вход выполнен!')
-
-    localStorage.setItem('auth', JSON.stringify(userData))
-
-    return userData
+    return result
   }
 )
 
-export const checkUserAuthFx = createEffect(async (url: string) => {
+export const checkUserAuthFx = createEffect(async (url: string ) => {
   try {
     const { data } = await api.get(url)
-    const userData: IUser = await jwtDecode(data.accessToken)
-    localStorage.setItem('auth_connect', JSON.stringify(userData))
+
 
     return data
+
   } catch (error) {
     const axiosError = error as AxiosError
 
@@ -52,7 +52,7 @@ export const checkUserAuthFx = createEffect(async (url: string) => {
       }
     }
 
-    // toast.error((error as Error).message)
+    toast.error((error as Error).message)
   }
 })
 

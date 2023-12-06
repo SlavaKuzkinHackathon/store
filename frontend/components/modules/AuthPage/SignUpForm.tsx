@@ -25,18 +25,18 @@ const SignUpForm = () => {
 
   const onSubmit = async (data: IInputs) => {
     try {
-      const userData = await singUpFx({
+      const userDataReg = await singUpFx({
         url: '/auth/registration',
-        username: data.username,
+        name: data.name,
         password: data.password,
         email: data.email,
       })
 
-      if(!userData){
+      if(!userDataReg){
         return
       }
-      console.log(userData);
-      resetField('username')
+      console.log(userDataReg);
+      resetField('name')
       resetField('email')
       resetField('password')
     } catch (error) {
