@@ -16,7 +16,9 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
   }, [])
 
   const checkUser = async () => {
-    const user = await checkUserAuthFx('/auth/login-check')
+    //const user = await checkUserAuthFx('/auth/login-check')
+    const token = localStorage.getItem('auth_connection');
+		const user = await checkUserAuthFx(token);
 
     if (isAuthPage) {
       if (!user) {
