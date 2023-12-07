@@ -28,6 +28,8 @@ export const singInFx = createEffect(
     const result = await api.post(url, { email, password })
 
     const userData: IUser = await jwtDecode(result.data.accessToken)
+    console.log('userData', userData);
+    
     setUser(userData)
 
     localStorage.setItem('auth', JSON.stringify(result.data))
