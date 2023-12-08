@@ -10,23 +10,25 @@ import {
 } from 'effector-next'
 
 const user = createDomain()
+const userState = createDomain()
 
 export const setUser = user.createEvent<IUser>()
 export const setUserCity = user.createEvent<{ city: string; street: string }>()
 
-/**запасной стейт */
+/**запасной стейт 
 export const setAuth = user.createEvent<boolean>()
-export const setUserState = user.createEvent<IUserState>()
+export const setUserState = userState.createEvent<IUserState>()
 
-export const $auth = user
+export const $auth = userState
   .createStore<boolean>(false)
   .on(setAuth, (_, value) => value)
 
-export const $userstate = user
+export const $userstate = userState
   .createStore<IUserState>({} as IUserState)
   .on(setUserState, (_, value) => value)
 
-/** */
+ */
+
 
 export const $user = user
   .createStore<IUser>({} as IUser)
@@ -37,5 +39,21 @@ export const $userCity = user
   .on(setUserCity, (_, city) => city)
 
 /**07.12 */
+
+export const setUserState = userState.createEvent<IUserState>()
+export const $userstate = userState
+  .createStore<IUserState>({
+  userData: {
+    userId: 0,
+    email: '',
+    name: '',
+    roles: [{ id: 0, value: 'USER' }],
+  },
+  isLogged: false,
+  isAdmin: false,
+  isLoading: false,
+  error: '',
+})
+.on(setUserState, (_, value) => value)
 
 

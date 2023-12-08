@@ -31,6 +31,8 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
       router.push('/auth')
     }
 
+    console.log('userState.isLogged', userState.isLogged);
+    
 
     return (
       <div className={styles.profile} ref={ref}>

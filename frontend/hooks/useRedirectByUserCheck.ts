@@ -31,7 +31,7 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
     }
 
     if (user) {
-     setUser(user)
+     setUserState(user)
       
       setShouldLoadContent(true)
       return
