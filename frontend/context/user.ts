@@ -10,7 +10,7 @@ import {
 } from 'effector-next'
 
 const user = createDomain()
-const userState = createDomain()
+
 
 export const setUser = user.createEvent<IUser>()
 export const setUserCity = user.createEvent<{ city: string; street: string }>()
@@ -38,8 +38,14 @@ export const $userCity = user
   .on(setUserCity, (_, city) => city)
 
 /**07.12 */
-
+const userState = createDomain()
+export const setAuth = userState.createEvent<boolean>()
 export const setUserState = userState.createEvent<IUserState>()
+
+export const $auth = userState
+  .createStore<boolean>(false)
+  .on(setAuth, (_, value) => value)
+
 export const $userstate = userState
   .createStore<IUserState>({
     userId: 0,
