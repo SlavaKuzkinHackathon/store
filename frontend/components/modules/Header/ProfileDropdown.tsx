@@ -51,7 +51,7 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
               style={{ transformOrigin: 'right top' }}
             >
               <li className={styles.profile__dropdown__item}>
-                {userState.isLogged ? (
+                {/* {userState.isLogged ? ( */}
                   <span
                     className={`${styles.profile__dropdown__username} ${darkModeClass}`}
                   >
@@ -73,10 +73,10 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                       </Link>
                       
                     ) : (
-                       user.name 
+                       userState.name 
                     )}
                   </span>
-                ) : (
+                {/* ) : ( */}
                   <Link href={'/auth'} passHref legacyBehavior>
                     <button className={styles.profile__dropdown__item__btn}>
                       <span
@@ -86,7 +86,7 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                       </span>
                     </button>
                   </Link>
-                 )} 
+                 {/* )}  */}
               </li>
               { userState.isLogged  &&  (
                   <li className={styles.profile__dropdown__item}>

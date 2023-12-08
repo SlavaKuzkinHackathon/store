@@ -32,14 +32,17 @@ export interface IUser {
 }
 
 export interface IUserState {
-  userData: IUser
+  name: string
+  userId: number | string
+  email: string
+  roles: [{ id: number; value: string }]
   isLogged: boolean
   isAdmin: boolean
   isLoading: boolean
   error: string
 }
 
-const initialState: IUserState = {
+/* const initialState: IUserState = {
   userData: {
     userId: 0,
     email: '',
@@ -50,4 +53,4 @@ const initialState: IUserState = {
   isAdmin: false,
   isLoading: false,
   error: '',
-}
+} */

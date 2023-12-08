@@ -29,7 +29,6 @@ export const $userstate = userState
 
  */
 
-
 export const $user = user
   .createStore<IUser>({} as IUser)
   .on(setUser, (_, user) => user)
@@ -43,17 +42,13 @@ export const $userCity = user
 export const setUserState = userState.createEvent<IUserState>()
 export const $userstate = userState
   .createStore<IUserState>({
-  userData: {
     userId: 0,
     email: '',
     name: '',
     roles: [{ id: 0, value: 'USER' }],
-  },
-  isLogged: false,
-  isAdmin: false,
-  isLoading: false,
-  error: '',
-})
-.on(setUserState, (_, value) => value)
-
-
+    isLogged: false,
+    isAdmin: false,
+    isLoading: false,
+    error: '',
+  })
+  .on(setUserState, (_, value) => value)

@@ -42,26 +42,14 @@ export const checkUserAuthFx = createEffect(async (token: string | any) => {
   try {
     const data = jwtDecode(token)
 
-    const {
-      userData: {
-        userId,
-        email,
-        name,
-        roles,
-      },
-      isLogged,
-      isAdmin,
-      isLoading,
-      error,
-    } = data as IUserState
+    const { userId, email, name, roles, isLogged, isAdmin, isLoading, error } =
+      data as IUserState
 
     return {
-      userData: {
-        userId,
-        email,
-        name,
-        roles,
-      },
+      userId,
+      email,
+      name,
+      roles,
       isLogged,
       isAdmin,
       isLoading,
