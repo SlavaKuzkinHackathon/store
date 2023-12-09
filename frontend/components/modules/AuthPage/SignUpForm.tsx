@@ -11,6 +11,7 @@ import { showAuthError } from '@/utils/errors'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { useState } from 'react'
 import { setAuth } from '@/context/user'
+import { useRouter } from 'next/router'
 
 const SignUpForm = () => {
   const [spinner, setSpinner] = useState(false)
@@ -23,6 +24,7 @@ const SignUpForm = () => {
     handleSubmit,
     resetField,
   } = useForm<IInputs>()
+  const route = useRouter()
 
   const onSubmit = async (data: IInputs) => {
     try {
@@ -41,6 +43,7 @@ const SignUpForm = () => {
       resetField('name')
       resetField('email')
       resetField('password')
+      route.push('/')
     } catch (error) {
       showAuthError(error)
     } finally {
