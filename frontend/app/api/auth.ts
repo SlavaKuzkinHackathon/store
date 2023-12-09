@@ -11,10 +11,11 @@ export const singUpFx = createEffect(
   async ({ url, name, password, email }: ISignUpFx) => {
     const { data } = await api.post(url, { name, password, email })
     const userDataReg: IUser = await jwtDecode(data.accessToken)
-    console.log('userDataReg' , userDataReg);
+
      setUser(userDataReg)
 
      localStorage.setItem('auth_registration' , JSON.stringify(data.accessToken))
+     
     if (data.warningMessage) {
       toast.warning(data.warningMessage)
       return
@@ -33,8 +34,7 @@ export const singInFx = createEffect(
     const result = await api.post(url, { email, password })
 
     const userData: IUser = await jwtDecode(result.data.accessToken)
-    console.log('userData', userData)
-
+    
     setUser(userData)
 
     localStorage.setItem('auth', JSON.stringify(result.data))
