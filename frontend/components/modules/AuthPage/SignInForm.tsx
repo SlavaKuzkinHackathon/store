@@ -11,6 +11,7 @@ import { useState } from 'react'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { useRouter } from 'next/router'
 import EmailInput from '@/components/elements/AuthPage/EmailInput'
+import { setAuth } from '@/context/user'
 
 const SignInForm = () => {
   const [spinner, setSpinner] = useState(false)
@@ -33,7 +34,7 @@ const SignInForm = () => {
         password: data.password,
         email: data.email,
       })
-
+      setAuth(true)
       resetField('email')
       resetField('password')
       route.push('/')

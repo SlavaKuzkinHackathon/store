@@ -10,6 +10,7 @@ import { singUpFx } from '@/app/api/auth'
 import { showAuthError } from '@/utils/errors'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { useState } from 'react'
+import { setAuth } from '@/context/user'
 
 const SignUpForm = () => {
   const [spinner, setSpinner] = useState(false)
@@ -36,6 +37,7 @@ const SignUpForm = () => {
         return
       }
       console.log(userDataReg);
+      setAuth(true)
       resetField('name')
       resetField('email')
       resetField('password')

@@ -10,7 +10,11 @@ import { setAuth, setUser, setUserState } from '@/context/user'
 export const singUpFx = createEffect(
   async ({ url, name, password, email }: ISignUpFx) => {
     const { data } = await api.post(url, { name, password, email })
+    const userDataReg: IUser = await jwtDecode(data.accessToken)
+    console.log('userDataReg' , userDataReg);
+     setUser(userDataReg)
 
+     localStorage.setItem('auth_registration' , JSON.stringify(data.accessToken))
     if (data.warningMessage) {
       toast.warning(data.warningMessage)
       return
@@ -37,7 +41,7 @@ export const singInFx = createEffect(
 
     toast.success('Вход выполнен!')
     
-      return setAuth(true)
+      return result
   
   }
 )
