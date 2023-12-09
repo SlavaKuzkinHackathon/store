@@ -1,4 +1,3 @@
-
 import { useEvent, useStore } from 'effector-react'
 import { forwardRef } from 'react'
 import ProfileSvg from '@/components/elements/ProfileSvg/ProfileSvg'
@@ -10,7 +9,14 @@ import { withClickOutside } from '@/utils/withClickOutside'
 import styles from '@/styles/profileDropDown/index.module.scss'
 import { logoutFx } from '@/app/api/auth'
 import { useRouter } from 'next/router'
-import { $user, $userstate } from '@/context/user'
+import {
+  $auth,
+  $globalState,
+  $user,
+  $userstate,
+  setUser,
+  setUserState,
+} from '@/context/user'
 import PlusCircleOutlined from '@/components/elements/PlusCircleOutlined/PlusCircleOutlined'
 import Link from 'next/link'
 
@@ -18,8 +24,9 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode)
     const user = useStore($user)
-    const userState= useStore($userstate)
-
+    const userState = useStore($userstate)
+    const auth = useStore($auth)
+    const globalState = useStore($globalState)
 
     const router = useRouter()
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
@@ -31,8 +38,7 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
       router.push('/auth')
     }
 
-    console.log('userState.isLogged', userState.isLogged);
-    
+    console.log('auth', auth)
 
     return (
       <div className={styles.profile} ref={ref}>
@@ -51,12 +57,12 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
               style={{ transformOrigin: 'right top' }}
             >
               <li className={styles.profile__dropdown__item}>
-                {/* {userState.isLogged ? ( */}
+                {auth ? (
                   <span
                     className={`${styles.profile__dropdown__username} ${darkModeClass}`}
                   >
-                    { /* isAdmin */  userState.isAdmin ?  (
-                      <Link href={'/admin'} passHref legacyBehavior>
+                    {/* {   userState.isAdmin ?  ( */}
+                    {/* <Link href={'/admin'} passHref legacyBehavior>
                         <button className={styles.profile__dropdown__item__btn}>
                           <span
                             className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}
@@ -70,13 +76,13 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                             
                           </span>
                         </button>
-                      </Link>
-                      
-                    ) : (
-                       userState.name 
-                    )}
+                      </Link> */}
+
+                    {/* ) : ( */}
+                    {user.name}
+                    {/*   )} */}
                   </span>
-                {/* ) : ( */}
+                ) : (
                   <Link href={'/auth'} passHref legacyBehavior>
                     <button className={styles.profile__dropdown__item__btn}>
                       <span
@@ -86,26 +92,26 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                       </span>
                     </button>
                   </Link>
-                 {/* )}  */}
+                )}
               </li>
-              { userState.isLogged  &&  (
-                  <li className={styles.profile__dropdown__item}>
-                    <button
-                      className={styles.profile__dropdown__item__btn}
-                      onClick={handleLogout}
+              {auth && (
+                <li className={styles.profile__dropdown__item}>
+                  <button
+                    className={styles.profile__dropdown__item__btn}
+                    onClick={handleLogout}
+                  >
+                    <span
+                      className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}
                     >
-                      <span
-                        className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}
-                      >
-                        Выйти
-                      </span>
-                      <span
-                        className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}
-                      >
-                        <LogoutSvg />
-                      </span>
-                    </button>
-                  </li>
+                      Выйти
+                    </span>
+                    <span
+                      className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}
+                    >
+                      <LogoutSvg />
+                    </span>
+                  </button>
+                </li>
               )}
             </motion.ul>
           )}
@@ -118,8 +124,6 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
 ProfileDropDown.displayName = 'ProfileDropDown'
 
 export default withClickOutside(ProfileDropDown)
-
-
 
 /* 
 import { useEvent, useStore } from 'effector-react'

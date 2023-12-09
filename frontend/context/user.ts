@@ -38,23 +38,28 @@ export const $userCity = user
   .on(setUserCity, (_, city) => city)
 
 /**07.12 */
-const userState = createDomain()
-export const setAuth = userState.createEvent<boolean>()
-export const setUserState = userState.createEvent<IUserState>()
+export const setAuth = user.createEvent<boolean>()
+export const setUserState = user.createEvent<IUserState>()
 
-export const $auth = userState
+export const $auth = user
   .createStore<boolean>(false)
   .on(setAuth, (_, value) => value)
 
-export const $userstate = userState
+export const $userstate = user
   .createStore<IUserState>({
-    userId: 0,
-    email: '',
-    name: '',
-    roles: [{ id: 0, value: 'USER' }],
     isLogged: false,
     isAdmin: false,
     isLoading: false,
     error: '',
   })
   .on(setUserState, (_, value) => value)
+
+
+
+
+
+  export const $globalState = combine(
+    $user,
+    $userstate,
+    $auth
+  )
