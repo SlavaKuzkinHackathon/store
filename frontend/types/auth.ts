@@ -31,11 +31,4 @@ export interface IUser {
   roles: [{ id: number; value: string }]
 }
 
-export interface IUserState {
-  isLogged: boolean
-  isAdmin: boolean
-  isLoading: boolean
-  error: string
-}
-
 

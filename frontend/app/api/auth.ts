@@ -3,9 +3,9 @@ import { toast } from 'react-toastify'
 import api from '../axiosClient'
 import { AxiosError } from 'axios'
 import { HTTPStatus } from '@/constans'
-import { ISignInFx, ISignUpFx, IUser, IUserState } from '@/types/auth'
+import { ISignInFx, ISignUpFx, IUser} from '@/types/auth'
 import { jwtDecode } from 'jwt-decode'
-import { setAuth, setUser, setUserState } from '@/context/user'
+import { setAuth, setUser,} from '@/context/user'
 
 export const singUpFx = createEffect(
   async ({ url, name, password, email }: ISignUpFx) => {

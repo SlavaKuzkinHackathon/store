@@ -1,5 +1,5 @@
 import { checkUserAuthFx } from '@/app/api/auth'
-import { setUser, setUserState } from '@/context/user'
+import { setUser } from '@/context/user'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 
@@ -32,7 +32,6 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
 
     if (user) {
      setUser(user)
-      
       setShouldLoadContent(true)
       return
     }

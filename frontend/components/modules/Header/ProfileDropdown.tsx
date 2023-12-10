@@ -9,10 +9,7 @@ import { withClickOutside } from '@/utils/withClickOutside'
 import styles from '@/styles/profileDropDown/index.module.scss'
 import { logoutFx } from '@/app/api/auth'
 import { useRouter } from 'next/router'
-import {
-  $auth,
-  $user,
-} from '@/context/user'
+import { $auth, $user} from '@/context/user'
 import PlusCircleOutlined from '@/components/elements/PlusCircleOutlined/PlusCircleOutlined'
 import Link from 'next/link'
 
@@ -31,7 +28,7 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
       await logoutFx('/auth/logout')
       router.push('/auth')
     }
-
+    
     return (
       <div className={styles.profile} ref={ref}>
         <button className={styles.profile__btn} onClick={toggleProfileDropDown}>
@@ -53,8 +50,9 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                   <span
                     className={`${styles.profile__dropdown__username} ${darkModeClass}`}
                   >
-                    {/* {   userState.isAdmin ?  ( */}
-                    {/* <Link href={'/admin'} passHref legacyBehavior>
+                    { user.roles.findIndex((role) => role.id === 2) !== -1
+                     ? (
+                      <Link href={'/admin'} passHref legacyBehavior>
                         <button className={styles.profile__dropdown__item__btn}>
                           <span
                             className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}
@@ -65,14 +63,12 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
                             className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}
                           >
                             <PlusCircleOutlined />
-                            
                           </span>
                         </button>
-                      </Link> */}
-
-                    {/* ) : ( */}
-                    {user.name}
-                    {/*   )} */}
+                      </Link>
+                    ) : (
+                      user.name
+                    )}
                   </span>
                 ) : (
                   <Link href={'/auth'} passHref legacyBehavior>
