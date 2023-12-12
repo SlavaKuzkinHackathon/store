@@ -8,7 +8,6 @@ import {
 } from './models/product-info.model';
 import { Product } from './models/product.model';
 import { FilesService } from 'src/files/files.service';
-import { Review } from 'src/review/models/review.model';
 import { User } from 'src/user/user.model';
 
 @Injectable()
@@ -26,34 +25,30 @@ export class ProductService {
     sorting?: string,
   ): Promise<{ rows: Product[]; count: number } | Product[]> {
     if (!page || !limit) {
-      return await this.productRepository.findAll({ where: { catalogId } });
+      return await this.productRepository.findAll();
     }
     const offset = page * limit - limit;
     switch (sorting) {
       case 'cheaper':
         return await this.productRepository.findAndCountAll({
-          where: { catalogId },
           offset,
           limit,
           order: [['price', 'ASC']],
         });
       case 'expensive':
         return await this.productRepository.findAndCountAll({
-          where: { catalogId },
           offset,
           limit,
           order: [['price', 'DESC']],
         });
       case 'popular':
         return await this.productRepository.findAndCountAll({
-          where: { catalogId },
           offset,
           limit,
           order: [['rating', 'DESC']],
         });
       default:
         return await this.productRepository.findAndCountAll({
-          where: { catalogId },
           offset,
           limit,
         });
@@ -75,12 +70,7 @@ export class ProductService {
         {
           model: ProductInfo,
         },
-        {
-          model: Review,
-          include: [{ model: User, attributes: ['id', 'name'] }],
-        },
-      ],
-      order: [[{ model: Review, as: 'reviews' }, 'createdAt', 'DESC']],
+      ]
     });
 
     if (!product) {
@@ -138,16 +128,11 @@ export class ProductService {
   }> {
     const products = await this.productRepository.findAll({
       include: [
-        {
-          model: Review,
-        },
       ],
       order: [['createdAt', 'DESC']],
     });
     const novelties = products.slice(0, 4);
     const populars = products
-      .filter((product) => product.rating === 5 && product.reviews.length > 0)
-      .sort((a, b) => b.reviews.length - a.reviews.length)
       .slice(0, 8);
 
     return { novelties, populars };
@@ -193,16 +178,4 @@ export class ProductService {
     return `Товар ${product.name} с id=${id} удален`;
   }
 
-  async changeRating(id: number): Promise<void> {
-    const product = await this.productRepository.findByPk(id, {
-      include: Review,
-    });
-    const rating = (
-      product.reviews.reduce((sum, review) => {
-        return sum + review.rate;
-      }, 0) / product.reviews.length
-    ).toFixed(1);
-    product.rating = +rating;
-    await product.save();
-  }
 }

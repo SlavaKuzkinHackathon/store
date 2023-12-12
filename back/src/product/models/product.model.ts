@@ -8,10 +8,7 @@ import {
   BelongsTo,
   HasOne,
 } from 'sequelize-typescript';
-import { BookingInfo } from 'src/booking/models/booking-info.model';
 import { ProductInfo } from './product-info.model';
-import { Catalog } from '../../catalog/models/catalog.model';
-import { Review } from 'src/review/models/review.model';
 import { ApiProperty } from '@nestjs/swagger';
 
 interface ProductCreationAttrs {
@@ -50,20 +47,6 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   @ApiProperty({ example: 5, description: 'Рейтинг товара' })
   @Column({ type: DataType.FLOAT, allowNull: false, defaultValue: 0 })
   rating: number;
-
-  @HasMany(() => Review)
-  reviews: Review[];
-
-  @ApiProperty({ example: 1, description: 'Идентификатор каталога' })
-  @ForeignKey(() => Catalog)
-  @Column({ type: DataType.INTEGER })
-  catalogId: number;
-
-  @BelongsTo(() => Catalog)
-  catalog: Catalog;
-
-  @HasOne(() => BookingInfo, { onDelete: 'CASCADE' })
-  bookinginfo: BookingInfo;
 
   @HasMany(() => ProductInfo, { onDelete: 'CASCADE' })
   productInfo: ProductInfo[];

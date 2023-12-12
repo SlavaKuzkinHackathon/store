@@ -8,12 +8,10 @@ import {
   BelongsToMany,
   ForeignKey,
 } from 'sequelize-typescript';
-import { Review } from 'src/review/models/review.model';
 
 import { Role } from 'src/role/models/role.model';
 import { UserRole } from 'src/role/models/user-role.model';
 import { Token } from 'src/token/token.model';
-import { Booking } from '../booking/models/booking.model';
 
 interface UserCreationAttrs {
   email: string;
@@ -38,12 +36,6 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @Column({ type: DataType.STRING, allowNull: false })
   password: string;
-
-  @HasMany(() => Review, { onDelete: 'CASCADE' })
-  rates: Review[];
-
-  @HasMany(() => Booking, { onDelete: 'CASCADE' })
-  booking: Booking[];
 
   @BelongsToMany(() => Role, () => UserRole)
   roles: Role[];

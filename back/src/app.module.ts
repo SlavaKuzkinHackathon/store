@@ -5,22 +5,15 @@ import { User } from './user/user.model';
 import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/models/product.model';
-import { Booking } from './booking/models/booking.model';
-import { BookingInfo } from './booking/models/booking-info.model';
 import { ProductInfo } from './product/models/product-info.model';
 import { Role } from './role/models/role.model';
-import { BasketModule } from './booking/booking.module';
 import { UserRole } from './role/models/user-role.model';
 import { AuthModule } from './auth/auth.module';
 import { TokenModule } from './token/token.module';
-import { CatalogModule } from './catalog/catalog.module';
 import { Token } from './token/token.model';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { ReviewModule } from './review/review.module';
-import { Review } from './review/models/review.model';
-import { Catalog } from './catalog/models/catalog.model';
 
 @Module({
   imports: [
@@ -35,14 +28,10 @@ import { Catalog } from './catalog/models/catalog.model';
       models: [
         User,
         Product,
-        Catalog,
-        Booking,
-        BookingInfo,
         ProductInfo,
         Role,
         UserRole,
         Token,
-        Review,
       ],
       autoLoadModels: true,
       sync: { alter: true },
@@ -52,12 +41,9 @@ import { Catalog } from './catalog/models/catalog.model';
     }),
     UserModule,
     ProductModule,
-    BasketModule,
     AuthModule,
     TokenModule,
-    CatalogModule,
     FilesModule,
-    ReviewModule,
   ],
   controllers: [],
   providers: [],

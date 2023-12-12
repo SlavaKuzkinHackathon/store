@@ -24,9 +24,5 @@ async function start() {
   await app.listen(PORT, () => {
     console.log('Server started in PORT ' + PORT);
   });
-  console.log(__dirname) 
-  console.log(process.cwd())
-  console.log(__filename);
-  
 }
 start();

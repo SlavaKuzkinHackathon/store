@@ -1,0 +1,61 @@
+
+------------
+   .env server
+PORT=5000
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=slava
+POSTGRES_DB=mebel
+
+JWT_ACCESS_SECRET=123secret
+JWT_REFRESH_SECRET=secret123
+
+CLIENT_URL=http://localhost:3000
+------------
+
+ .env client
+NEXT_PUBLIC_API_BASEURL=http://localhost:5000/
+
+-----------
+sudo su - postgres 
+psql
+\l
+DROP DATABASE ----; 
+
+
+dropdb m_p
+----------
+sudo su - postgres
+
+createdb mebel -O postgres
+sudo su - postgres
+psql mebel
+
+psql mebel
+\dt - таблицы в базе данных
+
+
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+-удаление данных, и создание схемы в БД
+
+
+
+select * from users;
+select * from roles;
+select * from users_roles;
+select * from products;
+
+INSERT INTO roles VALUES (1, 'USER');
+INSERT INTO roles VALUES (2, 'ADMIN');
+
+
+INSERT INTO users_roles VALUES (2, 2);
+
+
+
+https://github.com/abkiselev/ecom
+https://github.com/TeemPresents/shop-ytb-client
+
+
