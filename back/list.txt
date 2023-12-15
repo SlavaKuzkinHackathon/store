@@ -21,7 +21,7 @@ NEXT_PUBLIC_API_BASEURL=http://localhost:5000/
 sudo su - postgres 
 psql
 \l
-DROP DATABASE ----; 
+DROP DATABASE ----;
 
 
 dropdb m_p
