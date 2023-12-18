@@ -4,9 +4,6 @@ import {
   Table,
   DataType,
   HasMany,
-  ForeignKey,
-  BelongsTo,
-  HasOne,
 } from 'sequelize-typescript';
 import { ProductInfo } from './product-info.model';
 import { ApiProperty } from '@nestjs/swagger';
@@ -15,7 +12,6 @@ interface ProductCreationAttrs {
   name: string;
   price: number;
   image: string;
-  catalogId: number;
 }
 
 @Table({ tableName: 'products', updatedAt: false })
@@ -36,6 +32,10 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   @ApiProperty({ example: 1000, description: 'Цена товара' })
   @Column({ type: DataType.INTEGER, allowNull: false })
   price: number;
+
+  @ApiProperty({ example: 20, description: 'Количество' })
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  in_stock: number;
 
   @ApiProperty({
     example: '91643f20-bf90-4ad6-a339-21460da42107.jpg',

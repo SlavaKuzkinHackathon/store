@@ -3,8 +3,8 @@ import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 
 export class UpdateProductDto {
   @ApiProperty({
-    example: 'Текст отзыва...',
-    description: 'Отзыв пользователя',
+    example: 'Наименования товара...',
+    description: 'Наименования товара',
   })
   readonly name: string;
 
@@ -15,14 +15,14 @@ export class UpdateProductDto {
   readonly price: number;
 
   @ApiProperty({
+    example: 1000,
+    description: 'Количество товара',
+  })
+  readonly in_stock: number;
+
+  @ApiProperty({
     example: '{title:"Название характаристики", description:"Описание"}',
     description: 'Характеристики товара',
   })
   readonly info: string;
-
-  @ApiProperty({
-    example: 1,
-    description: 'Идентификатор каталога',
-  })
-  readonly catalogId: number;
 }

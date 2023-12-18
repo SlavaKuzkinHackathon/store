@@ -8,7 +8,6 @@ import {
 } from './models/product-info.model';
 import { Product } from './models/product.model';
 import { FilesService } from 'src/files/files.service';
-import { User } from 'src/user/user.model';
 
 @Injectable()
 export class ProductService {
@@ -19,7 +18,6 @@ export class ProductService {
   ) {}
 
   async getProducts(
-    catalogId: number,
     page: number,
     limit: number,
     sorting?: string,
