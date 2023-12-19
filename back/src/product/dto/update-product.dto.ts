@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 
 export class UpdateProductDto {
   @ApiProperty({
@@ -7,6 +6,12 @@ export class UpdateProductDto {
     description: 'Наименования товара',
   })
   readonly name: string;
+
+  @ApiProperty({
+    example: 'Описание товара...',
+    description: 'Описание товара',
+  })
+  readonly description: string;
 
   @ApiProperty({
     example: 1000,
@@ -19,10 +24,4 @@ export class UpdateProductDto {
     description: 'Количество товара',
   })
   readonly in_stock: number;
-
-  @ApiProperty({
-    example: '{title:"Название характаристики", description:"Описание"}',
-    description: 'Характеристики товара',
-  })
-  readonly info: string;
 }

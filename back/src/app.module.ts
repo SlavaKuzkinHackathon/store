@@ -5,7 +5,6 @@ import { User } from './user/user.model';
 import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/models/product.model';
-import { ProductInfo } from './product/models/product-info.model';
 import { Role } from './role/models/role.model';
 import { UserRole } from './role/models/user-role.model';
 import { AuthModule } from './auth/auth.module';
@@ -28,7 +27,6 @@ import { join } from 'path';
       models: [
         User,
         Product,
-        ProductInfo,
         Role,
         UserRole,
         Token,

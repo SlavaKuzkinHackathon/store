@@ -11,23 +11,24 @@ export class CreateProductDto {
   readonly name: string;
 
   @ApiProperty({
-    example: 1000,
+    example: 'Описание товара',
+    description: 'Описание товара',
+  })
+  @IsNotEmpty({ message: 'Нет описание товара' })
+  @IsString({ message: 'Должно быть строкой' })
+  readonly description: string;
+
+  @ApiProperty({
+    example: 9000,
     description: 'Цена товара',
   })
   @IsNotEmpty({ message: 'Нет цены товара' })
   readonly price: number;
 
   @ApiProperty({
-    example: 20,
+    example: 3,
     description: 'Количество товара',
   })
   @IsNotEmpty({ message: 'Не указано количество товара' })
   readonly in_stock: number;
-
-  @ApiProperty({
-    example: '{title:"Название характаристики", description:"Описание"}',
-    description: 'Характеристики товара',
-  })
-  @IsString({ message: 'Должно быть строкой' })
-  readonly info: string;
 }

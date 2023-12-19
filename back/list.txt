@@ -46,6 +46,7 @@ select * from users;
 select * from roles;
 select * from users_roles;
 select * from products;
+select * from tokens;
 
 INSERT INTO roles VALUES (1, 'USER');
 INSERT INTO roles VALUES (2, 'ADMIN');
@@ -58,4 +59,26 @@ INSERT INTO users_roles VALUES (2, 2);
 https://github.com/abkiselev/ecom
 https://github.com/TeemPresents/shop-ytb-client
 
+
+
+{
+  "name": "Диван №1",
+  "description": "Прямой 1900*800",
+  "price": 9000,
+  "in_stock": 3
+}
+
+{
+  "name": "Диван №2",
+  "description": "Угловой 2900*800",
+  "price": 8000,
+  "in_stock": 5
+}
+
+{
+  "name": "Диван №3",
+  "description": "Угловой 2200*1800",
+  "price": 8000,
+  "in_stock": 5
+}
 

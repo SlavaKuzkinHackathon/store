@@ -2,10 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import {
-  ProductInfo,
-  ProductInfoCreationAttrs,
-} from './models/product-info.model';
 import { Product } from './models/product.model';
 import { FilesService } from 'src/files/files.service';
 
@@ -13,7 +9,7 @@ import { FilesService } from 'src/files/files.service';
 export class ProductService {
   constructor(
     @InjectModel(Product) private productRepository: typeof Product,
-    @InjectModel(ProductInfo) private productInfoRepository: typeof ProductInfo,
+   
     private filesService: FilesService,
   ) {}
 
@@ -64,11 +60,7 @@ export class ProductService {
 
   async getOneProduct(id: number): Promise<Product> {
     const product = await this.productRepository.findByPk(id, {
-      include: [
-        {
-          model: ProductInfo,
-        },
-      ]
+      
     });
 
     if (!product) {
@@ -102,20 +94,7 @@ export class ProductService {
       image: imageName,
     });
 
-    const productInfoArray: ProductInfoCreationAttrs[] = JSON.parse(
-      createProductDto.info,
-    );
-
-    if (productInfoArray.length) {
-      productInfoArray.forEach(
-        async (productInfo) =>
-          await this.productInfoRepository.create({
-            title: productInfo.title,
-            description: productInfo.description,
-            productId: product.id,
-          }),
-      );
-    }
+   
 
     return `Товар ${product.name} успешно создан`;
   }

@@ -5,7 +5,6 @@ import {
   DataType,
   HasMany,
 } from 'sequelize-typescript';
-import { ProductInfo } from './product-info.model';
 import { ApiProperty } from '@nestjs/swagger';
 
 interface ProductCreationAttrs {
@@ -29,6 +28,10 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   name: string;
 
+  @ApiProperty({ example: 'Описание', description: 'Описание товара' })
+  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  description: string;
+
   @ApiProperty({ example: 1000, description: 'Цена товара' })
   @Column({ type: DataType.INTEGER, allowNull: false })
   price: number;
@@ -47,7 +50,4 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   @ApiProperty({ example: 5, description: 'Рейтинг товара' })
   @Column({ type: DataType.FLOAT, allowNull: false, defaultValue: 0 })
   rating: number;
-
-  @HasMany(() => ProductInfo, { onDelete: 'CASCADE' })
-  productInfo: ProductInfo[];
 }
