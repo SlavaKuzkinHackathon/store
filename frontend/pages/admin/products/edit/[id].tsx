@@ -1,4 +1,4 @@
-import ProductsEdit from '@/components/ProductsEdit';
+//import ProductsEdit from '@/components/ProductsEdit';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
@@ -8,7 +8,7 @@ const AdminUserEditPage: NextPage = () => {
 
   return (
     <>
-        <ProductsEdit pageId={id} />
+       {/*  <ProductsEdit pageId={id} /> */}
     </>
   );
 };
