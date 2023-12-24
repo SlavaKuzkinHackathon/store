@@ -1,5 +1,12 @@
+import { getProductsFx } from "@/app/api/products"
+
 
 const ProductsList: React.FC = () => {
+
+  const handleGetProducts = async () =>{
+    const allProductsList = await getProductsFx('/product')
+  }
+  
 
   return (
     <>
