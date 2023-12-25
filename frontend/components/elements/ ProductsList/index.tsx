@@ -1,12 +1,12 @@
-import { getProductsFx } from "@/app/api/products"
-import { $mode } from "@/context/mode"
+import { getProductsFx } from '@/app/api/products'
+import { $mode } from '@/context/mode'
 import { useStore } from 'effector-react'
 import { toast } from 'react-toastify'
 import styles from '@/styles/admin/getProductsList.module.scss'
-import { getImageURL } from "@/utils/getImageURL"
+import { getImageURL } from '@/utils/getImageURL'
 import { useEffect, useState } from 'react'
-import { $products, setProducts } from "@/context/products"
-
+import { $products, setProducts } from '@/context/products'
+import { IProducts } from '@/types/products'
 
 const ProductsList = () => {
   const mode = useStore($mode)
@@ -17,8 +17,8 @@ const ProductsList = () => {
     loadProducts()
   }, [])
 
-  console.log(products);
-  
+  console.log(products)
+
   const loadProducts = async () => {
     try {
       const data = await getProductsFx('/product')
@@ -28,10 +28,8 @@ const ProductsList = () => {
     }
   }
 
-
   return (
     <section>
-
       <h1>Диваны</h1>
       <table>
         <thead>
@@ -46,34 +44,32 @@ const ProductsList = () => {
           </tr>
         </thead>
         <tbody>
-          {products.rows.map((product) => 
+          {products.map((product) => (
             <tr key={product.id}>
-              <td >{product.id}</td>
+              <td>{product.id}</td>
               <td>{product.name}</td>
               <td>₽{product.price}</td>
               <td>{product.in_stock}</td>
               <td>{product.rating}</td>
-            {/*   <td>
+              <td>
                 <a className={styles.image}>
                   <img src={getImageURL(product.images)} alt={product.name} />
                 </a>
-              </td> */}
+              </td>
               <td>
                 <button>Изменить</button>
                 <button>Удалить</button>
               </td>
             </tr>
-            )}
-        </tbody>
+          ))}
+        </tbody> 
       </table>
-      <div>
-      </div>
+      <div></div>
     </section>
   )
 }
 
 export default ProductsList
-
 
 /* import { useAppSelector } from '@/hooks'
 import { getImageURL } from '@/utils'
