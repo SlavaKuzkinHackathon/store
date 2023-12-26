@@ -7,6 +7,7 @@ import { getImageURL } from '@/utils/getImageURL'
 import { useEffect, useState } from 'react'
 import { $products, setProducts } from '@/context/products'
 import { IProducts } from '@/types/products'
+import CreateProduct from '../CreateProduct'
 
 const ProductsList = () => {
   const mode = useStore($mode)
@@ -17,7 +18,6 @@ const ProductsList = () => {
     loadProducts()
   }, [])
 
-  console.log(products)
 
   const loadProducts = async () => {
     try {
@@ -36,6 +36,7 @@ const ProductsList = () => {
           <tr>
             <th>ID</th>
             <th>Название</th>
+            <th>Описание</th>
             <th>Цена</th>
             <th>Количество</th>
             <th>Рейтинг</th>
@@ -48,6 +49,7 @@ const ProductsList = () => {
             <tr key={product.id}>
               <td>{product.id}</td>
               <td>{product.name}</td>
+              <td>{product.description}</td>
               <td>₽{product.price}</td>
               <td>{product.in_stock}</td>
               <td>{product.rating}</td>
@@ -62,72 +64,12 @@ const ProductsList = () => {
               </td>
             </tr>
           ))}
-        </tbody> 
+        </tbody>
       </table>
-      <div></div>
+      <br />
+      <CreateProduct />
     </section>
   )
 }
 
 export default ProductsList
-
-/* import { useAppSelector } from '@/hooks'
-import { getImageURL } from '@/utils'
-import styles from '@/styles/admin/ProductList.module.scss'
-import CreateProduct from '../CreateProduct'
-import Link from 'next/link'
-
-const ProductsList: React.FC = () => {
-  const { allProductsList } = useAppSelector((state) => state.products)
-
-  return (
-    <>
-
-      <h1>Диваны</h1>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Категория</th>
-            <th>Название</th>
-            <th>Цена</th>
-            <th>Рейтинг</th>
-            <th>Фото</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allProductsList.map((_product) => (
-            <tr key={_product.id}>
-              <td >{_product.id}</td>
-              <td>{_product.catalogId}</td>
-              <td>{_product.name}</td>
-              <td>₽{_product.price}</td>
-              <td>{_product.rating}</td>
-              <td>
-                <a className={styles.image}>
-                  <img src={getImageURL(_product.image)} alt={_product.name} />
-                </a>
-              </td>
-              <td>
-               <Link
-                href={`/admin/products/edit/${_product.id}`}
-                passHref
-              >
-                <button>Изменить</button>
-              </Link>
-                <button>Удалить</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div>
-        <CreateProduct />
-      </div>
-    </>
-  )
-}
-
-export default ProductsList
- */

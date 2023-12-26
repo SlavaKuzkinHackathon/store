@@ -18,6 +18,11 @@ export interface IProducts {
   rating: number
 }
 
+export interface ICreateProduct {
+  url: string
+  product: IProduct
+}
+
 /* export interface IProducts {
   count: number
   rows: IProduct[]
