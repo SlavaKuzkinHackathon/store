@@ -19,7 +19,7 @@ const ProductsList = () => {
 
   const loadProducts = async () => {
     try {
-      const data = await getProductsFx('/product')
+      const data = await getProductsFx('/products')
       setProducts(data)
     } catch (error) {
       toast.error((error as Error).message)

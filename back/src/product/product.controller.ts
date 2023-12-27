@@ -21,7 +21,7 @@ import { Product } from './models/product.model';
 import { ProductService } from './product.service';
 
 @ApiTags('Товары')
-@Controller('product')
+@Controller('products')
 export class ProductController {
   constructor(private productService: ProductService) {}
 

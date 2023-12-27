@@ -37,7 +37,7 @@ const CreateProduct = () => {
 
 
     const productCreate = await createProductFx({
-      url: '/product',
+      url: '/products',
       product: {
         name: nameInputValue,
         description: descriptionInputValue,
