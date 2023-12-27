@@ -10,9 +10,9 @@ export const getProductsFx = createEffect(async (url: string) => {
   return data
 })
 
-export const createProductFx = createEffect(async ({ url, product }: ICreateProduct) => {
+export const createProductFx = createEffect(async ({ url, product, token }: ICreateProduct) => {
   try {
-    const { data } = await api.post(url, { ...product });
+    const { data } = await api.post(url, { ...product }, {headers:  { 'Authorization': token }});
 
     return data;
   } catch (error) {

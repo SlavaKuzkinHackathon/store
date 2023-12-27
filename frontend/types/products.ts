@@ -1,5 +1,5 @@
 export interface IProduct {
-  id: number
+  _id?: number | string;
   name: string
   price: number
   description: string
@@ -18,12 +18,12 @@ export interface IProducts {
   rating: number
 }
 
-export interface ICreateProduct {
-  url: string
-  product: IProduct
+
+export interface IBaseEffectArgs {
+  url: string;
+  token: string;
 }
 
-/* export interface IProducts {
-  count: number
-  rows: IProduct[]
-} */
+export interface ICreateProduct extends IBaseEffectArgs {
+  product: IProduct;
+}

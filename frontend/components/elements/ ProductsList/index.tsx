@@ -6,7 +6,6 @@ import styles from '@/styles/admin/getProductsList.module.scss'
 import { getImageURL } from '@/utils/getImageURL'
 import { useEffect, useState } from 'react'
 import { $products, setProducts } from '@/context/products'
-import { IProducts } from '@/types/products'
 import CreateProduct from '../CreateProduct'
 
 const ProductsList = () => {
@@ -17,7 +16,6 @@ const ProductsList = () => {
   useEffect(() => {
     loadProducts()
   }, [])
-
 
   const loadProducts = async () => {
     try {
