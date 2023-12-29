@@ -14,10 +14,8 @@ const CreateProduct = () => {
   const ratingRef = useRef() as MutableRefObject<HTMLInputElement>
   const imagesRef = useRef() as MutableRefObject<HTMLInputElement>
 
-  const formSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-
-
-
+  const formSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
 
     const nameInputValue = nameRef.current.value
     const descriptionInputValue = descriptionRef.current.value
@@ -48,9 +46,8 @@ const CreateProduct = () => {
     const file = e.target.files[0]
     const formData = new FormData()
     formData.append('image', file)
-    setUploading(true)
-    setUploading(false)
   }
+
   return (
     <form className={styles.form} onSubmit={formSubmit}>
       <h1>Создать товар</h1>
@@ -96,7 +93,7 @@ const CreateProduct = () => {
           type="file"
           placeholder="Image"
           className="form-control"
-          onChange={uploadFileHandler}
+           onChange={uploadFileHandler} 
         />
       </div>
       <button>Создать</button>
