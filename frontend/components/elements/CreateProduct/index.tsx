@@ -5,7 +5,7 @@ import { getAuthDataFromLS } from '@/utils/auth'
 import { ChangeEvent, MutableRefObject, useRef, useState } from 'react'
 
 const CreateProduct = () => {
-  const [image, setImage] = useState<File | null>(null);
+  const [uploading, setUploading] = useState<boolean>(false)
 
   const nameRef = useRef() as MutableRefObject<HTMLInputElement>
   const descriptionRef = useRef() as MutableRefObject<HTMLInputElement>
@@ -14,14 +14,10 @@ const CreateProduct = () => {
   const ratingRef = useRef() as MutableRefObject<HTMLInputElement>
   const imagesRef = useRef() as MutableRefObject<HTMLInputElement>
 
-  const formSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const formSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
 
-  
-  /*   const formData = new FormData();
-    event.preventDefault()
-    const file =  event.target.files[0]
-    formData.append('images', file) */
+
+
 
     const nameInputValue = nameRef.current.value
     const descriptionInputValue = descriptionRef.current.value
@@ -44,42 +40,17 @@ const CreateProduct = () => {
       },
       token: authData.access_token,
     })
-  //id ошибка в productList 
+    //id ошибка в productList
     //createProduct(productCreate)
   }
 
-   function handleFileSelect(event: ChangeEvent<HTMLInputElement>): void {
-    const file = event.target.files && event.target.files[0]
+  const uploadFileHandler = async (e: ChangeEvent<any>) => {
+    const file = e.target.files[0]
     const formData = new FormData()
-    formData.append('images', file as File)
-  } 
-
-/*   function handleFileSelect(event: ChangeEvent<HTMLInputElement>): void {
-    const file = event.target.files && event.target.files[0]
-    const reader = new FileReader()
-    reader.readAsText(file as File)
-
-    reader.onload = () => {
-      console.log(reader.result)
-    }
-  } */
-
-/*  
-   const file = event.target.files && event.target.files[0]
-    const formData = new FormData()
-    formData.append('images', file)
-    setImageFile(true)
-
-const handleFileSelect = (e: { target: { files: any[] } }) => {
-    const file =  e.target.files[0]
-    const reader = new FileReader()
-    reader.readAsText(file)
-
-    reader.onload = () => {
-      console.log(reader.result)
-    }
-  } */
-
+    formData.append('image', file)
+    setUploading(true)
+    setUploading(false)
+  }
   return (
     <form className={styles.form} onSubmit={formSubmit}>
       <h1>Создать товар</h1>
@@ -122,10 +93,10 @@ const handleFileSelect = (e: { target: { files: any[] } }) => {
       <div className={styles.form_item}>
         <input
           ref={imagesRef}
-          onChange={handleFileSelect}
           type="file"
           placeholder="Image"
           className="form-control"
+          onChange={uploadFileHandler}
         />
       </div>
       <button>Создать</button>
@@ -134,8 +105,6 @@ const handleFileSelect = (e: { target: { files: any[] } }) => {
 }
 
 export default CreateProduct
-
-
 
 /* import { createProductFx } from '@/app/api/products'
 import { createProduct } from '@/context/products'

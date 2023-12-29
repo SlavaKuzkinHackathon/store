@@ -10,19 +10,29 @@ export const getProductsFx = createEffect(async (url: string) => {
   return data
 })
 
-export const createProductFx = createEffect(async ({ url, product, token }: ICreateProduct) => {
-  try {
-    const { data } = await api.post(url, { ...product }, {headers:  { 'Authorization': token }});
+export const createProductFx = createEffect(
+  async ({ url, product, token }: ICreateProduct) => {
+    try {
+      const { data } = await api.post(
+        url,
+        { ...product },
+        {
+          headers: {
+            Authorization: token,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
 
-    return data;
-  } catch (error) {
-    const axiosError = error as AxiosError
+      return data
+    } catch (error) {
+      const axiosError = error as AxiosError
 
-    if (axiosError.response) {
-      if (axiosError.response.status === HTTPStatus.FORBIDDEN) {
-        return false
+      if (axiosError.response) {
+        if (axiosError.response.status === HTTPStatus.FORBIDDEN) {
+          return false
+        }
       }
     }
-
   }
-});
+)
