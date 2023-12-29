@@ -53,7 +53,7 @@ const ProductsList = () => {
               <td>{product.rating}</td>
               <td>
                 <a className={styles.image}>
-                  <img src={getImageURL(product.images)} alt={product.name} />
+                  <img src={getImageURL(product.image)} alt={product.name} />
                 </a>
               </td>
               <td>

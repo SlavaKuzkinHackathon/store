@@ -3,7 +3,7 @@ export interface IProduct {
   name: string
   price: number
   description: string
-  images: string
+  image: string
   in_stock: number
   rating: number
 }
@@ -13,7 +13,7 @@ export interface IProducts {
   name: string
   price: number
   description: string
-  images: string
+  image: string
   in_stock: number
   rating: number
 }

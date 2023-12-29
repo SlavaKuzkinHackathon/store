@@ -34,7 +34,7 @@ const CreateProduct = () => {
         price: parseInt(priceInputValue),
         in_stock: parseInt(in_stockInputValue),
         rating: parseInt(ratingInputValue),
-        images: imagesInputValue,
+        image: imagesInputValue,
       },
       token: authData.access_token,
     })
