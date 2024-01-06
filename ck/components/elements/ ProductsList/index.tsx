@@ -43,17 +43,17 @@ const ProductsList = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>₽{product.price}</td>
-              <td>{product.in_stock}</td>
-              <td>{product.rating}</td>
+          {products.map((_product) => (
+            <tr key={_product.id}>
+              <td>{_product.id}</td>
+              <td>{_product.name}</td>
+              <td>{_product.description}</td>
+              <td>₽{_product.price}</td>
+              <td>{_product.in_stock}</td>
+              <td>{_product.rating}</td>
               <td>
                 <a className={styles.image}>
-                  <img src={getImageURL(product.image)} alt={product.name} />
+                  <img src={getImageURL(_product.image)} alt={_product.name} />
                 </a>
               </td>
               <td>

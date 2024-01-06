@@ -35,7 +35,7 @@ import { join } from 'path';
       sync: { alter: true },
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname,'..', '/static'),
+      rootPath: join(__dirname, '/static'),
     }),
     UserModule,
     ProductModule,
