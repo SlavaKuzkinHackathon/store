@@ -19,7 +19,7 @@ export type CreateProductDTO = {
   price: number;
   in_stock: number;
   rating: number;
-  image: Blob[];
+  image: string;
 };
 
 export const createProduct = async (
