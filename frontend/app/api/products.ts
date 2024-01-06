@@ -33,7 +33,7 @@ export const createProduct = async (
   formData.append('in_stock', data.in_stock.toString());
 
   for (const image of data.image) {
-    formData.append('images', image);
+    formData.append('image', image);
   }
 
   const response = await api.post(`${BASE_ROUTE}`, formData, {
@@ -41,6 +41,7 @@ export const createProduct = async (
       'Content-Type': 'multipart/form-data',
     },
   });
+
 
   return ProductResponseSchema.parse(response.data).data;
 };

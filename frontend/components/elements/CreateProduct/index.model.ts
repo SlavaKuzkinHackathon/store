@@ -1,6 +1,5 @@
 import { CreateProductDTO, createProduct } from '@/app/api/products';
-import { createEffect, createEvent, createStore, sample } from 'effector';
-
+import { createDomain, createEffect, createEvent, createStore, sample } from 'effector';
 
 // Effects
 const createProductFx = createEffect<CreateProductDTO, void>(
@@ -27,3 +26,5 @@ sample({
 $isPending.on(createProductFx, () => true);
 
 $isPending.on(createProductFx.finally, () => false);
+
+

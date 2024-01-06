@@ -30,6 +30,7 @@ const CreateProduct = () => {
       rating: data.rating,
       image: data.image,
     })
+    
   })
 
   useEffect(() => {
@@ -37,7 +38,6 @@ const CreateProduct = () => {
       reset()
     })
   }, [reset])
-
 
   return (
     <form
