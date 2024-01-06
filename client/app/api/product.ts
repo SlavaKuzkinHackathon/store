@@ -6,6 +6,7 @@ export class ProductAPI {
   static async getOne(id: number): Promise<AxiosResponse<IProduct>> {
     return http.get<IProduct>(`${API_URL.PRODUCT}/${id}`)
   }
+  
   static async createOne(formData: FormData): Promise<AxiosResponse<string>> {
     return http.post<string>(API_URL.PRODUCT, formData, {
       headers: { 'Content-type': 'multipart/form-data' },

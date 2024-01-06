@@ -22,6 +22,7 @@ export interface IProducts {
 export interface IBaseEffectArgs {
   url: string;
   token: string;
+  formData: FormData
 
 }
 
