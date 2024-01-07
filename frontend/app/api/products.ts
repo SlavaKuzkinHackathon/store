@@ -1,7 +1,13 @@
 import { createEffect } from 'effector-next'
 import api from '../axiosClient'
 import { IProduct, ProductSchema } from '@/types/product'
-import { createResponseSchema } from '@/types/types'
+import {
+  axiosInstance,
+  ListDTO,
+  PaginationQueryDTO,
+  createListResponseSchema,
+  createResponseSchema,
+} from './lib';
 
 export const getProductsFx = createEffect(async (url: string) => {
   const { data } = await api.get(url)
@@ -12,6 +18,7 @@ export const getProductsFx = createEffect(async (url: string) => {
 const BASE_ROUTE = '/products';
 
 const ProductResponseSchema = createResponseSchema(ProductSchema)
+const ProductListSchema = createListResponseSchema(ProductSchema);
 
 export type CreateProductDTO = {
   name: string;
@@ -44,4 +51,34 @@ export const createProduct = async (
 
 
   return ProductResponseSchema.parse(response.data).data;
+};
+
+
+export const fetchProduct = async (productId: number): Promise<IProduct> => {
+  const response = await axiosInstance.get(`${BASE_ROUTE}/${productId}`);
+  return ProductResponseSchema.parse(response.data).data;
+};
+
+export const fetchProducts = async (
+  query: PaginationQueryDTO & {
+    searchQuery: string;
+  },
+): Promise<ListDTO<IProduct>> => {
+  const response = await axiosInstance.get(`${BASE_ROUTE}`, { params: query });
+
+  return ProductListSchema.parse(response.data).data;
+};
+
+export const fetchRecommendedProducts = async (
+  query: PaginationQueryDTO & { productId: number },
+): Promise<ListDTO<IProduct>> => {
+  const response = await axiosInstance.get(`${BASE_ROUTE}/recommended`, {
+    params: query,
+  });
+
+  return ProductListSchema.parse(response.data).data;
+};
+
+export const deleteProduct = async (productId: number): Promise<void> => {
+  await axiosInstance.delete(`${BASE_ROUTE}/${productId}`);
 };
