@@ -1,21 +1,20 @@
 import { getProductsFx } from '@/app/api/products'
 import { $mode } from '@/context/mode'
-import { useStore } from 'effector-react'
+import { useStore, useUnit } from 'effector-react'
 import { toast } from 'react-toastify'
 import styles from '@/styles/admin/getProductsList.module.scss'
 import { getImageURL } from '@/utils/getImageURL'
 import { useEffect, useState } from 'react'
 import { $products, setProducts } from '@/context/products'
-import CreateProduct from '../CreateProduct'
+import CreateProduct from '../CreateProduct/index'
+import { $isDeleting, deleteProduct } from '@/context/deleteProduct'
 
 const ProductsList = () => {
   const mode = useStore($mode)
   const products = useStore($products)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
-  useEffect(() => {
-    loadProducts()
-  }, [])
+
 
   const loadProducts = async () => {
     try {
@@ -25,6 +24,15 @@ const ProductsList = () => {
       toast.error((error as Error).message)
     }
   }
+
+  useEffect(() => {
+    loadProducts()
+  }, [])
+
+  const [isDeleting, deleteProductEvent] = useUnit([
+    $isDeleting,
+    deleteProduct,
+  ]);
 
   return (
     <section>
@@ -58,7 +66,11 @@ const ProductsList = () => {
               </td>
               <td>
                 <button>Изменить</button>
-                <button>Удалить</button>
+                <button
+                 onClick={() => {
+                  deleteProductEvent(_product.id);
+                }}
+                >Удалить</button>
               </td>
             </tr>
           ))}

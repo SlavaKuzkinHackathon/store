@@ -25,6 +25,8 @@ export type CreateProductDTO = {
   image: string;
 };
 
+//CREATE
+
 export const createProduct = async (
   data: CreateProductDTO,
 ): Promise<IProduct> => {
@@ -48,3 +50,10 @@ export const createProduct = async (
 
   return ProductResponseSchema.parse(response.data).data;
 };
+
+// DELETE
+
+export const deleteProduct = async (productId: number): Promise<void> => {
+  await api.delete(`${BASE_ROUTE}/${productId}`);
+};
+
