@@ -1,139 +1,80 @@
-import { createProductFx } from '@/app/api/products'
-import { $product } from '@/context/product'
-import { createProduct } from '@/context/products'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { useUnit } from 'effector-react'
+
 import styles from '@/styles/admin/createProduct.module.scss'
-import { IProduct } from '@/types/products'
-import { getAuthDataFromLS } from '@/utils/auth'
-import { useStore } from 'effector-react'
-import {
-  ChangeEvent,
-  FormEvent,
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { $isPending, formSubmitted, productCreated } from './index.model'
+import { createProduct } from '@/context/product'
 
 const CreateProduct = () => {
-  const initialProduct = {
-    name: '',
-    description: '',
-    price: 0,
-    rating: 0,
-    in_stock: 0,
-    image: '',
-  }
+  const [isPending] = useUnit([$isPending])
 
-  const prod = useStore($product)
+  const formSubmittedEvent = useUnit(formSubmitted)
 
-  const [imageFile, setImageFile] = useState<File | null>(null)
-  const [productDetails, setDetails] =
-    useState<Partial<IProduct>>(initialProduct)
-  const [uploading, setUploading] = useState<boolean>(false)
+  const { register, handleSubmit, reset, } = useForm({
+    defaultValues: {
+      name: '',
+      description: '',
+      price: 0,
+      rating: 0,
+      in_stock: 0,
+      image: '',
+    },
+  })
+
+  const onSubmit = handleSubmit((data) => {
+    formSubmittedEvent({
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      in_stock: data.in_stock,
+      rating: data.rating,
+      image: data.image,
+    })
+    
+  })
 
   useEffect(() => {
-    if (prod) {
-      setDetails({
-        name: prod.name,
-        price: prod.price,
-        in_stock: prod.in_stock,
-        description: prod.description,
-        rating: prod.rating,
-        image: prod.image,
-      })
-    }
-  }, [prod])
-
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
-
-  const uploadFileHandler = async (e: ChangeEvent<any>) => {
-    const file = e.target.files[0]
-    const formData = new FormData()
-    formData.append('image', file)
-    setUploading(true)
-
-    const authData = getAuthDataFromLS()
-
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-
-      const productCreate = await createProductFx({
-        url: '/products',
-        product: {
-          name: prod.name,
-          description: prod.description,
-          price: prod.price,
-          in_stock: prod.in_stock,
-          rating: prod.rating,
-          image: prod.image,
-        },
-        token: authData.access_token,
-        formData,
-      })
-      setDetails({ ...productDetails, image: productCreate })
-      setUploading(false)
-    } catch (error) {
-      console.error(error)
-      setUploading(false)
-    }
-  }
+    return productCreated.watch(() => {
+      reset()
+    })
+  }, [reset])
 
   return (
-    <form className={styles.form} onSubmit={onSubmitHandler}>
+    <form
+      className={styles.form}
+      onSubmit={onSubmit}
+    >
       <h1>Создать товар</h1>
       <div className={styles.form_item}>
         <input
-          value={productDetails.name}
-          onChange={(e) =>
-            setDetails({ ...productDetails, name: e.target.value })
-          }
-          type="text"
+          {...register('name', { required: '0Name is required!' })}
           placeholder="Наименование"
-          className="form-control"
+          type="text"
         />
       </div>
 
       <div className={styles.form_item}>
         <input
+          {...register('description')}
           type="text"
           placeholder="Описание"
-          className="form-control"
-          value={productDetails.description}
-          onChange={(e) =>
-            setDetails({ ...productDetails, description: e.target.value })
-          }
         />
       </div>
       <div className={styles.form_item}>
         <input
-          
-          type="number"
           placeholder="Стоимость"
           className="form-control"
-          value={productDetails.price}
-          onChange={e =>
-            setDetails({
-              ...productDetails,
-              price: parseInt(e.target.value),
-            })
-          }
+          type="number"
+          {...register('price', {
+            required: 'Price is required!',
+            valueAsNumber: true,
+          })}
         />
       </div>
       <div className={styles.form_item}>
         <input
-           value={productDetails.in_stock}
-           onChange={e =>
-             setDetails({
-               ...productDetails,
-               in_stock: parseInt(e.target.value),
-             })
-           }
+          {...register('in_stock')}
           type="number"
           placeholder="Количество"
           className="form-control"
@@ -141,27 +82,18 @@ const CreateProduct = () => {
       </div>
       <div className={styles.form_item}>
         <input
-          value={productDetails.rating}
-          onChange={e =>
-            setDetails({
-              ...productDetails,
-              rating: parseInt(e.target.value),
-            })
-          }
+          {...register('rating')}
           type="number"
           placeholder="Рейтинг"
           className="form-control"
         />
       </div>
       <div className={styles.form_item}>
-        <input
-          onChange={uploadFileHandler}
-          type="file"
-          placeholder="Image"
-          className="form-control"
-        />
+        <input 
+        {...register('image')}
+        type="file"/>
       </div>
-      <button>Создать</button>
+       <button >Создать</button>
     </form>
   )
 }
@@ -208,13 +140,12 @@ const CreateProduct = () => {
         price: parseInt(priceInputValue),
         in_stock: parseInt(in_stockInputValue),
         rating: parseInt(ratingInputValue),
-        image: imagesInputValue,
+        images: imagesInputValue,
       },
       token: authData.access_token,
-      formData
     })
-    //id ошибка в productList
-    //createProduct(productCreate)
+  //id ошибка в productList 
+    createProduct(productCreate)
   }
 
   return (
@@ -254,12 +185,7 @@ const CreateProduct = () => {
         />
       </div>
       <div className={styles.form_item}>
-        <input
-          ref={ratingRef}
-          type="number"
-          placeholder="Рейтинг"
-          className="form-control"
-        />
+        <input ref={ratingRef} placeholder="Рейтинг" className="form-control" />
       </div>
       <div className={styles.form_item}>
         <input
