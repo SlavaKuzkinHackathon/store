@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 import { IProduct } from '@/types/product'
 
-import { useUnit } from 'effector-react';
+import { useUnit } from 'effector-react'
 
-import { getImageURL } from '@/utils/getImageURL';
+import { getImageURL } from '@/utils/getImageURL'
 
 import {
   $products,
@@ -18,19 +18,15 @@ import {
   loadPage,
   mounted,
   searchQueryChanged,
-} from './index.model';
+} from './index.model'
 
-import Image from 'next/image';
-import CreateProduct from '../CreateProduct';
-import { Paginator } from '../Paginator';
-/* import { Paper } from '@/src/ui/atoms/Paper';
-import { Input } from '@/src/ui/atoms/Input';
-import { Button } from '@/src/ui/atoms/Button';
-import { H2 } from '@/src/ui/atoms/Typography';
-import { NoResults } from '@/src/ui/atoms/NoResults';
-import { MonetaryValue } from '@/src/ui/atoms/MonetaryValue';
-import { Paginator } from '@/src/ui/molecules/Paginator';
-import { Preloader } from '@/src/ui/molecules/Preloader'; */
+import Image from 'next/image'
+import CreateProduct from '../CreateProduct'
+import { Paginator } from '../Paginator'
+import { Paper } from '@/components/ui/atoms/Paper'
+import { Input } from '@/components/ui/atoms/Input'
+import { Button } from '@/components/ui/atoms/Button'
+import { Preloader } from '@/components/ui/molecules/Preloader'
 
 const ProductsList = () => {
   const [
@@ -59,19 +55,17 @@ const ProductsList = () => {
     mountedEvent();
   }, [mountedEvent]);
 
-  console.log('products', products)
-  
   return (
-    <section>
-      <h1>Products</h1>
+    <Paper>
+      <h2>Products</h2>
 
-      <input
+      <Input
         value={searchQuery}
         onChange={(e) => searchQueryChangedEvent(e.target.value)}
         className="mt-3"
       />
 
-       <div>
+      <Preloader isLoading={isPending}>
         <ul>
           {products.map((product) => (
             <ProductListItem key={product.id} product={product} />
@@ -79,17 +73,15 @@ const ProductsList = () => {
         </ul>
 
         {products.length === 0 && <p>No products</p>}
-      </div> 
+      </Preloader>
 
-       <Paginator
+      <Paginator
         pageSize={pageSize}
         currentPage={pageNumber}
         count={productsCount}
         onPageSelect={loadPageEvent}
-      /> 
-      <br />
-      <CreateProduct />
-    </section>
+      />
+    </Paper>
   );
 };
 
@@ -105,26 +97,25 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
 
   return (
     <li className="flex items-center py-4 gap-2">
-      <Image src={getImageURL(product.image)} alt={product.name} width={60} height={60} />
+      {/* <Image src={product.thumbUrl} alt={product.name} width={60} height={60} /> */}
       <div>{product.name}</div>
       <div>
-        ₽{product.price}
+        {product.price}
       </div>
 
       <div className="ml-auto">
-        <button
+        <Button
           onDoubleClick={() => {
             deleteProductEvent(product.id);
           }}
-        //isLoading={isDeleting}
+          isLoading={isDeleting}
         >
           Delete
-        </button>
+        </Button>
       </div>
     </li>
   );
 };
-
 export default ProductsList
 
 /* import { getProductsFx } from '@/app/api/products'
