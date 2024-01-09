@@ -1,17 +1,32 @@
-/* import { useEffect } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useUnit } from 'effector-react'
-
-import styles from '@/styles/admin/createProduct.module.scss'
-import { $isPending, formSubmitted, productUpdate } from './index.model'
+import { productUpdated, updateProduct } from './index.model'
 import { createProduct } from '@/context/product'
+import { IProduct } from '@/types/product'
+import { toast } from 'react-toastify'
+import { getImageURL } from '@/utils/getImageURL'
+import styles from '@/styles/admin/getProductsList.module.scss'
 
-const updateProduct = () => {
-  const [isPending] = useUnit([$isPending])
+type ProductItemProps = {
+  product: IProduct
+}
 
-  const formSubmittedEvent = useUnit(formSubmitted)
+const UpdateProductItem = ({ product }: ProductItemProps) => {
+  const [updateProductEvent] = useUnit([updateProduct])
 
-  const { register, handleSubmit, reset, } = useForm({
+  const [isEditing, setIsEditing] = useState(false)
+
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [price, setPrice] = useState(0)
+  const [in_stock, setIn_stock] = useState(0)
+  const [rating, setRating] = useState(0)
+  const [image, setImage] = useState('')
+
+  const [isPending, setIsPending] = useState(false)
+
+  const { register } = useForm({
     defaultValues: {
       name: '',
       description: '',
@@ -22,82 +37,237 @@ const updateProduct = () => {
     },
   })
 
-  const onSubmit = handleSubmit((data) => {
-    formSubmittedEvent({
-      id: data.image, 
-      name: data.name,
-      description: data.description,
-      price: data.price,
-      in_stock: data.in_stock,
-      rating: data.rating,
-      image: data.image,
-    })
-    
-  })
+  const onSave = () => {
+    try {
+      setIsPending(true)
+      updateProductEvent({
+        id: product.id,
+        name,
+        description,
+        price,
+        in_stock,
+        rating,
+        image,
+      })
+      setIsEditing(false)
+    } catch (error) {
+      toast.error((error as Error).message)
+    } finally {
+      setIsPending(false)
+    }
+  }
 
-  useEffect(() => {
-    return productUpdate.watch(() => {
-      reset()
-    })
-  }, [reset])
+  if (isEditing) {
+    return (
+      <li>
+        <div className={styles.form_item}>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Наименование"
+            type="text"
+          />
+        </div>
+        <div className={styles.form_item}>
+          <input
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            type="text"
+            placeholder="Описание"
+          />
+        </div>
+        <div className={styles.form_item}>
+          <input
+            placeholder="Стоимость"
+            className="form-control"
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(parseInt(e.target.value))}
+          />
+        </div>
+        <div className={styles.form_item}>
+          <input
+            value={in_stock}
+            onChange={(e) => setIn_stock(parseInt(e.target.value))}
+            type="number"
+            placeholder="Количество"
+          />
+        </div>
+        <div className={styles.form_item}>
+          <input
+            value={rating}
+            onChange={(e) => setRating(parseInt(e.target.value))}
+            type="number"
+            placeholder="Рейтинг"
+          />
+        </div>
+        <div className={styles.form_item}>
+          <input
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            type="file"
+          />
+        </div>
+        <button onClick={() => onSave()}>Создать</button>
+        <button onClick={() => setIsEditing(false)}>Закрыть</button>
+      </li>
+    )
+  }
 
   return (
-    <form
-      className={styles.form}
-      onSubmit={onSubmit}
-    >
-      <h1>Создать товар</h1>
-      <div className={styles.form_item}>
-        <input
-          {...register('name', { required: '0Name is required!' })}
-          placeholder="Наименование"
-          type="text"
-        />
-      </div>
+    <li>
+      <a className={styles.image}>
+        <img src={getImageURL(product.image)} alt={product.name} />
+      </a>
+      <div>{product.name}</div>
+      <div>{product.description}</div>
+      <div>{product.price}</div>
+      <div>{product.in_stock}</div>
+      <div>{product.rating}</div>
 
-      <div className={styles.form_item}>
-        <input
-          {...register('description')}
-          type="text"
-          placeholder="Описание"
-        />
+      <div>
+        <button
+          onClick={() => {
+            setName(product.name)
+            setDescription(product.description)
+            setPrice(product.price)
+            setIn_stock(product.in_stock)
+            setRating(product.rating)
+            setImage(product.image)
+            setIsEditing(true)
+          }}
+        >
+          Edit
+        </button>
       </div>
-      <div className={styles.form_item}>
-        <input
-          placeholder="Стоимость"
-          className="form-control"
-          type="number"
-          {...register('price', {
-            required: 'Price is required!',
-            valueAsNumber: true,
-          })}
-        />
-      </div>
-      <div className={styles.form_item}>
-        <input
-          {...register('in_stock')}
-          type="number"
-          placeholder="Количество"
-          className="form-control"
-        />
-      </div>
-      <div className={styles.form_item}>
-        <input
-          {...register('rating')}
-          type="number"
-          placeholder="Рейтинг"
-          className="form-control"
-        />
-      </div>
-      <div className={styles.form_item}>
-        <input 
-        {...register('image')}
-        type="file"/>
-      </div>
-       <button >Создать</button>
-    </form>
+    </li>
   )
-}
 
-export default updateProduct
- */
+}
+export default UpdateProductItem
+
+/*
+
+import { useState } from 'react';
+import { useUnit } from 'effector-react';
+
+import { IProductCategory } from '@/src/types/IProductCategory';
+import { toast } from '@/src/shared/toasts';
+
+import { $isDeleting, deleteCategory, updateCategory } from './index.model';
+
+import Image from 'next/image';
+import { Button } from '@/src/ui/atoms/Button';
+import { Input } from '@/src/ui/atoms/Input';
+import { Image as ImageType, ImageInput } from '@/src/ui/atoms/ImageInput';
+import { ProductCategoriesSelect } from '@/src/shared/components/ProductCategoriesSelect';
+
+type ProductCategoryItemProps = {
+  category: IProductCategory;
+};
+
+export const ProductCategoryItem = ({ category }: ProductCategoryItemProps) => {
+  const [isDeleting, deleteCategoryEvent, updateCategoryEvent] = useUnit([
+    $isDeleting,
+    deleteCategory,
+    updateCategory,
+  ]);
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [name, setName] = useState('');
+  const [icon, setIcon] = useState<ImageType>({
+    preview: '',
+    raw: null,
+  });
+    const [parentCategory, setParentCategory] = useState({
+      label: 'Not selected',
+      value: '',
+    });
+    const [isPending, setIsPending] = useState(false);
+
+    const onSave = () => {
+      try {
+        setIsPending(true);
+        updateCategoryEvent({
+          id: category.id,
+          name,
+          categoryIcon: icon.raw || undefined,
+          parentId: parentCategory.value.trim().length
+            ? Number(parentCategory.value)
+            : null,
+        });
+        setIsEditing(false);
+      } catch (error) {
+        toast.unknownError(error);
+      } finally {
+        setIsPending(false);
+      }
+    };
+
+  if (isEditing) {
+    return (
+      <li className="flex items-start justify-start py-4 gap-2 flex-wrap">
+        <div className="flex-shrink-0 w-[120px]">
+          <ImageInput preview={icon.preview} onChange={(i) => setIcon(i)} />
+        </div>
+        <div className="flex-grow-0 w-[230px]">
+          <span className="text-xs">Name</span>
+          <Input value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+        <div className="flex-grow-0 w-[230px]">
+          <span className="text-xs">Parent category</span>
+          <ProductCategoriesSelect
+            option={parentCategory}
+            onChange={(cat) => setParentCategory(cat)}
+            excludeId={category.id}
+          />
+        </div>
+
+        <div className="ml-auto flex flex-col gap-2">
+          <Button isLoading={isPending} onClick={() => onSave()}>
+            Save
+          </Button>
+          <Button onClick={() => setIsEditing(false)}>Close</Button>
+        </div>
+      </li>
+    );
+  }
+
+  return (
+    <li className="flex items-center py-4 gap-2">
+      <Image
+        src={category.iconUrl}
+        alt={category.name}
+        width={60}
+        height={60}
+      />
+      <div>{category.name}</div>
+
+      <div className="ml-auto flex flex-col gap-2">
+        <Button
+          onClick={() => {
+            setName(category.name);
+            setIcon({ preview: category.iconUrl, raw: null });
+            setParentCategory({
+              label: category.parentName || 'Not selected',
+              value: category.parentId ? category.parentId.toString() : '',
+            });
+            setIsEditing(true);
+          }}
+        >
+          Edit
+        </Button>
+        <Button
+          onDoubleClick={() => deleteCategoryEvent(category.id)}
+          isLoading={isDeleting}
+          color="danger"
+        >
+          Delete
+        </Button>
+      </div>
+    </li>
+  );
+};
+
+*/

@@ -8,13 +8,12 @@ import { useEffect, useState } from 'react'
 import { $products, setProducts } from '@/context/products'
 import CreateProduct from '../CreateProduct/index'
 import { $isDeleting, deleteProduct } from '@/context/deleteProduct'
+import UpdateProductItem from '../UpdateProduct'
 
 const ProductsList = () => {
   const mode = useStore($mode)
   const products = useStore($products)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
-
-
 
   const loadProducts = async () => {
     try {
@@ -29,10 +28,7 @@ const ProductsList = () => {
     loadProducts()
   }, [])
 
-  const [isDeleting, deleteProductEvent] = useUnit([
-    $isDeleting,
-    deleteProduct,
-  ]);
+  const [isDeleting, deleteProductEvent] = useUnit([$isDeleting, deleteProduct])
 
   return (
     <section>
@@ -65,12 +61,20 @@ const ProductsList = () => {
                 </a>
               </td>
               <td>
-                <button>Изменить</button>
                 <button
-                 onClick={() => {
-                  deleteProductEvent(_product.id);
-                }}
-                >Удалить</button>
+                  onClick={() => {
+                    <UpdateProductItem key={_product.id} product={_product} />
+                  }}
+                >
+                  Изменить
+                </button>
+                <button
+                  onClick={() => {
+                    deleteProductEvent(_product.id)
+                  }}
+                >
+                  Удалить
+                </button>
               </td>
             </tr>
           ))}
@@ -78,6 +82,14 @@ const ProductsList = () => {
       </table>
       <br />
       <CreateProduct />
+      <br />
+      <div>
+        <ul>
+          {products.map((prod) => (
+            <UpdateProductItem key={prod.id} product={prod} />
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

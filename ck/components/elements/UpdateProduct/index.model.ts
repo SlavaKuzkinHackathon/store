@@ -1,123 +1,78 @@
-import { UpdateProductDTO, updateProduct, } from '@/app/api/products';
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { createEffect, createEvent, createStore, sample } from 'effector'
+import * as productsApi from '@/app/api/products'
+import { ApiError } from '@/app/api/lib'
+import { toast } from 'react-toastify'
 
 // Effects
-export const updateProductFx = createEffect<UpdateProductDTO, void>(
-  async (product) => {
-    await updateProduct(product);
-  },
-);
+export const updateProductFx = createEffect<
+  productsApi.UpdateProductDTO,
+  void,
+  ApiError
+>(async (product: productsApi.UpdateProductDTO) => {
+  await productsApi.updateProduct(product)
+})
 
 // Events
-export const formSubmitted = createEvent<UpdateProductDTO>(
-  'Update product form submitted',
-);
-export const productUpdate = updateProductFx.done;
+export const updateProduct =
+  createEvent<productsApi.UpdateProductDTO>('Update product')
+export const productUpdated = updateProductFx.done
 
 // Stores
 
-export const $isPending = createStore(false);
-
 sample({
-  clock: formSubmitted,
+  clock: updateProduct,
   target: updateProductFx,
-});
+})
 
-$isPending.on(updateProductFx, () => true);
-
-$isPending.on(updateProductFx.finally, () => false);
+updateProductFx.failData.watch((e) => toast.error(e.message))
 
 /*
 import { createEffect, createEvent, createStore, sample } from 'effector';
-import { debounce, reset } from 'patronum';
 
-import { toast } from '@/src/shared/toasts';
-
-import { IProductCategory } from '@/src/types/IProductCategory';
 import * as categoriesApi from '@/src/shared/api/product-categories';
-import { ApiError, ListDTO } from '@/src/shared/api/lib';
-import { categoryCreated } from '../AddNewCategory/index.model';
-import {
-  categoryDeleted,
-  categoryUpdated,
-} from './ProductCategoryItem/index.model';
+import { toast } from '@/src/shared/toasts';
+import { ApiError } from '@/src/shared/api';
 
 // Effects
-const fetchCategoriesFx = createEffect<
-  {
-    pageSize: number;
-    pageNumber: number;
-    name: string;
-  },
-  ListDTO<IProductCategory> & { pageNumber: number },
+const updateCategoryFx = createEffect<
+  categoriesApi.UpdateCategoryDTO,
+  void,
   ApiError
->(async ({ pageSize, pageNumber, name }) => {
-  const result = await categoriesApi.fetchCategories({
-    take: pageSize,
-    skip: pageSize * pageNumber,
-    name,
-  });
-  return { ...result, pageNumber };
+>(async (category: categoriesApi.UpdateCategoryDTO) => {
+  await categoriesApi.updateCategory(category);
 });
+
+const deleteCategoryFx = createEffect<number, void, ApiError>(
+  (categoryId: number) => {
+    return categoriesApi.deleteCategory(categoryId);
+  },
+);
 
 // Events
-export const mounted = createEvent('Mounted');
-export const loadPage = createEvent<number>('Load page');
-export const searchQueryChanged = createEvent<string>('Search query changed');
-const searchTriggered = debounce({ source: searchQueryChanged, timeout: 500 });
+export const updateCategory =
+  createEvent<categoriesApi.UpdateCategoryDTO>('Update category');
+export const deleteCategory = createEvent<number>('Delete category');
+export const categoryUpdated = updateCategoryFx.done;
+export const categoryDeleted = deleteCategoryFx.done;
 
 // Stores
-export const $categories = createStore<IProductCategory[]>([]);
-export const $categoriesCount = createStore(0);
-export const $searchQuery = createStore('');
-export const $pageSize = createStore(12);
-export const $pageNumber = createStore(0);
-export const $isPending = createStore(false);
-
-$searchQuery.on(searchQueryChanged, (_, newQuery) => newQuery);
-
-reset({
-  clock: mounted,
-  target: [$categories, $categoriesCount, $pageSize, $pageNumber, $isPending],
-});
+export const $isDeleting = createStore(false);
 
 sample({
-  clock: [
-    mounted,
-    searchTriggered,
-    categoryCreated,
-    categoryUpdated,
-    categoryDeleted,
-  ],
-  source: {
-    pageSize: $pageSize,
-    pageNumber: $pageNumber,
-    name: $searchQuery,
-  },
-  target: fetchCategoriesFx,
+  clock: updateCategory,
+  target: updateCategoryFx,
 });
+
+updateCategoryFx.failData.watch((e) => toast.error(e.message));
 
 sample({
-  clock: loadPage,
-  source: {
-    pageSize: $pageSize,
-    name: $searchQuery,
-  },
-  fn: ({ pageSize, name }, pageNumber) => ({ pageSize, pageNumber, name }),
-  target: fetchCategoriesFx,
+  clock: deleteCategory,
+  target: deleteCategoryFx,
 });
 
-$isPending.on(fetchCategoriesFx, () => true);
+$isDeleting.on(deleteCategoryFx, () => true);
 
-$categories.on(fetchCategoriesFx.doneData, (_, { list }) => {
-  return list;
-});
-$categoriesCount.on(fetchCategoriesFx.doneData, (_, { count }) => {
-  return count;
-});
-$pageNumber.on(fetchCategoriesFx.doneData, (_, { pageNumber }) => pageNumber);
+deleteCategoryFx.failData.watch((e) => toast.error(e.message));
 
-fetchCategoriesFx.failData.watch((e) => toast.error(e.message));
-
-$isPending.on(fetchCategoriesFx.finally, () => false);
+$isDeleting.on(deleteCategoryFx.finally, () => false);
 */
