@@ -1,5 +1,5 @@
 export interface IProduct {
-  _id?: number | string;
+  id: number
   name: string
   price: number
   description: string
@@ -24,6 +24,6 @@ export interface IBaseEffectArgs {
   token: string;
 }
 
-export interface ICreateProduct extends IBaseEffectArgs {
+export interface ProductSchema  {
   product: IProduct;
 }

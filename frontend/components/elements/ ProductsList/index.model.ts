@@ -22,7 +22,6 @@ const fetchProductsFx = createEffect<
   const result = await productsApi.fetchProducts({
     take: pageSize,
     skip: pageSize * pageNumber,
-    searchQuery
   });
   return { ...result, pageNumber };
 });
