@@ -77,27 +77,13 @@ export const updateProduct = async (
     formData.append('in_stock', product.in_stock.toString())
   }
   if (product.rating) {
-    formData.append('in_stock', product.rating.toString())
+    formData.append('rating', product.rating.toString())
   }
-
   if (product.image) {
     formData.append('image', product.image)
   }
 
-
- /*   if (product.image === null) {
-    formData.append('image', 'null');
-  } else if (product.image !== undefined) {
-    formData.append('image', product.image);
-  } */
-  
- /*  if (product.image === null) {
-    formData.append('image', 'null');
-  } else if (product.image !== undefined) {
-    formData.append('image', product.image);
-  } */
-
-  const response = await api.put(`${BASE_ROUTE}`, formData, {
+  const response = await api.put(`${BASE_ROUTE}/${product.id}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -111,3 +97,4 @@ export const updateProduct = async (
 export const deleteProduct = async (productId: number): Promise<void> => {
   await api.delete(`${BASE_ROUTE}/${productId}`)
 }
+
