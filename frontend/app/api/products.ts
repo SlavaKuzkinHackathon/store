@@ -54,16 +54,13 @@ export const createProduct = async (
 }
 
 export const fetchProduct = async (productId: number): Promise<IProduct> => {
-  const response = await axiosInstance.get(`${BASE_ROUTE}/${productId}`)
+  const response = await api.get(`${BASE_ROUTE}/${productId}`)
   return ProductResponseSchema.parse(response.data).data
 }
 
 export const fetchProducts = async (
-  query: PaginationQueryDTO & {
-    name?: string;
-  }
 ): Promise<ListDTO<IProduct>> => {
-  const response = await axiosInstance.get(`${BASE_ROUTE}`, { params: query })
+  const response = await api.get(`${BASE_ROUTE}`)
 
   return ProductListSchema.parse(response.data).data
 }
@@ -71,7 +68,7 @@ export const fetchProducts = async (
 export const fetchRecommendedProducts = async (
   query: PaginationQueryDTO & { productId: number }
 ): Promise<ListDTO<IProduct>> => {
-  const response = await axiosInstance.get(`${BASE_ROUTE}/recommended`, {
+  const response = await api.get(`${BASE_ROUTE}/recommended`, {
     params: query,
   })
 
@@ -115,7 +112,7 @@ export const updateProduct = async (
     formData.append('image', product.image)
   }
 
-  const response = await axiosInstance.put(`${BASE_ROUTE}`, formData, {
+  const response = await api.put(`${BASE_ROUTE}/${product.id}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -128,5 +125,19 @@ export const updateProduct = async (
 
 /// Delete
 export const deleteProduct = async (productId: number): Promise<void> => {
-  await axiosInstance.delete(`${BASE_ROUTE}/${productId}`)
+  await api.delete(`${BASE_ROUTE}/${productId}`)
 }
+
+
+/*
+export const fetchProducts = async (
+  query: PaginationQueryDTO & {
+    name?: string;
+  }
+): Promise<ListDTO<IProduct>> => {
+  const response = await api.get(`${BASE_ROUTE}`, { params: query })
+
+  return ProductListSchema.parse(response.data).data
+}
+
+*/
