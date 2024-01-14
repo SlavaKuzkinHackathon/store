@@ -56,7 +56,7 @@ export type UpdateProductDTO = {
   price: number
   in_stock: number
   rating: number
-  image: string
+  image: Blob
 }>
 
 export const updateProduct = async (

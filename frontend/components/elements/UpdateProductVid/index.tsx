@@ -48,16 +48,36 @@ export const UpdateProductVid = () => {
   }, [mountedEvent]);
 
   return (
-    <form>
+    <Paper>
+      <h2>Products</h2>
+      <Input
+        value={searchQuery}
+        onChange={(e) => searchQueryChangedEvent(e.target.value)}
+        className="mt-3"
+      />
+
+      <Preloader isLoading={isPending}>
         <ul>
           {products.map((product) => (
             <UpdateProductItem key={product.id} product={product} />
           ))}
         </ul>
 
-    </form>
+        {products.length === 0 && <p>No Divans</p>}
+      </Preloader>
+
+      <Paginator
+        pageSize={pageSize}
+        currentPage={pageNumber}
+        count={productsCount}
+        onPageSelect={loadPageEvent}
+      />
+    </Paper>
   );
 };
+
+
+
 
 /*
 import { useEffect } from 'react';
