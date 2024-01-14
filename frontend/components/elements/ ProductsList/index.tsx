@@ -2,12 +2,11 @@ import { useEffect } from 'react'
 
 import { IProduct } from '@/types/product'
 
-import { useUnit } from 'effector-react'
+import { useStore, useUnit } from 'effector-react'
 
 import { getImageURL } from '@/utils/getImageURL'
 
 import {
-  $products,
   $productsCount,
   $isDeleting,
   $isPending,
@@ -27,17 +26,18 @@ import { Paper } from '@/components/ui/atoms/Paper'
 import { Input } from '@/components/ui/atoms/Input'
 import { Button } from '@/components/ui/atoms/Button'
 import { Preloader } from '@/components/ui/molecules/Preloader'
+import { $products, setProducts } from '@/context/products'
+import { getProductsFx } from '@/app/api/products'
+import { toast } from 'react-toastify'
 
 const ProductsList = () => {
   const [
-    products,
     productsCount,
     pageSize,
     pageNumber,
     searchQuery,
     isPending,
   ] = useUnit([
-    $products,
     $productsCount,
     $pageSize,
     $pageNumber,
@@ -51,13 +51,34 @@ const ProductsList = () => {
     loadPage,
   ]);
 
+  const products = useStore($products)
+
   useEffect(() => {
     mountedEvent();
   }, [mountedEvent]);
 
+  const loadProducts = async () => {
+    try {
+      const data = await getProductsFx('/products')
+      setProducts(data)
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+
+  useEffect(() => {
+    loadProducts()
+  }, [])
+
   return (
+
+
     <Paper>
-      <h2>Products</h2>
+      <div>
+        <CreateProduct />
+      </div>
+      <br />
+      <h2>Продукция</h2>
 
       <Input
         value={searchQuery}
@@ -97,7 +118,7 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
 
   return (
     <li className="flex items-center py-4 gap-2">
-      {/* <Image src={product.thumbUrl} alt={product.name} width={60} height={60} /> */}
+      <Image src={getImageURL(product.image)} alt={product.name} width={80} height={60} />
       <div>{product.name}</div>
       <div>
         {product.price}
@@ -109,6 +130,7 @@ const ProductListItem = ({ product }: ProductListItemProps) => {
             deleteProductEvent(product.id);
           }}
           isLoading={isDeleting}
+          color="danger"
         >
           Delete
         </Button>

@@ -58,12 +58,26 @@ export const fetchProduct = async (productId: number): Promise<IProduct> => {
   return ProductResponseSchema.parse(response.data).data
 }
 
-export const fetchProducts = async (
+/* export const fetchProducts = async (
 ): Promise<ListDTO<IProduct>> => {
   const response = await api.get(`${BASE_ROUTE}`)
 
   return ProductListSchema.parse(response.data).data
-}
+} */
+
+export const fetchProducts = async (
+  query: PaginationQueryDTO & {
+    name?: string;
+  },
+): Promise<ListDTO<IProduct>> => {
+  const params: Record<string, unknown> = query;
+
+  const response = await axiosInstance.get(`${BASE_ROUTE}`, { params });
+
+  return ProductListSchema.parse(response.data).data;
+};
+
+
 
 export const fetchRecommendedProducts = async (
   query: PaginationQueryDTO & { productId: number }
@@ -84,7 +98,7 @@ export type UpdateProductDTO = {
   price: number
   in_stock: number
   rating: number
-  image: string
+  image: Blob
 }>
 
 export const updateProduct = async (
@@ -105,7 +119,7 @@ export const updateProduct = async (
     formData.append('in_stock', product.in_stock.toString())
   }
   if (product.rating) {
-    formData.append('in_stock', product.rating.toString())
+    formData.append('rating', product.rating.toString())
   }
 
   if (product.image) {
@@ -139,5 +153,23 @@ export const fetchProducts = async (
 
   return ProductListSchema.parse(response.data).data
 }
+
+
+export const fetchCategories = async (
+  query: PaginationQueryDTO & {
+    name?: string;
+    parentId?: number | null;
+  },
+): Promise<ListDTO<IProductCategory>> => {
+  const params: Record<string, unknown> = query;
+
+  if (query.parentId === null) {
+    params.parentId = 'null';
+  }
+
+  const response = await axiosInstance.get(`${BASE_ROUTE}`, { params });
+
+  return ProductCategoryListSchema.parse(response.data).data;
+};
 
 */

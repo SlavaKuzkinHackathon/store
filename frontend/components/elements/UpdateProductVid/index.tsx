@@ -63,7 +63,7 @@ export const UpdateProductVid = () => {
           ))}
         </ul>
 
-        {products.length === 0 && <p>No Divans</p>}
+        {products.length === 0 && <p>No Categories</p>}
       </Preloader>
 
       <Paginator
@@ -75,6 +75,43 @@ export const UpdateProductVid = () => {
     </Paper>
   );
 };
+
+/* import { useEffect } from 'react';
+import { useStore, useUnit } from 'effector-react';
+import { UpdateProductItem } from '../UpdateProduct/index';
+import { $products, setProducts } from '@/context/products';
+import { getProductsFx } from '@/app/api/products';
+import { toast } from 'react-toastify'
+
+export const UpdateProductVid = () => {
+
+
+  const products = useStore($products)
+  const loadProducts = async () => {
+    try {
+      const data = await getProductsFx('/products')
+      setProducts(data)
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+
+  useEffect(() => {
+    loadProducts()
+  }, [])
+
+  return (
+    <div>
+      <h2>Products</h2>
+
+      <ul>
+        {products.map((product) => (
+          <UpdateProductItem key={product.id} product={product} />
+        ))}
+      </ul>
+    </div>
+  );
+}; */
 
 
 

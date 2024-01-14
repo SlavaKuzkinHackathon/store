@@ -8,7 +8,7 @@ const AdminProductsPage = () => {
   return (
     <Container className="py-8">
       <div className="my-8">
-            <UpdateProductVid/>
+            <ProductsWidget/>
       </div>
     </Container>
   )

@@ -7,6 +7,8 @@ import { toast } from 'react-toastify'
 import { getImageURL } from '@/utils/getImageURL'
 import styles from '@/styles/admin/getProductsList.module.scss'
 import { Button } from '@/components/ui/atoms/Button'
+import { Image as ImageType, ImageInput } from '@/components/ui/atoms/ImageInput';
+import Image from 'next/image'
 
 type ProductItemProps = {
   product: IProduct
@@ -23,7 +25,10 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
   const [price, setPrice] = useState(0)
   const [in_stock, setIn_stock] = useState(0)
   const [rating, setRating] = useState(0)
-  const [image, setImage] = useState('')
+  const [icon, setIcon] = useState<ImageType>({
+    preview: '',
+    raw: null,
+  })
 
   const [isPending, setIsPending] = useState(false)
 
@@ -38,7 +43,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
         price,
         in_stock,
         rating,
-        image,
+        image: icon.raw || undefined
       })
       setIsEditing(false)
     } catch (error) {
@@ -93,10 +98,9 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
           />
         </div>
         <div className={styles.form_item}>
-          <input
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-            type="file"
+          <ImageInput
+            preview={icon.preview}
+            onChange={(i) => setIcon(i)}
           />
         </div>
         <button onClick={() => onSave()}>Создать</button>
@@ -107,9 +111,15 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
 
   return (
     <li>
-      <a className={styles.image}>
-        <img src={getImageURL(product.image)} alt={product.name} />
-      </a>
+      <br />
+      <div>
+        <Image
+          src={getImageURL(product.image)}
+          alt={product.name}
+          width={80}
+          height={60}
+        />
+      </div>
       <div>{product.name}</div>
       <div>{product.description}</div>
       <div>{product.price}</div>
@@ -124,7 +134,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
             setPrice(product.price)
             setIn_stock(product.in_stock)
             setRating(product.rating)
-            setImage(product.image)
+            setIcon({ preview: getImageURL(product.image), raw: null });
             setIsEditing(true)
           }}
         >
@@ -140,6 +150,4 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
       </div>
     </li>
   )
-
 }
-

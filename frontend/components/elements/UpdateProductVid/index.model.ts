@@ -16,11 +16,15 @@ const fetchProductsFx = createEffect<
     pageNumber: number;
     name: string;
   },
-  ListDTO<IProduct>,
+  ListDTO<IProduct> & { pageNumber: number },
   ApiError
->(async (url) => {
-  const result = await productsApi.fetchProducts();
-  return { ...result};
+>(async ({ pageSize, pageNumber, name }) => {
+  const result = await productsApi.fetchProducts({
+    take: pageSize,
+    skip: pageSize * pageNumber,
+    name,
+  });
+  return { ...result, pageNumber };
 });
 
 // Events
@@ -78,7 +82,7 @@ $products.on(fetchProductsFx.doneData, (_, { list }) => {
 $productsCount.on(fetchProductsFx.doneData, (_, { count }) => {
   return count;
 });
-//$pageNumber.on(fetchProductsFx.doneData, (_, { pageNumber }) => pageNumber);
+$pageNumber.on(fetchProductsFx.doneData, (_, { pageNumber }) => pageNumber);
 
 fetchProductsFx.failData.watch((e) => toast.error(e.message));
 
