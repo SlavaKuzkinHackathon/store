@@ -7,7 +7,10 @@ import { toast } from 'react-toastify'
 import { getImageURL } from '@/utils/getImageURL'
 import styles from '@/styles/admin/getProductsList.module.scss'
 import { Button } from '@/components/ui/atoms/Button'
-import { Image as ImageType, ImageInput } from '@/components/ui/atoms/ImageInput';
+import {
+  Image as ImageType,
+  ImageInput,
+} from '@/components/ui/atoms/ImageInput'
 import Image from 'next/image'
 
 type ProductItemProps = {
@@ -15,8 +18,11 @@ type ProductItemProps = {
 }
 
 export const UpdateProductItem = ({ product }: ProductItemProps) => {
-  const [isDeleting, deleteProductEvent, updateProductEvent] = useUnit([$isDeleting,
-    deleteProduct, updateProduct])
+  const [isDeleting, deleteProductEvent, updateProductEvent] = useUnit([
+    $isDeleting,
+    deleteProduct,
+    updateProduct,
+  ])
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -32,7 +38,6 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
 
   const [isPending, setIsPending] = useState(false)
 
-
   const onSave = () => {
     try {
       setIsPending(true)
@@ -43,7 +48,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
         price,
         in_stock,
         rating,
-        image: icon.raw || undefined
+        image: icon.raw || undefined,
       })
       setIsEditing(false)
     } catch (error) {
@@ -98,19 +103,16 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
           />
         </div>
         <div className={styles.form_item}>
-          <ImageInput
-            preview={icon.preview}
-            onChange={(i) => setIcon(i)}
-          />
+          <ImageInput preview={icon.preview} onChange={(i) => setIcon(i)} />
         </div>
-        <button onClick={() => onSave()}>Создать</button>
+        <Button onClick={() => onSave()} color='secondary'>Создать</Button>
         <button onClick={() => setIsEditing(false)}>Закрыть</button>
       </li>
     )
   }
 
   return (
-    <li>
+    <li className={styles.li}>
       <br />
       <div>
         <Image
@@ -120,6 +122,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
           height={60}
         />
       </div>
+      <div>{product.id}</div>
       <div>{product.name}</div>
       <div>{product.description}</div>
       <div>{product.price}</div>
@@ -127,25 +130,27 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
       <div>{product.rating}</div>
 
       <div>
-        <button
+        <Button
+          isLoading={isPending}
           onClick={() => {
             setName(product.name)
             setDescription(product.description)
             setPrice(product.price)
             setIn_stock(product.in_stock)
             setRating(product.rating)
-            setIcon({ preview: getImageURL(product.image), raw: null });
+            setIcon({ preview: getImageURL(product.image), raw: null })
             setIsEditing(true)
           }}
+          color='secondary'
         >
-          Edit
-        </button>
+          Изменить
+        </Button> 
         <Button
           onDoubleClick={() => deleteProductEvent(product.id)}
           isLoading={isDeleting}
           color="danger"
         >
-          Delete
+          Удалить
         </Button>
       </div>
     </li>

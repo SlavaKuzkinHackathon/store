@@ -30,18 +30,18 @@
     }
   
     &.ColorSecondary {
-      background-color: var(--secondary-color);
+      background-color: rgb(87, 160, 109);
   
       &:hover:not(:disabled) {
-        background-color: var(--secondary-hover-color);
+        background-color: #3ae651;
       }
   
       &:active:not(:disabled) {
-        background-color: var(--secondary-color);
+        background-color: #3ae651;
       }
   
       &.isLoading {
-        background-color: var(--secondary-hover-color);
+        background-color: #b0e4b7;
       }
     }
   

@@ -9,3 +9,16 @@
     object-fit: cover;
   }
 }
+
+.ul {
+	list-style: none;
+	display: table;
+}
+.li {
+	display: cell;
+	padding: 9px 9px;
+	margin: 1px 5px;
+	border: 2px solid;
+	float: left;
+  background-color: transparent;
+}
