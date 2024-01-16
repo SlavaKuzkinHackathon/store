@@ -1,4 +1,4 @@
-import ProductsList from '@/components/elements/ ProductsList'
+import { UpdateProductVid } from '@/components/elements/UpdateProductVid';
 import { NextPage } from 'next'
 
 
@@ -6,7 +6,7 @@ const AdminProductsPage: NextPage = () => {
   return (
     <>
         
-        <ProductsList/>
+        <UpdateProductVid/>
     </>
   );
 };
