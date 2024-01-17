@@ -1,0 +1,85 @@
+
+------------
+   .env server
+PORT=5000
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=slava
+POSTGRES_DB=api
+
+JWT_ACCESS_SECRET=123secret
+JWT_REFRESH_SECRET=secret123
+
+CLIENT_URL=http://localhost:3000
+------------
+
+ .env client
+NEXT_PUBLIC_API_BASEURL=http://localhost:5000/
+
+-----------
+sudo su - postgres 
+psql
+\l
+DROP DATABASE ----;
+
+
+dropdb api
+----------
+sudo su - postgres
+
+createdb api -O postgres
+
+sudo su - postgres
+psql api
+
+psql api
+\dt - таблицы в базе данных
+
+
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+-удаление данных, и создание схемы в БД
+
+
+
+select * from users;
+select * from roles;
+select * from users_roles;
+select * from products;
+select * from tokens;
+
+INSERT INTO roles VALUES (1, 'USER');
+INSERT INTO roles VALUES (2, 'ADMIN');
+
+
+INSERT INTO users_roles VALUES (2, 2);
+
+
+
+https://github.com/abkiselev/ecom
+https://github.com/TeemPresents/shop-ytb-client
+
+
+
+{
+  "name": "Диван №1",
+  "description": "Прямой 1900*800",
+  "price": 9000,
+  "in_stock": 3
+}
+
+{
+  "name": "Диван №2",
+  "description": "Угловой 2900*800",
+  "price": 8000,
+  "in_stock": 5
+}
+
+{
+  "name": "Диван №3",
+  "description": "Угловой 2200*1800",
+  "price": 8000,
+  "in_stock": 5
+}
+

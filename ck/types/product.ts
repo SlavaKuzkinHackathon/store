@@ -7,7 +7,7 @@ export const ProductSchema = z.object({
   price: z.number(),
   in_stock: z.number(),
   rating: z.number(),
-  image: z.string(),
+  images: z.array(z.string()),
 });
 
 export type IProduct = z.infer<typeof ProductSchema>

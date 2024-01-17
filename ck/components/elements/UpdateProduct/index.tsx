@@ -48,7 +48,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
         price,
         in_stock,
         rating,
-        image: icon.raw || undefined,
+        images: icon.raw || undefined,
       })
       setIsEditing(false)
     } catch (error) {
@@ -116,7 +116,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
       <br />
       <div>
         <Image
-          src={getImageURL(product.image)}
+          src={getImageURL(product.images)}
           alt={product.name}
           width={80}
           height={60}
@@ -138,7 +138,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
             setPrice(product.price)
             setIn_stock(product.in_stock)
             setRating(product.rating)
-            setIcon({ preview: getImageURL(product.image), raw: null })
+            setIcon({ preview: getImageURL(product.images), raw: null })
             setIsEditing(true)
           }}
           color='secondary'

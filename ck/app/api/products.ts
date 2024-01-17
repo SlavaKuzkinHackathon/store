@@ -19,7 +19,7 @@ export type CreateProductDTO = {
   price: number
   in_stock: number
   rating: number
-  image: string
+  images: Blob[]
 }
 
 //CREATE
@@ -34,8 +34,8 @@ export const createProduct = async (
   formData.append('rating', data.rating.toString())
   formData.append('in_stock', data.in_stock.toString())
 
-  for (const image of data.image) {
-    formData.append('image', image)
+  for (const image of data.images) {
+    formData.append('images', image)
   }
 
   const response = await api.post(`${BASE_ROUTE}`, formData, {
@@ -56,7 +56,7 @@ export type UpdateProductDTO = {
   price: number
   in_stock: number
   rating: number
-  image: Blob
+  images: Blob
 }>
 
 export const updateProduct = async (
@@ -79,8 +79,8 @@ export const updateProduct = async (
   if (product.rating) {
     formData.append('rating', product.rating.toString())
   }
-  if (product.image) {
-    formData.append('image', product.image)
+  if (product.images) {
+    formData.append('image', product.images)
   }
 
   const response = await api.put(`${BASE_ROUTE}/${product.id}`, formData, {
