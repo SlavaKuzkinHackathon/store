@@ -45,7 +45,7 @@ export class Product extends Model<Product, ProductCreationAttrs> {
     description: 'Наименование изображения товара',
   })
   @Column({ type: DataType.STRING })
-  images: string[];
+  images: string;
 
   @ApiProperty({ example: 5, description: 'Рейтинг товара' })
   @Column({ type: DataType.FLOAT, allowNull: false, defaultValue: 0 })

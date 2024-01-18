@@ -74,7 +74,7 @@ export class ProductService {
 
   async createProduct(
     createProductDto: CreateProductDto,
-    images: Express.Multer.File,
+    images: Express.Multer.File[],
   ): Promise<string> {
     const candidateProduct = await this.productRepository.findOne({
       where: { name: createProductDto.name },

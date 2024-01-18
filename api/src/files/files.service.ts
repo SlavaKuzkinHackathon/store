@@ -3,18 +3,33 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as uuid from 'uuid';
 
+
+
+
 @Injectable()
 export class FilesService {
-  async createFile(images: Express.Multer.File): Promise<string> {
+  async createFile(images: Express.Multer.File[]): Promise<string> {
+
     try {
-      const imageFormat = images.originalname.split('.')[1];
+      const imageFormat = images.map((image) => image.originalname.split('.'[1]))
       const imageName = uuid.v4() + '.' + imageFormat;
       const filePath = path.resolve(__dirname, '..', 'static');
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }
-      fs.writeFileSync(path.join(filePath, imageName), images.buffer);
+      for (const image of images) {
+        fs.writeFileSync(path.join(filePath, imageName), image.buffer)
+      }
+      /*   const imageFormat = images.map((image) => image.originalname.split('.'[1]))
+        //const imageFormat = images.originalname.split('.')[1];
+        const imageName = uuid.v4() + '.' + imageFormat;
+        const filePath = path.resolve(__dirname, '..', 'static');
+        if (!fs.existsSync(filePath)) {
+          fs.mkdirSync(filePath, { recursive: true });
+        }
+        fs.writeFileSync(path.join(filePath, imageName), imageFormat.push(buffer)); */
       return imageName;
+
     } catch (e) {
       throw new HttpException(
         'Произошла ошибка при записи изображения',

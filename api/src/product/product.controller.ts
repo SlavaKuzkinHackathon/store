@@ -6,8 +6,8 @@ import {
   Param,
   Post,
   Put,
-  Query,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -52,10 +52,10 @@ export class ProductController {
   @Post()
   @Roles('ADMIN')
   @UseGuards(RolesGuard)
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('images'))
   async create(
     @Body() createProductDto: CreateProductDto,
-    @UploadedFile() images: Express.Multer.File,
+    @UploadedFiles() images: Express.Multer.File[],
   ): Promise<string> {
     return await this.productService.createProduct(createProductDto, images);
   }
