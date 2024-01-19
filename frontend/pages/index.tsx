@@ -1,5 +1,7 @@
 import useRedirectByUserCheck from '@/hooks/useRedirectByUserCheck'
 import Head from 'next/head'
+import HomePage from '@/components/templates/HomePage/HomePage'
+
 
 export default function Home() {
   const { shouldLoadContent } = useRedirectByUserCheck()
@@ -13,7 +15,7 @@ export default function Home() {
       </Head>
       {/* {shouldLoadContent && ( */}
         <main>
-          <h1>Press</h1>
+          <HomePage />
           <div className="overlay" />
         </main>
       {/* )} */}
