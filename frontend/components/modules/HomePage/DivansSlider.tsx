@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import Slider from 'react-slick'
-import "slick-carousel/slick/slick-theme.css"
 import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 import {useMediaQuery} from '@/hooks/useMediaQuery'
 import { useEffect } from 'react'
 import { $mode } from '@/context/mode'
 import { useStore } from 'effector-react'
-import styles from '@/src/styles/dashboard/index.module.scss'
+import styles from '@/styles/dashboard/index.module.scss'
 
 
 const DivansSlider = () => {
@@ -34,7 +34,7 @@ const DivansSlider = () => {
 
    useEffect(() => {
     const slider = document.querySelector(
-      `.${styles.dashboard__brands__slider}`
+      `.${styles.dashboard__divansPhSlide__slider}`
     )
 
     const list = slider?.querySelector('.slick-list') as HTMLElement
@@ -54,10 +54,10 @@ const DivansSlider = () => {
 
   
   return (
-    <Slider {...settings} className={styles.dashboard__brands__slider}>
+    <Slider {...settings} className={styles.dashboard__divansPhSlide__slider}>
       {divansPhotoItem.map((item) => (
         <div
-          className={`${styles.dashboard__brands__slide} ${darkModeClass}`} 
+          className={`${styles.dashboard__divansPhSlide__slide} ${darkModeClass}`} 
           key={item.id}
           style={{ width: isMedia800 ? 135: 190 }}
         >

@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
-const withPlugins = require('next-compose-plugins');
+/* const nextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    appDir: true,
+  },
+}
+
+module.exports = nextConfig */
+
+
+
+ const withPlugins = require('next-compose-plugins');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -38,7 +49,7 @@ const nextConfig = {
         },
       ],
     });
-    config.module.rules.push({
+     config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf|png|jpg|gif)$/,
       issuer: {
         and: [/\.(js|ts|css|scss|sass)x?$/],
@@ -51,7 +62,7 @@ const nextConfig = {
           },
         },
       ],
-    });
+    }); 
 
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
@@ -90,7 +101,7 @@ const nextConfig = {
 }
 
 module.exports = withPlugins([withBundleAnalyzer], nextConfig);
-;
+; 
 
 /*
 module: {

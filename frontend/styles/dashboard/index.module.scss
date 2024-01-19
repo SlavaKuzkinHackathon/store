@@ -1,3 +1,4 @@
+ @import 'node_modules/slick-carousel/slick/slick';
 
 .dashboard {
     padding-top: 40px;
@@ -243,6 +244,50 @@
       }
     }
   
+
+    &__divansPhSlide {
+      margin-bottom: 48px;
+  
+      @media (max-width: 800px) {
+        margin-bottom: 32px;
+      }
+  
+      @media (max-width: 468px) {
+        margin-bottom: 64px;
+      }
+  
+      &__slider {
+        display: flex;
+        align-items: center;
+        position: relative;
+        height: 120px;
+  
+        @media (max-width: 800px) {
+          height: 90px;
+        }
+      }
+  
+      &__slide {
+        height: 111px;
+        display: flex !important;
+        align-items: center !important;
+        max-height: 111px;
+        border-radius: 4px;
+        overflow: hidden;
+        user-select: none;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 12px;
+  
+        @media (max-width: 800px) {
+          height: 75px;
+        }
+  
+        img {
+          width: 100%;
+        }
+      }
+    }
+
     &__title {
       font-family: 'Raleway';
       font-weight: 500;

@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import Slider from 'react-slick'
+/* mport Slider from 'react-slick'
 import { IDashboardSlider } from '../../../types/dashboard';
 import Link from 'next/link';
 import { formatPrice } from '@/utils/common';
@@ -80,3 +80,4 @@ const DashboardSlider = ({ items, spinner, goToPathPage }: IDashboardSlider) => 
 
 export default DashboardSlider
 
+ */
