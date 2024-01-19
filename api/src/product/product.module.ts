@@ -5,10 +5,11 @@ import { Product } from './models/product.model';
 import { ProductService } from './product.service';
 import { FilesModule } from 'src/files/files.module';
 import { TokenModule } from 'src/token/token.module';
+import { ProductImage } from './models/prodImage.model';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Product]),
+    SequelizeModule.forFeature([Product, ProductImage]),
     FilesModule,
     TokenModule,
   ],

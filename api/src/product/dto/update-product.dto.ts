@@ -23,5 +23,17 @@ export class UpdateProductDto {
     example: 1000,
     description: 'Количество товара',
   })
+  readonly rating: number;
+
+  @ApiProperty({
+    example: 1000,
+    description: 'Количество товара',
+  })
   readonly in_stock: number;
+
+  @ApiProperty({
+    example: '{title:"Изображение товара"}',
+    description: 'Фото товара',
+  })
+  readonly image: string;
 }

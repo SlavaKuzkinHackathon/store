@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString,} from 'class-validator';
+import { IsNotEmpty, IsString,} from 'class-validator';
 
 export class CreateProductDto {
   @ApiProperty({
@@ -33,12 +33,18 @@ export class CreateProductDto {
   readonly in_stock: number;
 
   @ApiProperty({
-    type: 'array',
-    items: {
-      type: 'string',
-      format: 'binary',
-    },
+    example: 3,
+    description: 'Количество товара',
   })
-  @IsOptional()
-  images: any[];
+  @IsNotEmpty({ message: 'Не указано количество товара' })
+  readonly rating: number;
+
+
+  @ApiProperty({
+    example: '{image:"Изображение товара"}',
+    description: 'Фото товара',
+  })
+  @IsString({ message: 'Должно быть строкой/фото' })
+  readonly image: string;
+
 }

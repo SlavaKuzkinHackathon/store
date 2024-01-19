@@ -3,33 +3,18 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as uuid from 'uuid';
 
-
-
-
 @Injectable()
 export class FilesService {
-  async createFile(images: Express.Multer.File[]): Promise<string> {
-
+  async createFile(image: Express.Multer.File): Promise<string> {
     try {
-      const imageFormat = images.map((image) => image.originalname.split('.'[1]))
+      const imageFormat = image.originalname.split('.')[1];
       const imageName = uuid.v4() + '.' + imageFormat;
       const filePath = path.resolve(__dirname, '..', 'static');
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }
-      for (const image of images) {
-        fs.writeFileSync(path.join(filePath, imageName), image.buffer)
-      }
-      /*   const imageFormat = images.map((image) => image.originalname.split('.'[1]))
-        //const imageFormat = images.originalname.split('.')[1];
-        const imageName = uuid.v4() + '.' + imageFormat;
-        const filePath = path.resolve(__dirname, '..', 'static');
-        if (!fs.existsSync(filePath)) {
-          fs.mkdirSync(filePath, { recursive: true });
-        }
-        fs.writeFileSync(path.join(filePath, imageName), imageFormat.push(buffer)); */
+      fs.writeFileSync(path.join(filePath, imageName), image.buffer);
       return imageName;
-
     } catch (e) {
       throw new HttpException(
         'Произошла ошибка при записи изображения',
@@ -38,7 +23,7 @@ export class FilesService {
     }
   }
   async updateFile(
-    images: Express.Multer.File,
+    image: Express.Multer.File,
     lastImageName: string,
   ): Promise<string> {
     try {
@@ -48,9 +33,9 @@ export class FilesService {
           console.log('Произошла ошибка при удалении старого файла ' + error);
         }
       });
-      const imageFormat = images.originalname.split('.')[1];
+      const imageFormat = image.originalname.split('.')[1];
       const imageName = uuid.v4() + '.' + imageFormat;
-      fs.writeFileSync(path.join(filePath, imageName), images.buffer);
+      fs.writeFileSync(path.join(filePath, imageName), image.buffer);
       return imageName;
     } catch (e) {
       throw new HttpException(

@@ -3,9 +3,9 @@ export interface IProduct {
   name: string
   price: number
   description: string
-  image: string
   in_stock: number
   rating: number
+  productImage: { id: number; image: string; }[];
 }
 
 export interface IProducts {
@@ -16,6 +16,7 @@ export interface IProducts {
   image: string
   in_stock: number
   rating: number
+  productImage: { id: number; image: string; }[];
 }
 
 

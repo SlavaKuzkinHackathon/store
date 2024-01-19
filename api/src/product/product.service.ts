@@ -4,14 +4,15 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './models/product.model';
 import { FilesService } from 'src/files/files.service';
+import { ProductImage, ProductImageCreationAttrs } from './models/prodImage.model';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectModel(Product) private productRepository: typeof Product,
-   
+    @InjectModel(ProductImage) private productImageRepository: typeof ProductImage,
     private filesService: FilesService,
-  ) {}
+  ) { }
 
   async getProducts(
     page: number,
@@ -50,8 +51,14 @@ export class ProductService {
   }
 
 
-  async getAllProducts():Promise<Product[]> {
-    const products = await this.productRepository.findAll();;
+  async getAllProducts(): Promise<Product[]> {
+    const products = await this.productRepository.findAll({
+      include: [
+        {
+          model: ProductImage
+        }
+      ]
+    });;
 
     return products;
   }
@@ -60,7 +67,11 @@ export class ProductService {
 
   async getOneProduct(id: number): Promise<Product> {
     const product = await this.productRepository.findByPk(id, {
-      
+      include: [
+        {
+          model: ProductImage
+        }
+      ]
     });
 
     if (!product) {
@@ -74,7 +85,7 @@ export class ProductService {
 
   async createProduct(
     createProductDto: CreateProductDto,
-    images: Express.Multer.File[],
+    image: Express.Multer.File,
   ): Promise<string> {
     const candidateProduct = await this.productRepository.findOne({
       where: { name: createProductDto.name },
@@ -85,17 +96,28 @@ export class ProductService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    let imageName = '';
-    if (images) {
-      imageName = await this.filesService.createFile(images);
-    }
+
     const product = await this.productRepository.create({
-      ...createProductDto,
-      images: imageName,
+      ...createProductDto
     });
 
-   
+    const productImageArray: ProductImageCreationAttrs[] = JSON.parse(
+      createProductDto.image,
+    );
 
+    if (productImageArray.length) {
+      let imageName = '';
+      if (image) {
+        imageName = await this.filesService.createFile(image);
+      }
+      productImageArray.forEach(
+        async (imageName) =>
+          await this.productImageRepository.create({
+            image: imageName.image,
+            productId: product.id,
+          }),
+      );
+    }
     return `Товар ${product.name} успешно создан`;
   }
 
@@ -127,14 +149,10 @@ export class ProductService {
         HttpStatus.NOT_FOUND,
       );
     }
-    let imageName = '';
-    if (images) {
-      imageName = await this.filesService.updateFile(images, product.images);
-    }
+  
     await this.productRepository.update(
       {
         ...updateProductDto,
-        images: imageName,
       },
       { where: { id } },
     );
@@ -156,3 +174,13 @@ export class ProductService {
   }
 
 }
+
+
+    /*     let imageName = '';
+        if (image) {
+          imageName = await this.filesService.createFile(image);
+        }
+        const product = await this.productImageRepository.create({
+          ...createProductDto,
+          image: imageName,
+        }); */

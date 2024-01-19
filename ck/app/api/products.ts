@@ -1,7 +1,7 @@
 import { createEffect } from 'effector-next'
 import api from '../axiosClient'
-import { IProduct, ProductSchema } from '@/types/product'
-import { createResponseSchema } from './lib'
+import { IProduct, IProductImage, ProductImageSchema, ProductSchema } from '@/types/product'
+import { createListResponseSchema, createResponseSchema } from './lib'
 
 export const getProductsFx = createEffect(async (url: string) => {
   const { data } = await api.get(url)
@@ -11,7 +11,9 @@ export const getProductsFx = createEffect(async (url: string) => {
 
 const BASE_ROUTE = '/products'
 
+const ProductListSchema = createListResponseSchema(ProductImageSchema);
 const ProductResponseSchema = createResponseSchema(ProductSchema)
+
 
 export type CreateProductDTO = {
   name: string
@@ -19,7 +21,7 @@ export type CreateProductDTO = {
   price: number
   in_stock: number
   rating: number
-  images: Blob[]
+  productImage: Blob[]
 }
 
 //CREATE
@@ -31,11 +33,11 @@ export const createProduct = async (
   formData.append('name', data.name)
   formData.append('description', data.description)
   formData.append('price', data.price.toString())
-  formData.append('rating', data.rating.toString())
   formData.append('in_stock', data.in_stock.toString())
+  formData.append('rating', data.rating.toString())
 
-  for (const image of data.images) {
-    formData.append('images', image)
+  for (const image of data.productImage) {
+    formData.append('images', image);
   }
 
   const response = await api.post(`${BASE_ROUTE}`, formData, {
@@ -44,6 +46,8 @@ export const createProduct = async (
     },
   })
 
+  console.log('prodImgApi', data);
+  
   return ProductResponseSchema.parse(response.data).data
 }
 
@@ -56,7 +60,7 @@ export type UpdateProductDTO = {
   price: number
   in_stock: number
   rating: number
-  images: Blob
+  image: string
 }>
 
 export const updateProduct = async (
@@ -79,8 +83,8 @@ export const updateProduct = async (
   if (product.rating) {
     formData.append('rating', product.rating.toString())
   }
-  if (product.images) {
-    formData.append('image', product.images)
+  if (product.image) {
+    formData.append('image', product.image)
   }
 
   const response = await api.put(`${BASE_ROUTE}/${product.id}`, formData, {
@@ -96,5 +100,9 @@ export const updateProduct = async (
 
 export const deleteProduct = async (productId: number): Promise<void> => {
   await api.delete(`${BASE_ROUTE}/${productId}`)
+}
+
+function useState<T>(arg0: never[]): [any, any] {
+  throw new Error('Function not implemented.')
 }
 

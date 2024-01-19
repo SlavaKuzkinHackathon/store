@@ -6,11 +6,11 @@ import {
   HasMany,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
+import {ProductImage} from './prodImage.model'
 
 interface ProductCreationAttrs {
   name: string;
   price: number;
-  images: string;
 }
 
 @Table({ tableName: 'products', updatedAt: false })
@@ -40,14 +40,10 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   @Column({ type: DataType.INTEGER, allowNull: false })
   in_stock: number;
 
-  @ApiProperty({
-    example: '91643f20-bf90-4ad6-a339-21460da42107.jpg',
-    description: 'Наименование изображения товара',
-  })
-  @Column({ type: DataType.STRING })
-  images: string;
-
   @ApiProperty({ example: 5, description: 'Рейтинг товара' })
   @Column({ type: DataType.FLOAT, allowNull: false, defaultValue: 0 })
   rating: number;
+
+  @HasMany(() => ProductImage, {onDelete: 'CASCADE'})
+  productImage: ProductImage[];
 }

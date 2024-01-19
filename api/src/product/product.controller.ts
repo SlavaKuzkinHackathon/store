@@ -52,12 +52,12 @@ export class ProductController {
   @Post()
   @Roles('ADMIN')
   @UseGuards(RolesGuard)
-  @UseInterceptors(FileInterceptor('images'))
+  @UseInterceptors(FileInterceptor('image'))
   async create(
     @Body() createProductDto: CreateProductDto,
-    @UploadedFiles() images: Express.Multer.File[],
+    @UploadedFiles() image: Express.Multer.File,
   ): Promise<string> {
-    return await this.productService.createProduct(createProductDto, images);
+    return await this.productService.createProduct(createProductDto, image);
   }
 
 
