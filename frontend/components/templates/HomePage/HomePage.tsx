@@ -1,6 +1,7 @@
 import { $mode } from '@/context/mode'
 import { useStore } from 'effector-react'
 import styles from '@/styles/dashboard/index.module.scss'
+import DivansSlider from '@/components/modules/HomePage/DivansSlider'
 
 
 
@@ -12,7 +13,7 @@ const HomePage = () => {
         <section className={styles.dashboard}>
             <div className={`container ${styles.dashboard__container}`}>
                 <div className={styles.dashboard__brands}>
-                    <span/>
+                    <DivansSlider/>
                 </div>
             </div>
         </section>

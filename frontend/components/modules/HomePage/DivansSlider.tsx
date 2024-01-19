@@ -69,8 +69,3 @@ const DivansSlider = () => {
 }
 
 export default DivansSlider
-
-function useStore($mode: any) {
-  throw new Error('Function not implemented.');
-}
-

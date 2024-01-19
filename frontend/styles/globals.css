@@ -218,3 +218,5 @@ a {
     opacity: 1;
   }
 }
+
+@import 'node_modules/slick-carousel/slick/slick';
