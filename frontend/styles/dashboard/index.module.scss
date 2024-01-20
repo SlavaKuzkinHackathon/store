@@ -1,6 +1,4 @@
- @import 'node_modules/slick-carousel/slick/slick';
-
-.dashboard {
+ .dashboard {
     padding-top: 40px;
     padding-bottom: 120px;
   
@@ -128,6 +126,126 @@
   
     &__brands {
       margin-bottom: 48px;
+      
+      @media (max-width: 800px) {
+        margin-bottom: 32px;
+      }
+  
+      @media (max-width: 468px) {
+        margin-bottom: 64px;
+      }
+  
+      &__slider {
+        display: flex;
+        align-items: center; 
+        position: relative;
+        height: 90px;
+  
+        @media (max-width: 800px) {
+          height: 90px;
+        }
+  
+        &__arrow {
+          background-color: #ffffff;
+          border: none;
+          border-radius: 50%;
+          margin: 0;
+          padding: 0;
+          cursor: pointer;
+          width: 50px;
+          height: 50px;
+          position: absolute;
+          top: 35px;
+          z-index: 5;
+          transition: background-color .2s ease-in-out;
+          box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  
+          @media (max-width: 800px) {
+            display: none;
+          }
+  
+          &:hover {
+            background-color: rgba(255, 248, 182, 1) ;
+            transition: background-color .2s ease-in-out;
+          }
+  
+          span {
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: relative;
+  
+            svg {
+              fill: #4E4C4C;
+              position: absolute;
+              top: 16px;
+              left: 16px;
+            }
+          }
+  
+          &.dark_mode {
+            background-color: #4E4C4C;
+  
+            span svg {
+              fill: #f2f2f2;
+            }
+  
+            &:hover {
+              background-color: #2d2d2d;
+              transition: background-color .2s ease-in-out;
+            }
+          }
+        }
+  
+        &__arrow_prev {
+          left: 8px;
+  
+          span svg {
+            transform: rotate(180deg);
+          }
+        }
+  
+        &__arrow_next {
+          right: 8px;
+        }
+  
+        .slick-slide {
+          margin: 0 10px !important;
+        }
+        .slick-list {
+          height: 80px !important;
+        }
+      }
+  
+
+      &__slide {
+        height: 111px;
+        display: flex !important;
+        align-items: center !important;
+        max-height: 111px;
+        border-radius: 4px;
+        overflow: hidden;
+        user-select: none;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 12px;
+  
+        @media (max-width: 800px) {
+          height: 75px;
+        }
+  
+        img {
+          width: 100%;
+        }
+  
+        &.dark_mode {
+          background-color: #363535;
+        }
+      }
+    }
+  
+
+    &__divansPhSlide {
+      margin-bottom: 48px;
   
       @media (max-width: 800px) {
         margin-bottom: 32px;
@@ -139,14 +257,14 @@
   
       &__slider {
         display: flex;
-        align-items: center;
+        align-items: center; 
         position: relative;
-        height: 80px;
+        height: 90px;
   
         @media (max-width: 800px) {
-          height: 60px;
+          height: 90px;
         }
-  
+
         &__arrow {
           background-color: #ffffff;
           border: none;
@@ -217,54 +335,7 @@
         .slick-list {
           height: 80px !important;
         }
-      }
-  
-      &__slide {
-        height: 68px;
-        display: flex !important;
-        align-items: center !important;
-        max-height: 68px;
-        border-radius: 4px;
-        overflow: hidden;
-        user-select: none;
-        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-        padding: 12px;
-  
-        @media (max-width: 800px) {
-          height: 48px;
-        }
-  
-        img {
-          width: 100%;
-        }
-  
-        &.dark_mode {
-          background-color: #2d2d2d;
-        }
-      }
-    }
-  
 
-    &__divansPhSlide {
-      margin-bottom: 48px;
-  
-      @media (max-width: 800px) {
-        margin-bottom: 32px;
-      }
-  
-      @media (max-width: 468px) {
-        margin-bottom: 64px;
-      }
-  
-      &__slider {
-        display: flex;
-        align-items: center;
-        position: relative;
-        height: 120px;
-  
-        @media (max-width: 800px) {
-          height: 90px;
-        }
       }
   
       &__slide {

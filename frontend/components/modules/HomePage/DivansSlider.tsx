@@ -7,6 +7,8 @@ import { useEffect } from 'react'
 import { $mode } from '@/context/mode'
 import { useStore } from 'effector-react'
 import styles from '@/styles/dashboard/index.module.scss'
+import BrandsSliderNextArrow from '@/components/elements/BrandsSliderNextArrow/BrandsSliderNextArrow'
+import BrandsSliderPrevArrow from '@/components/elements/BrandsSliderPrevArrow/BrandsSliderPrevArrow'
 
 
 const DivansSlider = () => {
@@ -34,7 +36,7 @@ const DivansSlider = () => {
 
    useEffect(() => {
     const slider = document.querySelector(
-      `.${styles.dashboard__divansPhSlide__slider}`
+      `.${styles.dashboard__brands__slider}`
     )
 
     const list = slider?.querySelector('.slick-list') as HTMLElement
@@ -47,17 +49,29 @@ const DivansSlider = () => {
     infinite: true,
     slidesToScroll: 1,
     variableWidth: true,
-    arrows: false,
     autoplay: true,
     speed: 500,
+    nextArrow: <BrandsSliderNextArrow modeClass={darkModeClass} />,
+    prevArrow: <BrandsSliderPrevArrow modeClass={darkModeClass} />,
+
+    /*
+      dots: false,
+    infinite: true,
+    slidesToScroll: 1,
+    variableWidth: true,
+    autoplay: true,
+    speed: 500,
+    nextArrow: <BrandsSliderNextArrow modeClass={darkModeClass} />,
+    prevArrow: <BrandsSliderPrevArrow modeClass={darkModeClass} />,
+    */
   }
 
   
   return (
-    <Slider {...settings} className={styles.dashboard__divansPhSlide__slider}>
+    <Slider {...settings} className={styles.dashboard__brands__slider}>
       {divansPhotoItem.map((item) => (
         <div
-          className={`${styles.dashboard__divansPhSlide__slide} ${darkModeClass}`} 
+          className={`${styles.dashboard__brands__slide} ${darkModeClass}`} 
           key={item.id}
           style={{ width: isMedia800 ? 135: 190 }}
         >

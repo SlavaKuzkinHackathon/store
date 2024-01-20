@@ -34,7 +34,7 @@ const nextConfig = {
     fiber: false,
   },
   webpack(config) {
-    config.module.rules.push({
+    /* config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf|png|jpg|gif)$/,
       issuer: {
         and: [/\.(js|ts|css|scss|sass)x?$/],
@@ -48,8 +48,8 @@ const nextConfig = {
           },
         },
       ],
-    });
-     config.module.rules.push({
+    }); */
+   /*   config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf|png|jpg|gif)$/,
       issuer: {
         and: [/\.(js|ts|css|scss|sass)x?$/],
@@ -62,7 +62,7 @@ const nextConfig = {
           },
         },
       ],
-    }); 
+    }); */ 
 
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
