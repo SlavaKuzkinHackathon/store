@@ -9,7 +9,7 @@ import { FilesService } from 'src/files/files.service';
 export class ProductService {
   constructor(
     @InjectModel(Product) private productRepository: typeof Product,
-   
+
     private filesService: FilesService,
   ) {}
 
@@ -49,19 +49,14 @@ export class ProductService {
     }
   }
 
-
-  async getAllProducts():Promise<Product[]> {
-    const products = await this.productRepository.findAll();;
+  async getAllProducts(): Promise<Product[]> {
+    const products = await this.productRepository.findAll();
 
     return products;
   }
 
-
-
   async getOneProduct(id: number): Promise<Product> {
-    const product = await this.productRepository.findByPk(id, {
-      
-    });
+    const product = await this.productRepository.findByPk(id);
 
     if (!product) {
       throw new HttpException(
@@ -94,9 +89,13 @@ export class ProductService {
       image: imageName,
     });
 
-   
-
     return `Товар ${product.name} успешно создан`;
+  }
+
+  async bestsellers(): Promise<{ count: number; rows: Product[] }> {
+    return this.productRepository.findAndCountAll({
+      where: { rating: true },
+    });
   }
 
   async getNoveltyAndPopular(): Promise<{
@@ -104,12 +103,13 @@ export class ProductService {
     populars: Product[];
   }> {
     const products = await this.productRepository.findAll({
-      include: [
-      ],
+      include: [],
       order: [['createdAt', 'DESC']],
     });
     const novelties = products.slice(0, 4);
     const populars = products
+      .filter((product) => product.rating === 5 && product.rating > 0)
+      .sort((a, b) => b.rating - a.rating)
       .slice(0, 8);
 
     return { novelties, populars };
@@ -154,5 +154,4 @@ export class ProductService {
     });
     return `Товар ${product.name} с id=${id} удален`;
   }
-
 }

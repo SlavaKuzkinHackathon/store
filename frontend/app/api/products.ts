@@ -1,6 +1,6 @@
 import { createEffect } from 'effector-next'
 import api from '../axiosClient'
-import { IProduct, } from '@/types/product'
+import { IProduct } from '@/types/product'
 import {
   axiosInstance,
   ListDTO,
@@ -15,6 +15,15 @@ export const getProductsFx = createEffect(async (url: string) => {
 
   return data
 })
+
+
+
+export const getDivansOrNewFx = createEffect(async (url: string) => {
+  const { data } = await api.get(url)
+
+  return data
+})
+
 // Create
 const BASE_ROUTE = '/products'
 
@@ -58,26 +67,17 @@ export const fetchProduct = async (productId: number): Promise<IProduct> => {
   return ProductResponseSchema.parse(response.data).data
 }
 
-/* export const fetchProducts = async (
-): Promise<ListDTO<IProduct>> => {
-  const response = await api.get(`${BASE_ROUTE}`)
-
-  return ProductListSchema.parse(response.data).data
-} */
-
 export const fetchProducts = async (
   query: PaginationQueryDTO & {
-    name?: string;
-  },
+    name?: string
+  }
 ): Promise<ListDTO<IProduct>> => {
-  const params: Record<string, unknown> = query;
+  const params: Record<string, unknown> = query
 
-  const response = await axiosInstance.get(`${BASE_ROUTE}`, { params });
+  const response = await axiosInstance.get(`${BASE_ROUTE}`, { params })
 
-  return ProductListSchema.parse(response.data).data;
-};
-
-
+  return ProductListSchema.parse(response.data).data
+}
 
 export const fetchRecommendedProducts = async (
   query: PaginationQueryDTO & { productId: number }
@@ -135,41 +135,7 @@ export const updateProduct = async (
   return ProductResponseSchema.parse(response.data).data
 }
 
-
-
 /// Delete
 export const deleteProduct = async (productId: number): Promise<void> => {
   await api.delete(`${BASE_ROUTE}/${productId}`)
 }
-
-
-/*
-export const fetchProducts = async (
-  query: PaginationQueryDTO & {
-    name?: string;
-  }
-): Promise<ListDTO<IProduct>> => {
-  const response = await api.get(`${BASE_ROUTE}`, { params: query })
-
-  return ProductListSchema.parse(response.data).data
-}
-
-
-export const fetchCategories = async (
-  query: PaginationQueryDTO & {
-    name?: string;
-    parentId?: number | null;
-  },
-): Promise<ListDTO<IProductCategory>> => {
-  const params: Record<string, unknown> = query;
-
-  if (query.parentId === null) {
-    params.parentId = 'null';
-  }
-
-  const response = await axiosInstance.get(`${BASE_ROUTE}`, { params });
-
-  return ProductCategoryListSchema.parse(response.data).data;
-};
-
-*/

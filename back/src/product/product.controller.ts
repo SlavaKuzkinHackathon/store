@@ -11,8 +11,18 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import {
+  PaginateAndFilterResponse,
+  FindOneResponse,
+  GetBestsellersResponse,
+  GetNewResponse,
+  SearchResponse,
+  SearchRequest,
+  GetByNameResponse,
+  GetByNameRequest,
+} from './types';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiOkResponse } from '@nestjs/swagger';
 import { Roles } from 'src/role/role-auth.decorators';
 import { RolesGuard } from 'src/role/role.guard';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -61,6 +71,7 @@ export class ProductController {
   }
 
 
+
   @ApiOperation({ summary: 'Получение всех каталогов' })
   @ApiResponse({
     status: 200,
@@ -73,21 +84,33 @@ export class ProductController {
   }
 
 
+  @ApiOperation({ summary: 'Получение популярных товаров' })
+  @ApiResponse({
+    status: 200,
+    description: 'Возвращаются популярные товары',
+  })
+  @ApiOkResponse({ type: GetBestsellersResponse })
+  @Get('bestsellers')
+  getBestseller() {
+    return this.productService.bestsellers();
+  }
+
+
 
   @ApiOperation({ summary: 'Получение новинок и популярных товаров' })
   @ApiResponse({
     status: 200,
     description: 'Возвращаются новинки и популярные товары',
   })
-  @Get('new')
+  @Get('newold')
   async getNoveltyAndPopular(): Promise<{
     novelties: Product[];
     populars: Product[];
   }> {
     return await this.productService.getNoveltyAndPopular();
-  } 
+  }
 
-  @ApiOperation({ summary: 'Изменение товара' }) 
+  @ApiOperation({ summary: 'Изменение товара' })
   @ApiResponse({
     status: 200,
     description: 'Товар изменен',
