@@ -9,13 +9,8 @@ export interface IProduct {
 }
 
 export interface IProducts {
-  id: number
-  name: string
-  price: number
-  description: string
-  image: string
-  in_stock: number
-  rating: number
+  count: number
+  rows: IProduct[]
 }
 
 

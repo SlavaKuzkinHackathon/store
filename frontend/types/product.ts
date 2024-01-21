@@ -11,3 +11,9 @@ export const ProductSchema = z.object({
 });
 
 export type IProduct = z.infer<typeof ProductSchema>
+
+
+export interface IProducts {
+  count: number
+  rows: IProduct[]
+}
