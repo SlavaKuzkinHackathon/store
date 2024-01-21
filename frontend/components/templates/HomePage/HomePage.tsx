@@ -36,7 +36,7 @@ const HomePage = () => {
         try {
             setSpinner(true)
             const bestellers = await getDivansOrNewFx('/products/bestsellers')
-            const newDivans = await getDivansOrNewFx('/products/newold')
+            const newDivans = await getDivansOrNewFx('/products/new')
 
             setBestellers(bestellers)
             setNewDivans(newDivans)
@@ -48,9 +48,9 @@ const HomePage = () => {
         try {
             setSpinner(true)
             const bestellers = await getDivansOrNewFx('/products/bestsellers')
-            const newDivans = await getDivansOrNewFx('/products/newold')
+            const newDivans = await getDivansOrNewFx('/products/new')
 
-            //setBestellers(bestellers)
+            setBestellers(bestellers)
             setNewDivans(newDivans)
         } catch (error) {
             error

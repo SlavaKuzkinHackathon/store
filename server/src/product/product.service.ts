@@ -49,7 +49,7 @@ export class ProductService {
           where: { catalogId },
           offset,
           limit,
-          order: [['rating', 'DESC']],
+          order: [['rating', 'ASC']],
         });
       default:
         return await this.productRepository.findAndCountAll({
@@ -60,16 +60,13 @@ export class ProductService {
     }
   }
 
-
-  async getAllProducts():Promise<Product[]> {
-    const products = await this.productRepository.findAll();;
+  async getAllProducts(): Promise<Product[]> {
+    const products = await this.productRepository.findAll();
 
     return products;
   }
 
-
-
-  async getOneProduct(id: number): Promise<Product> {
+ /*  async getOneProduct(id: number): Promise<Product> {
     const product = await this.productRepository.findByPk(id, {
       include: [
         {
@@ -90,7 +87,7 @@ export class ProductService {
       );
     }
     return product;
-  }
+  } */
 
   async createProduct(
     createProductDto: CreateProductDto,
@@ -132,26 +129,23 @@ export class ProductService {
     return `Товар ${product.name} успешно создан`;
   }
 
-  async getNoveltyAndPopular(): Promise<{
-    novelties: Product[];
-    populars: Product[];
-  }> {
+  async getPopular(
+  ): Promise<{ rows: Product[]; count: number } | Product[]> {
     const products = await this.productRepository.findAll({
-      include: [
-        {
-          model: Review,
-        },
-      ],
-      order: [['createdAt', 'DESC']],
+      order: [['rating', 'DESC']]
     });
-    const novelties = products.slice(0, 4);
-    const populars = products
-      .filter((product) => product.rating === 5 && product.reviews.length > 0)
-      .sort((a, b) => b.reviews.length - a.reviews.length)
-      .slice(0, 8);
-
-    return { novelties, populars };
+    return products;
   }
+
+
+  async getNovelty(): Promise<{ rows: Product[]; count: number } | Product[]> {
+    const products = await this.productRepository.findAll({
+     order: [['createdAt', 'DESC']],
+    });
+    return products;
+  }
+
+
 
   async updateProduct(
     id: number,
@@ -206,3 +200,28 @@ export class ProductService {
     await product.save();
   }
 }
+
+/*
+ async getNoveltyAndPopular(): Promise<{
+    novelties: Product[];
+    populars: Product[];
+  }> {
+    const products = await this.productRepository.findAll({
+      include: [
+        {
+          model: Review,
+        },
+      ],
+      order: [['createdAt', 'DESC']],
+    });
+    const novelties = products.slice(0, 4);
+    const populars = products
+      .filter((product) => product.rating === 5 && product.reviews.length > 0)
+      .sort((a, b) => b.reviews.length - a.reviews.length)
+      .slice(0, 8);
+
+    return { novelties, populars };
+  }
+
+
+*/

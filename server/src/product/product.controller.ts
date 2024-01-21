@@ -21,11 +21,11 @@ import { Product } from './models/product.model';
 import { ProductService } from './product.service';
 
 @ApiTags('Товары')
-@Controller('product')
+@Controller('products')
 export class ProductController {
   constructor(private productService: ProductService) {}
 
-  @ApiOperation({ summary: 'Получение одного товара' })
+ /*  @ApiOperation({ summary: 'Получение одного товара' })
   @ApiResponse({
     status: 200,
     type: Product,
@@ -39,7 +39,7 @@ export class ProductController {
   async getOne(@Param('id') id: string): Promise<Product> {
     return await this.productService.getOneProduct(+id);
   }
-
+ */
   @ApiOperation({ summary: 'Добавление товара' })
   @ApiResponse({
     status: 200,
@@ -60,34 +60,39 @@ export class ProductController {
     return await this.productService.createProduct(createProductDto, image);
   }
 
-
   @ApiOperation({ summary: 'Получение всех каталогов' })
   @ApiResponse({
     status: 200,
     type: [Product],
-    description: 'Возвращаются все каталоги',
+    description: 'Возвращаются все каталоги', 
   })
   @Get()
   async getAllProducts(): Promise<Product[]> {
     return await this.productService.getAllProducts();
   }
 
-
-
-  @ApiOperation({ summary: 'Получение новинок и популярных товаров' })
+  @ApiOperation({ summary: 'Получение популярных товаров' })
   @ApiResponse({
     status: 200,
-    description: 'Возвращаются новинки и популярные товары',
+    description: 'Возвращаются популярные товары',
+  })
+  @Get('bestsellers')
+  async getPopular(): Promise<{ rows: Product[]; count: number } | Product[]> {
+    return await this.productService.getPopular();
+  }
+
+  @ApiOperation({ summary: 'Получение новинок' })
+  @ApiResponse({
+    status: 200,
+    description: 'Возвращаются новинки',
   })
   @Get('new')
-  async getNoveltyAndPopular(): Promise<{
-    novelties: Product[];
-    populars: Product[];
-  }> {
-    return await this.productService.getNoveltyAndPopular();
-  } 
+  async ggetNovelt(): Promise<{ rows: Product[]; count: number } | Product[]> {
+    return await this.productService.getNovelty();
+  }
 
-  @ApiOperation({ summary: 'Изменение товара' }) 
+
+  @ApiOperation({ summary: 'Изменение товара' })
   @ApiResponse({
     status: 200,
     description: 'Товар изменен',

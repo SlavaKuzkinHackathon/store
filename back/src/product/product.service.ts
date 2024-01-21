@@ -92,27 +92,18 @@ export class ProductService {
     return `Товар ${product.name} успешно создан`;
   }
 
-  async bestsellers(): Promise<{ count: number; rows: Product[] }> {
-    return this.productRepository.findAndCountAll({
-      where: { rating: true },
+  async getPopular(): Promise<{ rows: Product[]; count: number } | Product[]> {
+    const products = await this.productRepository.findAll({
+      order: [['rating', 'DESC']],
     });
+    return products;
   }
 
-  async getNoveltyAndPopular(): Promise<{
-    novelties: Product[];
-    populars: Product[];
-  }> {
+  async getNovelty(): Promise<{ rows: Product[]; count: number } | Product[]> {
     const products = await this.productRepository.findAll({
-      include: [],
       order: [['createdAt', 'DESC']],
     });
-    const novelties = products.slice(0, 4);
-    const populars = products
-      .filter((product) => product.rating === 5 && product.rating > 0)
-      .sort((a, b) => b.rating - a.rating)
-      .slice(0, 8);
-
-    return { novelties, populars };
+    return products;
   }
 
   async updateProduct(

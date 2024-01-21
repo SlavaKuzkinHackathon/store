@@ -35,7 +35,7 @@ import { ProductService } from './product.service';
 export class ProductController {
   constructor(private productService: ProductService) {}
 
-  @ApiOperation({ summary: 'Получение одного товара' })
+ /*  @ApiOperation({ summary: 'Получение одного товара' })
   @ApiResponse({
     status: 200,
     type: Product,
@@ -48,7 +48,7 @@ export class ProductController {
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<Product> {
     return await this.productService.getOneProduct(+id);
-  }
+  } */
 
   @ApiOperation({ summary: 'Добавление товара' })
   @ApiResponse({
@@ -83,31 +83,24 @@ export class ProductController {
     return await this.productService.getAllProducts();
   }
 
-
   @ApiOperation({ summary: 'Получение популярных товаров' })
   @ApiResponse({
     status: 200,
     description: 'Возвращаются популярные товары',
   })
-  @ApiOkResponse({ type: GetBestsellersResponse })
   @Get('bestsellers')
-  getBestseller() {
-    return this.productService.bestsellers();
+  async getPopular(): Promise<{ rows: Product[]; count: number } | Product[]> {
+    return await this.productService.getPopular();
   }
 
-
-
-  @ApiOperation({ summary: 'Получение новинок и популярных товаров' })
+  @ApiOperation({ summary: 'Получение новинок' })
   @ApiResponse({
     status: 200,
-    description: 'Возвращаются новинки и популярные товары',
+    description: 'Возвращаются новинки',
   })
-  @Get('newold')
-  async getNoveltyAndPopular(): Promise<{
-    novelties: Product[];
-    populars: Product[];
-  }> {
-    return await this.productService.getNoveltyAndPopular();
+  @Get('new')
+  async ggetNovelt(): Promise<{ rows: Product[]; count: number } | Product[]> {
+    return await this.productService.getNovelty();
   }
 
   @ApiOperation({ summary: 'Изменение товара' })
