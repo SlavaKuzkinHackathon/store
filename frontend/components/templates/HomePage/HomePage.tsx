@@ -11,8 +11,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import DashboardSlider from '@/components/modules/HomePage/DashboardSlider'
 
 const HomePage = () => {
-  const [newDivans, setNewDivans] = useState<IProducts>({} as IProducts)
-  const [bestsellers, setBestellers] = useState<IProducts>({} as IProducts)
+  const [newDivans, setNewDivans] = useState<IProduct[]>()
+  const [bestsellers, setBestellers] = useState<IProduct[]>([])
   const [spinner, setSpinner] = useState(false)
   
 
@@ -65,6 +65,7 @@ const HomePage = () => {
     setShowAlert(false)
   }
 
+  
   return (
     <section className={styles.dashboard}>
       <div className={`container ${styles.dashboard__container}`}>
@@ -96,12 +97,12 @@ const HomePage = () => {
         <div className={styles.dashboard__parts}>
           <h3 className={`${styles.dashboard__parts__title} ${darkModeClass}`}>Хиты продаж</h3>
           <span />
-          <DashboardSlider items={bestsellers.rows || []} spinner={spinner} /> 
+          <DashboardSlider items={bestsellers || []} spinner={spinner} /> 
         </div>
         <div className={styles.dashboard__parts}>
           <h3 className={`${styles.dashboard__parts__title} ${darkModeClass}`}>Новинки</h3>
           <span />
-         <DashboardSlider items={newDivans.rows || []} spinner={spinner} />
+         <DashboardSlider items={newDivans || []} spinner={spinner} />
         </div>
         <div className={styles.dashboard__about}>
           <h3

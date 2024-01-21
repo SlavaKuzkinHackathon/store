@@ -8,9 +8,11 @@ import { useEffect } from 'react'
 import { $mode } from '@/context/mode'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { IDashboardSlider } from '@/types/dashboard'
-import skeletonStyles from '@/styles/skeleton/index.module.scss'
+
 import { formatPrice } from '@/utils/common'
 import styles from '@/styles/dashboard/index.module.scss'
+import skeletonStyles from '@/styles/skeleton/index.module.scss'
+import { getImageURL } from '@/utils/getImageURL'
 
 const DashboardSlider = ({
   items,
@@ -50,6 +52,7 @@ const DashboardSlider = ({
     width: isMedia1366 ? (isMedia800 ? (isMedia560 ? 160 : 252) : 317) : 344,
   }
 
+
   return (
     <Slider {...settings} className={styles.dashboard__slider}>
       {spinner ? (
@@ -71,7 +74,7 @@ const DashboardSlider = ({
             key={item.id}
             style={width}
           >
-            <img src={JSON.parse(item.image)[0]} alt={item.name} />
+             <img src={getImageURL(item.image)} alt={item.name} /> 
             <div className={styles.dashboard__slide__inner}>
               <Link
                 href={goToPartPage ? `/catalog/${item.id}` : '/catalog'}
@@ -89,7 +92,7 @@ const DashboardSlider = ({
                 }
               </span>
               <span className={styles.dashboard__slide__price}>
-                {formatPrice(item.price)} P
+                {formatPrice(item.price)} ₽
               </span>
             </div>
           </div>

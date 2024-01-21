@@ -99,7 +99,7 @@ export class ProductController {
     description: 'Возвращаются новинки',
   })
   @Get('new')
-  async ggetNovelt(): Promise<{ rows: Product[]; count: number } | Product[]> {
+  async getNovelt(): Promise<{ rows: Product[]; count: number } | Product[]> {
     return await this.productService.getNovelty();
   }
 

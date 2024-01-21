@@ -8,10 +8,10 @@ export interface IProduct {
   rating: number
 }
 
-export interface IProducts {
+/* export interface IProducts {
   count: number
   rows: IProduct[]
-}
+} */
 
 
 export interface IBaseEffectArgs {
