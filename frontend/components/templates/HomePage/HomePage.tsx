@@ -3,7 +3,7 @@ import { useStore } from 'effector-react'
 import styles from '@/styles/dashboard/index.module.scss'
 import DivansSlider from '@/components/modules/HomePage/DivansSlider'
 import { useEffect, useState } from 'react'
-import { IProduct, IProducts } from '@/types/product'
+import { IProduct } from '@/types/product'
 import { getDivansOrNewFx } from '@/app/api/products'
 import { toast } from 'react-toastify'
 import { $shopingCart } from '@/context/shoping-cart'
@@ -88,7 +88,7 @@ const HomePage = () => {
           )}
           <span />
         </AnimatePresence>
-        <div className={styles.dashboard__brands}>
+        <div /* className={styles.dashboard__brands} */>
           <DivansSlider />
         </div>
         <h2 className={`${styles.dashboard__title} ${darkModeClass}`}>

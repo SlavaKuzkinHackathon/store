@@ -53,17 +53,6 @@ const DivansSlider = () => {
     speed: 500,
     nextArrow: <BrandsSliderNextArrow modeClass={darkModeClass} />,
     prevArrow: <BrandsSliderPrevArrow modeClass={darkModeClass} />,
-
-    /*
-      dots: false,
-    infinite: true,
-    slidesToScroll: 1,
-    variableWidth: true,
-    autoplay: true,
-    speed: 500,
-    nextArrow: <BrandsSliderNextArrow modeClass={darkModeClass} />,
-    prevArrow: <BrandsSliderPrevArrow modeClass={darkModeClass} />,
-    */
   }
 
   
