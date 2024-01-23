@@ -46,18 +46,14 @@ export const singInFx = createEffect(
   }
 )
 
-export const checkUserAuthFx = createEffect(async (token: string | any) => {
+export const checkUserAuthFx = createEffect(async (url: string) => {
   try {
-    const data = jwtDecode(token)
+    const data = await api.get(url)
+    const userDataCheck: IUser = await jwtDecode(data.data.accessToken);
 
-    const { userId, email, name, roles } = data as IUser
+    setUser(userDataCheck)
 
-    return {
-      userId,
-      email,
-      name,
-      roles,
-    }
+    return data
   } catch (error) {
     const axiosError = error as AxiosError
 
@@ -79,3 +75,5 @@ export const logoutFx = createEffect(async (url: string) => {
     toast.error((error as Error).message)
   }
 })
+
+

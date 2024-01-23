@@ -1,5 +1,5 @@
 import { checkUserAuthFx } from '@/app/api/auth'
-import { setUser } from '@/context/user'
+import { setAuth } from '@/context/user'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 
@@ -16,9 +16,7 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
   }, [])
 
   const checkUser = async () => {
-    //const user = await checkUserAuthFx('/auth/login-check')
-    const token = localStorage.getItem('auth_connection');
-		const user = await checkUserAuthFx(token);
+    const user = await checkUserAuthFx('/auth/check-auth')
 
     if (isAuthPage) {
       if (!user) {
@@ -30,11 +28,11 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
       return
     }
 
-    if (user) {
-     setUser(user)
+     if (user) {
+     setAuth(true)
       setShouldLoadContent(true)
       return
-    }
+    }  
 
     router.push('/')
   }
