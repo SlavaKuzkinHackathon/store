@@ -1,7 +1,14 @@
 import { createEffect } from 'effector-next'
 import api from '../axiosClient'
-import { IProduct, IProductImage, ProductImageSchema, ProductSchema } from '@/types/product'
-import { createListResponseSchema, createResponseSchema } from './lib'
+import { IProduct } from '@/types/product'
+import {
+  axiosInstance,
+  ListDTO,
+  PaginationQueryDTO,
+  createListResponseSchema,
+  createResponseSchema,
+} from './lib'
+import { ProductSchema } from '@/types/product'
 
 export const getProductsFx = createEffect(async (url: string) => {
   const { data } = await api.get(url)
@@ -9,11 +16,19 @@ export const getProductsFx = createEffect(async (url: string) => {
   return data
 })
 
+
+
+export const getDivansOrNewFx = createEffect(async (url: string) => {
+  const { data } = await api.get(url)
+
+  return data
+})
+
+// Create
 const BASE_ROUTE = '/products'
 
-const ProductListSchema = createListResponseSchema(ProductImageSchema);
 const ProductResponseSchema = createResponseSchema(ProductSchema)
-
+const ProductListSchema = createListResponseSchema(ProductSchema)
 
 export type CreateProductDTO = {
   name: string
@@ -21,10 +36,8 @@ export type CreateProductDTO = {
   price: number
   in_stock: number
   rating: number
-  productImage: Blob[]
+  image: string
 }
-
-//CREATE
 
 export const createProduct = async (
   data: CreateProductDTO
@@ -33,11 +46,11 @@ export const createProduct = async (
   formData.append('name', data.name)
   formData.append('description', data.description)
   formData.append('price', data.price.toString())
-  formData.append('in_stock', data.in_stock.toString())
   formData.append('rating', data.rating.toString())
+  formData.append('in_stock', data.in_stock.toString())
 
-  for (const image of data.productImage) {
-    formData.append('images', image);
+  for (const image of data.image) {
+    formData.append('image', image)
   }
 
   const response = await api.post(`${BASE_ROUTE}`, formData, {
@@ -46,12 +59,37 @@ export const createProduct = async (
     },
   })
 
-  console.log('prodImgApi', data);
-  
   return ProductResponseSchema.parse(response.data).data
 }
 
-//UPDATE
+export const fetchProduct = async (productId: number): Promise<IProduct> => {
+  const response = await api.get(`${BASE_ROUTE}/${productId}`)
+  return ProductResponseSchema.parse(response.data).data
+}
+
+export const fetchProducts = async (
+  query: PaginationQueryDTO & {
+    name?: string
+  }
+): Promise<ListDTO<IProduct>> => {
+  const params: Record<string, unknown> = query
+
+  const response = await axiosInstance.get(`${BASE_ROUTE}`, { params })
+
+  return ProductListSchema.parse(response.data).data
+}
+
+export const fetchRecommendedProducts = async (
+  query: PaginationQueryDTO & { productId: number }
+): Promise<ListDTO<IProduct>> => {
+  const response = await api.get(`${BASE_ROUTE}/recommended`, {
+    params: query,
+  })
+
+  return ProductListSchema.parse(response.data).data
+}
+
+///Update
 export type UpdateProductDTO = {
   id: number
 } & Partial<{
@@ -60,7 +98,7 @@ export type UpdateProductDTO = {
   price: number
   in_stock: number
   rating: number
-  image: string
+  image: Blob
 }>
 
 export const updateProduct = async (
@@ -83,6 +121,7 @@ export const updateProduct = async (
   if (product.rating) {
     formData.append('rating', product.rating.toString())
   }
+
   if (product.image) {
     formData.append('image', product.image)
   }
@@ -96,13 +135,7 @@ export const updateProduct = async (
   return ProductResponseSchema.parse(response.data).data
 }
 
-// DELETE
-
+/// Delete
 export const deleteProduct = async (productId: number): Promise<void> => {
   await api.delete(`${BASE_ROUTE}/${productId}`)
 }
-
-function useState<T>(arg0: never[]): [any, any] {
-  throw new Error('Function not implemented.')
-}
-

@@ -1,8 +1,14 @@
+
+
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
+
+
+
 
 html,
 
@@ -108,7 +114,7 @@ a {
 }
 
 .slick-slide {
-  margin: 0 8px;
+  margin: 0 5px;
 }
 
 @media (max-width: 800px) {
@@ -118,7 +124,7 @@ a {
 }
 
 .slick-track {
-  padding-top: 8px;
+  padding-top: 7px;
 }
 
 .selected a {
@@ -218,3 +224,4 @@ a {
     opacity: 1;
   }
 }
+

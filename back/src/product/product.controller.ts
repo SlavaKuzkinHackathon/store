@@ -11,16 +11,6 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  PaginateAndFilterResponse,
-  FindOneResponse,
-  GetBestsellersResponse,
-  GetNewResponse,
-  SearchResponse,
-  SearchRequest,
-  GetByNameResponse,
-  GetByNameRequest,
-} from './types';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiResponse, ApiOkResponse } from '@nestjs/swagger';
 import { Roles } from 'src/role/role-auth.decorators';

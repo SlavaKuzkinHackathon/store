@@ -1,14 +1,4 @@
-export interface IProduct {
-  _id?: number | string;
-  name: string
-  price: number
-  description: string
-  in_stock: number
-  rating: number
-  productImage: { id: number; image: string; }[];
-}
-
-export interface IProducts {
+/* export interface IProduct {
   id: number
   name: string
   price: number
@@ -16,17 +6,19 @@ export interface IProducts {
   image: string
   in_stock: number
   rating: number
-  productImage: { id: number; image: string; }[];
 }
+ */
+/* export interface IProducts {
+  count: number
+  rows: IProduct[]
+} */
 
-
+/* 
 export interface IBaseEffectArgs {
   url: string;
   token: string;
-  formData: FormData
-
 }
 
-export interface ICreateProduct extends IBaseEffectArgs {
+export interface ProductSchema  {
   product: IProduct;
-}
+} */

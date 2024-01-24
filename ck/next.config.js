@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
-const withPlugins = require('next-compose-plugins');
+/* const nextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    appDir: true,
+  },
+}
+
+module.exports = nextConfig */
+
+
+
+ const withPlugins = require('next-compose-plugins');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -23,7 +34,7 @@ const nextConfig = {
     fiber: false,
   },
   webpack(config) {
-    config.module.rules.push({
+    /* config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf|png|jpg|gif)$/,
       issuer: {
         and: [/\.(js|ts|css|scss|sass)x?$/],
@@ -37,8 +48,8 @@ const nextConfig = {
           },
         },
       ],
-    });
-    config.module.rules.push({
+    }); */
+   /*   config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf|png|jpg|gif)$/,
       issuer: {
         and: [/\.(js|ts|css|scss|sass)x?$/],
@@ -51,7 +62,7 @@ const nextConfig = {
           },
         },
       ],
-    });
+    }); */ 
 
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
@@ -90,3 +101,53 @@ const nextConfig = {
 }
 
 module.exports = withPlugins([withBundleAnalyzer], nextConfig);
+; 
+
+/*
+module: {
+    rules: [
+        {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+                loader: "babel-loader",
+                options: {
+                    presets: [
+                        "@babel/preset-env",
+                        "@babel/preset-react"
+                    ].map(require.resolve)
+                }
+            }
+        },
+        {
+            test: /\.css$/,
+            use: [
+                {loader: "style-loader"},
+                {loader: "css-loader"}
+            ]
+        },
+        {
+            test: /\.(png|jpg|gif)$/i,
+            use: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192
+                    }
+                }
+            ]
+        },
+        {
+            test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'fonts/'
+                }
+            }]
+        }
+    ]
+},
+
+*/

@@ -1,48 +1,26 @@
-import { useEffect, useId, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useEffect, useId } from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import { useUnit } from 'effector-react'
-import { IProduct, IProductImage, ProductImageSchema, ProductSchema } from '@/types/product'
+
 import styles from '@/styles/admin/createProduct.module.scss'
 import { $isPending, formSubmitted, productCreated } from './index.model'
-import { createProduct } from '@/context/product'
-import { MultipleImagesInput } from '@/components/ui/molecules/MultipleImagesInput'
-import { Field } from '@/components/ui/molecules/Field/Field'
-import {
-  Image as ImageType,
-  ImageInput,
-} from '@/components/ui/atoms/ImageInput'
 
 const CreateProduct = () => {
   const [isPending] = useUnit([$isPending])
 
   const formSubmittedEvent = useUnit(formSubmitted)
 
-  const [icon, setIcon] = useState<ImageType>({
-    preview: '',
-    raw: null,
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      name: '',
+      description: '',
+      price: 0,
+      rating: 0,
+      in_stock: 0,
+      image: '',
+    },
   })
-  const [productImages, setProductImages] = useState<
-    { id: number; image: string; }[]
-  >([]);
 
-  const { register,
-    handleSubmit,
-    formState: { errors },
-    control,
-    reset, } = useForm({
-      defaultValues: {
-        name: '',
-        description: '',
-        price: 0,
-        rating: 0,
-        in_stock: 0,
-        productImage: [] as { preview: string; raw: Blob }[],
-
-      },
-    })
-
-
-    
   const onSubmit = handleSubmit((data) => {
     formSubmittedEvent({
       name: data.name,
@@ -50,19 +28,16 @@ const CreateProduct = () => {
       price: data.price,
       in_stock: data.in_stock,
       rating: data.rating,
-      productImage: data.productImage.map((image) => image.raw),
+      image: data.image,
     })
-
+    
   })
-  console.log('prodImgEl', onSubmit);
-  
+
   useEffect(() => {
     return productCreated.watch(() => {
       reset()
     })
   }, [reset])
-
-  const imagesId = useId();
 
   return (
     <form
@@ -112,26 +87,118 @@ const CreateProduct = () => {
           className="form-control"
         />
       </div>
-
-      <Field label="Images" htmlFor={imagesId} className="mb-4">
-        <Controller
-          control={control}
-          name="productImage"
-          rules={{
-            validate: (value) => value.length > 0 || 'Add images',
-          }}
-          render={({ field }) => (
-            <MultipleImagesInput
-              images={field.value}
-              onChange={(newImages) => field.onChange(newImages)}
-              id={imagesId}
-            />
-          )}
-        />
-      </Field>
-      <button >Создать</button>
+      <div className={styles.form_item}>
+        <input 
+        {...register('image')}
+        type="file"/>
+      </div>
+       <button >Создать</button>
     </form>
   )
 }
 
 export default CreateProduct
+
+/* import { createProductFx } from '@/app/api/products'
+import { createProduct } from '@/context/products'
+import styles from '@/styles/admin/createProduct.module.scss'
+import { getAuthDataFromLS } from '@/utils/auth'
+import { ChangeEvent, MutableRefObject, useRef, useState } from 'react'
+
+const CreateProduct = () => {
+  const [imageFile, setImageFile] = useState<boolean>(false)
+
+  const nameRef = useRef() as MutableRefObject<HTMLInputElement>
+  const descriptionRef = useRef() as MutableRefObject<HTMLInputElement>
+  const priceRef = useRef() as MutableRefObject<HTMLInputElement>
+  const in_stockRef = useRef() as MutableRefObject<HTMLInputElement>
+  const ratingRef = useRef() as MutableRefObject<HTMLInputElement>
+  const imagesRef = useRef() as MutableRefObject<HTMLInputElement>
+
+  const formSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const file = event.target.files && event.target.files[0]
+    const formData = new FormData()
+    formData.append('images', file)
+    setImageFile(true)
+
+    const nameInputValue = nameRef.current.value
+    const descriptionInputValue = descriptionRef.current.value
+    const priceInputValue = priceRef.current.value
+    const in_stockInputValue = in_stockRef.current.value
+    const ratingInputValue = ratingRef.current.value
+    const imagesInputValue = imagesRef.current.value
+
+    const authData = getAuthDataFromLS()
+
+    const productCreate = await createProductFx({
+      url: '/products',
+      product: {
+        name: nameInputValue,
+        description: descriptionInputValue,
+        price: parseInt(priceInputValue),
+        in_stock: parseInt(in_stockInputValue),
+        rating: parseInt(ratingInputValue),
+        images: imagesInputValue,
+      },
+      token: authData.access_token,
+    })
+  //id ошибка в productList 
+    createProduct(productCreate)
+  }
+
+  return (
+    <form className={styles.form} onSubmit={formSubmit}>
+      <h1>Создать товар</h1>
+      <div className={styles.form_item}>
+        <input
+          ref={nameRef}
+          type="text"
+          placeholder="Наименование"
+          className="form-control"
+        />
+      </div>
+
+      <div className={styles.form_item}>
+        <input
+          ref={descriptionRef}
+          type="text"
+          placeholder="Описание"
+          className="form-control"
+        />
+      </div>
+      <div className={styles.form_item}>
+        <input
+          ref={priceRef}
+          type="number"
+          placeholder="Стоимость"
+          className="form-control"
+        />
+      </div>
+      <div className={styles.form_item}>
+        <input
+          ref={in_stockRef}
+          type="number"
+          placeholder="Количество"
+          className="form-control"
+        />
+      </div>
+      <div className={styles.form_item}>
+        <input ref={ratingRef} placeholder="Рейтинг" className="form-control" />
+      </div>
+      <div className={styles.form_item}>
+        <input
+          ref={imagesRef}
+          type="file"
+          placeholder="Image"
+          className="form-control"
+        />
+        {imageFile}
+      </div>
+      <button>Создать</button>
+    </form>
+  )
+}
+
+export default CreateProduct
+ */

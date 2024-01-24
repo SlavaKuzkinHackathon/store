@@ -1,4 +1,4 @@
-export interface IShoppingCartItem {
+export interface IShopingCartItem {
   id: number
   username: string
   price: number

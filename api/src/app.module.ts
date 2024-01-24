@@ -13,7 +13,6 @@ import { Token } from './token/token.model';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { ProductImage } from './product/models/prodImage.model';
 
 @Module({
   imports: [
@@ -31,7 +30,6 @@ import { ProductImage } from './product/models/prodImage.model';
         Role,
         UserRole,
         Token,
-        ProductImage
       ],
       autoLoadModels: true,
       sync: { alter: true },

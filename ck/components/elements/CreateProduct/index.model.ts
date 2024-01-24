@@ -1,8 +1,8 @@
 import { CreateProductDTO, createProduct } from '@/app/api/products';
-import { createEffect, createEvent, createStore, sample } from 'effector';
+import { createDomain, createEffect, createEvent, createStore, sample } from 'effector';
 
 // Effects
-export const createProductFx = createEffect<CreateProductDTO, void>(
+const createProductFx = createEffect<CreateProductDTO, void>(
   async (product) => {
     await createProduct(product);
   },

@@ -1,9 +1,9 @@
-import { IShoppingCartItem } from "@/types/shoping-cart";
+import { IShopingCartItem } from "@/types/shoping-cart";
 import { createDomain } from "effector-next";
 
-const shoppingCart = createDomain()
+const shopingCart = createDomain()
 
-export const setShoppingCart = shoppingCart.createEvent<IShoppingCartItem[]>()
+export const setShopingCart = shopingCart.createEvent<IShopingCartItem[]>()
 
-export const  $shoppingCart = shoppingCart.createStore<IShoppingCartItem[]>([])
-.on(setShoppingCart , (_, shoppingCart) => shoppingCart)
+export const  $shopingCart = shopingCart.createStore<IShopingCartItem[]>([])
+.on(setShopingCart , (_, shopingCart) => shopingCart)

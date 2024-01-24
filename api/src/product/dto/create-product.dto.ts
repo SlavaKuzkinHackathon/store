@@ -31,20 +31,4 @@ export class CreateProductDto {
   })
   @IsNotEmpty({ message: 'Не указано количество товара' })
   readonly in_stock: number;
-
-  @ApiProperty({
-    example: 3,
-    description: 'Количество товара',
-  })
-  @IsNotEmpty({ message: 'Не указано количество товара' })
-  readonly rating: number;
-
-
-  @ApiProperty({
-    example: '{image:"Изображение товара"}',
-    description: 'Фото товара',
-  })
-  @IsString({ message: 'Должно быть строкой/фото' })
-  readonly image: string;
-
 }
