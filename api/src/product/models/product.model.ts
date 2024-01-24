@@ -32,6 +32,10 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   description: string;
 
+  @ApiProperty({ example: 'Модель', description: 'Модель товара' })
+  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  model: string;
+
   @ApiProperty({ example: 1000, description: 'Цена товара' })
   @Column({ type: DataType.INTEGER, allowNull: false })
   price: number;

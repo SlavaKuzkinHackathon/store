@@ -13,6 +13,12 @@ export class ProductService {
     private filesService: FilesService,
   ) {}
 
+  async findOne(id: number | string): Promise<Product> {
+    return this.productRepository.findOne({
+        where: { id },
+    });
+}
+
   async getProducts(
     page: number,
     limit: number,

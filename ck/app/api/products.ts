@@ -33,6 +33,7 @@ const ProductListSchema = createListResponseSchema(ProductSchema)
 export type CreateProductDTO = {
   name: string
   description: string
+  model: string
   price: number
   in_stock: number
   rating: number
@@ -45,6 +46,7 @@ export const createProduct = async (
   const formData = new FormData()
   formData.append('name', data.name)
   formData.append('description', data.description)
+  formData.append('model', data.model)
   formData.append('price', data.price.toString())
   formData.append('rating', data.rating.toString())
   formData.append('in_stock', data.in_stock.toString())
@@ -95,6 +97,7 @@ export type UpdateProductDTO = {
 } & Partial<{
   name: string
   description: string
+  model: string
   price: number
   in_stock: number
   rating: number
@@ -111,6 +114,9 @@ export const updateProduct = async (
   }
   if (product.description) {
     formData.append('description', product.description)
+  }
+  if (product.model) {
+    formData.append('description', product.model)
   }
   if (product.price) {
     formData.append('price', product.price.toString())

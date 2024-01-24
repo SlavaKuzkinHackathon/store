@@ -18,6 +18,12 @@ export class UserService {
     private roleService: RoleService,
   ) {}
 
+  findOne(filter: {
+    where: { id?: string; username?: string; email?: string };
+  }): Promise<User> {
+    return this.userRepository.findOne({ ...filter });
+  }
+
   async getUserByEmail(email: string): Promise<User> {
     return await this.userRepository.findOne({
       where: { email },

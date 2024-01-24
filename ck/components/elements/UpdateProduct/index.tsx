@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useUnit } from 'effector-react'
 import { $isDeleting, deleteProduct, updateProduct } from './index.model'
 import { IProduct } from '@/types/product'
@@ -28,6 +27,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [model, setModel] = useState('')
   const [price, setPrice] = useState(0)
   const [in_stock, setIn_stock] = useState(0)
   const [rating, setRating] = useState(0)
@@ -79,6 +79,14 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
         </div>
         <div className={styles.form_item}>
           <input
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            type="text"
+            placeholder="Модель"
+          />
+        </div>
+        <div className={styles.form_item}>
+          <input
             placeholder="Стоимость"
             className="form-control"
             type="number"
@@ -125,6 +133,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
       <div>{product.id}</div>
       <div>{product.name}</div>
       <div>{product.description}</div>
+      <div>{product.model}</div>
       <div>{product.price}</div>
       <div>{product.in_stock}</div>
       <div>{product.rating}</div>
@@ -135,6 +144,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
           onClick={() => {
             setName(product.name)
             setDescription(product.description)
+            setModel(product.model)
             setPrice(product.price)
             setIn_stock(product.in_stock)
             setRating(product.rating)

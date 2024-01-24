@@ -13,6 +13,8 @@ import { Token } from './token/token.model';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { Cart } from './cart/cart.model';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -30,6 +32,7 @@ import { join } from 'path';
         Role,
         UserRole,
         Token,
+        Cart,
       ],
       autoLoadModels: true,
       sync: { alter: true },
@@ -42,6 +45,7 @@ import { join } from 'path';
     AuthModule,
     TokenModule,
     FilesModule,
+    CartModule,
   ],
   controllers: [],
   providers: [],
