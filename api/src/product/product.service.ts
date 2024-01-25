@@ -4,6 +4,8 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './models/product.model';
 import { FilesService } from 'src/files/files.service';
+import { Op } from 'sequelize';
+import { IProductsFilter, IProductsQuery } from './types';
 
 @Injectable()
 export class ProductService {
@@ -15,9 +17,9 @@ export class ProductService {
 
   async findOne(id: number | string): Promise<Product> {
     return this.productRepository.findOne({
-        where: { id },
+      where: { id },
     });
-}
+  }
 
   async getProducts(
     page: number,
@@ -150,5 +152,29 @@ export class ProductService {
       where: { id },
     });
     return `Товар ${product.name} с id=${id} удален`;
+  }
+
+  async paginateAndFilter(
+    query: IProductsQuery,
+  ): Promise<{ count: number; rows: Product[] }> {
+    const limit = +query.limit;
+    const offset = +query.offset * 20;
+    const filter = {} as Partial<IProductsFilter>;
+
+    if (query.priceFrom && query.priceTo) {
+      filter.price = {
+        [Op.between]: [+query.priceFrom, +query.priceTo],
+      };
+    }
+
+    if (query.products) {
+      filter.model = JSON.parse(decodeURIComponent(query.products));
+    }
+
+    return this.productRepository.findAndCountAll({
+      limit,
+      offset,
+      where: filter,
+    });
   }
 }

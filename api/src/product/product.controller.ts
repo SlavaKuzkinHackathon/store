@@ -19,11 +19,15 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './models/product.model';
 import { ProductService } from './product.service';
+import { PaginateAndFilterResponse } from './types';
 
 @ApiTags('Товары')
 @Controller('products')
 export class ProductController {
   constructor(private productService: ProductService) {}
+
+
+
 
  /*  @ApiOperation({ summary: 'Получение одного товара' })
   @ApiResponse({
@@ -60,9 +64,13 @@ export class ProductController {
     return await this.productService.createProduct(createProductDto, image);
   }
 
+  @ApiOkResponse({ type: PaginateAndFilterResponse })
+  @Get()
+  paginateAndFilter(@Query() query) {
+    return this.productService.paginateAndFilter(query);
+  }
 
-
-  @ApiOperation({ summary: 'Получение всех каталогов' })
+/*   @ApiOperation({ summary: 'Получение всех каталогов' })
   @ApiResponse({
     status: 200,
     type: [Product],
@@ -71,7 +79,7 @@ export class ProductController {
   @Get()
   async getAllProducts(): Promise<Product[]> {
     return await this.productService.getAllProducts();
-  }
+  } */
 
   @ApiOperation({ summary: 'Получение популярных товаров' })
   @ApiResponse({
