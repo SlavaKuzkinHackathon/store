@@ -15,10 +15,9 @@ const HomePage = () => {
   const [newDivans, setNewDivans] = useState<IProduct[]>()
   const [bestsellers, setBestellers] = useState<IProduct[]>([])
   const [spinner, setSpinner] = useState(false)
-  
 
   const shoppingCart = useStore($shopingCart)
-  const [showAlert, setShowAlert] = useState(!!1/**shoppingCart.length */)
+  const [showAlert, setShowAlert] = useState(!!1 /**shoppingCart.length */)
 
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
@@ -27,7 +26,7 @@ const HomePage = () => {
     loadDivans()
   }, [])
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     if (shoppingCart.length) {
       setShowAlert(true)
       return
@@ -66,11 +65,10 @@ const HomePage = () => {
     setShowAlert(false)
   }
 
-  
   return (
     <section className={styles.dashboard}>
       <div className={`container ${styles.dashboard__container}`}>
-      <AnimatePresence>
+        <AnimatePresence>
           {showAlert && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -79,31 +77,37 @@ const HomePage = () => {
               className={`${styles.dashboard__alert} ${darkModeClass}`}
             >
               <CartAlert
-                count={shoppingCart.length
-                /**reduce(
+                count={
+                  shoppingCart.length
+                  /**reduce(
                   (defaultCount, item) => defaultCount + item.count,
                   0
-                ) */}
+                ) */
+                }
                 closeAlert={closeAlert}
               />
             </motion.div>
           )}
         </AnimatePresence>
-        <div className={styles.dashboard__brands} >
+        <div className={styles.dashboard__brands}>
           <DivansSlider />
         </div>
         <h2 className={`${styles.dashboard__title} ${darkModeClass}`}>
           Распродажа диванов со склада
         </h2>
         <div className={styles.dashboard__parts}>
-          <h3 className={`${styles.dashboard__parts__title} ${darkModeClass}`}>Хиты продаж</h3>
+          <h3 className={`${styles.dashboard__parts__title} ${darkModeClass}`}>
+            Хиты продаж
+          </h3>
           <span />
-          <DashboardSlider items={bestsellers || []} spinner={spinner} /> 
+          <DashboardSlider items={bestsellers || []} spinner={spinner} />
         </div>
         <div className={styles.dashboard__parts}>
-          <h3 className={`${styles.dashboard__parts__title} ${darkModeClass}`}>Новинки</h3>
+          <h3 className={`${styles.dashboard__parts__title} ${darkModeClass}`}>
+            Новинки
+          </h3>
           <span />
-         <DashboardSlider items={newDivans || []} spinner={spinner} />
+          <DashboardSlider items={newDivans || []} spinner={spinner} />
         </div>
         <div className={styles.dashboard__about}>
           <h3
