@@ -53,6 +53,8 @@ DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 -удаление данных, и создание схемы в БД
 
+drop table products;
+
 
 
 select * from users;
@@ -99,4 +101,7 @@ https://github.com/TeemPresents/shop-ytb-client
   "price": 8000,
   "in_stock": 5
 }
+
+
+////7:56:36 
 

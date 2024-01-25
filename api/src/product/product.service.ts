@@ -57,11 +57,11 @@ export class ProductService {
     }
   }
 
-  async getAllProducts(): Promise<Product[]> {
+  /* async getAllProducts(): Promise<Product[]> {
     const products = await this.productRepository.findAll();
 
     return products;
-  }
+  } */
 
   async getOneProduct(id: number): Promise<Product> {
     const product = await this.productRepository.findByPk(id);
@@ -153,6 +153,14 @@ export class ProductService {
     });
     return `Товар ${product.name} с id=${id} удален`;
   }
+
+
+  async getAllProducts(): Promise<Product[]> {
+    const products = await this.productRepository.findAll();
+
+    return products;
+  }
+
 
   async paginateAndFilter(
     query: IProductsQuery,

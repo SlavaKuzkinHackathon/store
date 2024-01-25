@@ -29,11 +29,11 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   name: string;
 
   @ApiProperty({ example: 'Описание', description: 'Описание товара' })
-  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  @Column({ type: DataType.STRING, unique: false, allowNull: false })
   description: string;
 
   @ApiProperty({ example: 'Модель', description: 'Модель товара' })
-  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  @Column({ type: DataType.STRING, unique: false, allowNull: false })
   model: string;
 
   @ApiProperty({ example: 1000, description: 'Цена товара' })

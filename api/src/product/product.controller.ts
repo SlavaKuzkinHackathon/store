@@ -63,14 +63,19 @@ export class ProductController {
   ): Promise<string> {
     return await this.productService.createProduct(createProductDto, image);
   }
-
+ 
+  @ApiOperation({ summary: 'Получение товаров с пагинацией' })
+  @ApiResponse({
+    status: 200,
+    description: 'Возвращаются пагинация',
+  })
   @ApiOkResponse({ type: PaginateAndFilterResponse })
-  @Get()
+  @Get('all')
   paginateAndFilter(@Query() query) {
     return this.productService.paginateAndFilter(query);
   }
-
-/*   @ApiOperation({ summary: 'Получение всех каталогов' })
+ 
+  @ApiOperation({ summary: 'Получение всех каталогов' })
   @ApiResponse({
     status: 200,
     type: [Product],
@@ -79,7 +84,7 @@ export class ProductController {
   @Get()
   async getAllProducts(): Promise<Product[]> {
     return await this.productService.getAllProducts();
-  } */
+  } 
 
   @ApiOperation({ summary: 'Получение популярных товаров' })
   @ApiResponse({
@@ -142,3 +147,25 @@ export class ProductController {
     return await this.productService.removeProduct(+id);
   }
 }
+
+
+
+/*  @ApiOperation({ summary: 'Получение всех каталогов' })
+  @ApiResponse({
+    status: 200,
+    type: [Product],
+    description: 'Возвращаются все каталоги',
+  })
+  @Get()
+  async getAllProducts(): Promise<Product[]> {
+    return await this.productService.getAllProducts();
+  } */
+
+
+  /* 
+  @ApiOkResponse({ type: PaginateAndFilterResponse })
+  @Get()
+  paginateAndFilter(@Query() query) {
+    return this.productService.paginateAndFilter(query);
+  }
+ */

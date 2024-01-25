@@ -16,6 +16,11 @@ export const getProductsFx = createEffect(async (url: string) => {
   return data
 })
 
+export const getProductsPaginateFx = createEffect(async (url: string) => {
+  const { data } = await api.get(url)
+
+  return data
+})
 
 
 export const getDivansOrNewFx = createEffect(async (url: string) => {
