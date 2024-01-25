@@ -27,7 +27,7 @@
       }
   
       &.dark_mode {
-        background-color: #2d2d2d;
+        background-color: #3a3939;
       }
   
       &__left {
@@ -78,9 +78,9 @@
   
       &__btn_cart {
         margin-right: 24px;
-        background-color: #EBF5FD;
-        border: 1px solid #1C629E;
-        color: #1C629E;
+        background-color: rgba(255, 248, 182, 1);
+        border: 1px solid rgba(84, 176, 112, 1);
+        color: rgba(84, 176, 112, 1);
   
         @media (max-width: 768px) {
           margin-right: 0;
@@ -89,7 +89,7 @@
       }
   
       &__btn_order {
-        background-color: #1C629E;
+        background-color: rgba(84, 176, 112, 1);
         color: #f2f2f2;
       }
   
@@ -111,7 +111,7 @@
           width: 2px;
           height: 18px;
           border-radius: 3px;
-          background-color: #1C629E;
+          background-color: rgba(84, 176, 112, 1);
         }
   
         &::before {

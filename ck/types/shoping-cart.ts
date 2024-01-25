@@ -1,12 +1,12 @@
 export interface IShopingCartItem {
   id: number
-  username: string
+  name: string
   price: number
   image: string
-  catalogId: number;
-  //in_stock: number
-  //count: number
-  //total_price: number
-  //userId: number
-  //partId: number
+  catalogId: number
+  in_stock: number
+  count: number
+  total_price: number
+  userId: number
+  productId: number
 }

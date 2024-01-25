@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import { $shopingCart } from '@/context/shoping-cart'
 import { AnimatePresence, motion } from 'framer-motion'
 import DashboardSlider from '@/components/modules/HomePage/DashboardSlider'
+import CartAlert from '@/components/modules/HomePage/CartAlert'
 
 const HomePage = () => {
   const [newDivans, setNewDivans] = useState<IProduct[]>()
@@ -16,8 +17,8 @@ const HomePage = () => {
   const [spinner, setSpinner] = useState(false)
   
 
-  const shopingCart = useStore($shopingCart)
-  const [showAlert, setShowAlert] = useState(!!shopingCart.length)
+  const shoppingCart = useStore($shopingCart)
+  const [showAlert, setShowAlert] = useState(!!1/**shoppingCart.length */)
 
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
@@ -26,13 +27,13 @@ const HomePage = () => {
     loadDivans()
   }, [])
 
-  useEffect(() => {
-    if (shopingCart.length) {
+/*   useEffect(() => {
+    if (shoppingCart.length) {
       setShowAlert(true)
       return
     }
     setShowAlert(false)
-  }, [shopingCart.length])
+  }, [shoppingCart.length]) */
 
   const loadDivans = async () => {
     try {
@@ -69,7 +70,7 @@ const HomePage = () => {
   return (
     <section className={styles.dashboard}>
       <div className={`container ${styles.dashboard__container}`}>
-        <AnimatePresence>
+      <AnimatePresence>
           {showAlert && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -77,18 +78,18 @@ const HomePage = () => {
               exit={{ opacity: 0 }}
               className={`${styles.dashboard__alert} ${darkModeClass}`}
             >
-              {/* <CartAlert
-                count={shoppingCart.reduce(
+              <CartAlert
+                count={shoppingCart.length
+                /**reduce(
                   (defaultCount, item) => defaultCount + item.count,
                   0
-                )}
+                ) */}
                 closeAlert={closeAlert}
-              /> */}
+              />
             </motion.div>
           )}
-          <span />
         </AnimatePresence>
-        <div /* className={styles.dashboard__brands} */>
+        <div className={styles.dashboard__brands} >
           <DivansSlider />
         </div>
         <h2 className={`${styles.dashboard__title} ${darkModeClass}`}>
