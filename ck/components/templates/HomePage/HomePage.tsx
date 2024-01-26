@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { IProduct } from '@/types/product'
 import { getDivansOrNewFx } from '@/app/api/products'
 import { toast } from 'react-toastify'
-import { $shopingCart } from '@/context/shopping-cart'
+import { $shoppingCart } from '@/context/shopping-cart'
 import { AnimatePresence, motion } from 'framer-motion'
 import DashboardSlider from '@/components/modules/HomePage/DashboardSlider'
 import CartAlert from '@/components/modules/HomePage/CartAlert'
@@ -16,7 +16,7 @@ const HomePage = () => {
   const [bestsellers, setBestellers] = useState<IProduct[]>([])
   const [spinner, setSpinner] = useState(false)
 
-  const shoppingCart = useStore($shopingCart)
+  const shoppingCart = useStore($shoppingCart)
   const [showAlert, setShowAlert] = useState(!!1 /**shoppingCart.length */)
 
   const mode = useStore($mode)

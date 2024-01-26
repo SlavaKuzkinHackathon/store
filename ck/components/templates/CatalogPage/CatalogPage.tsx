@@ -21,8 +21,6 @@ const CatalogPage = () => {
     loadProducts()
   },[])
 
-  console.log(products);
-  
   const loadProducts =async () => {
     try {
       setSpinner(true)
@@ -46,7 +44,9 @@ const CatalogPage = () => {
             <ModelsBlock title="Модели диванов" />
           </AnimatePresence>
           <div className={styles.catalog__top__inner}>
-            <button>Сбросить фильтр</button>
+            <button className={`${styles.catalog__top__reset} ${darkModeClass}`}
+            disabled={true}
+            >Сбросить фильтр</button>
             <FilterSelect />
           </div>
         </div>
@@ -55,9 +55,9 @@ const CatalogPage = () => {
             <div>Filters</div>
             {spinner ? (
               <ul className={skeletonStyles.skeleton}> 
-              {Array.from(new Array(8)).map((item) => (
+              {Array.from(new Array(8)).map((_,i) => (
                   <li
-                  key={item}
+                  key={i}
                   className={`${skeletonStyles.skeleton__item} ${
                     mode === 'dark' ? `${skeletonStyles.dark_mode}` : ''
                   }`}

@@ -56,7 +56,7 @@
       padding: 9px 16px;
       cursor: pointer;
       background-color: transparent;
-      border: 1px solid #E0595D;
+      border: 1px solid #FF0000;
       border-radius: 40px;
       color: #4E4C4C;
 
@@ -183,7 +183,7 @@
             }
 
             &:hover span svg {
-              fill: #E0595D;
+              fill: #FF0000;
               transition: fill .2s ease-in-out;
             }
           }
@@ -282,7 +282,7 @@
         font-weight: 500;
         font-size: 14px;
         color: #FAFBFC;
-        background-color: #E0595D;
+        background-color: #FF0000;
         border-radius: 40px;
         border: none;
         padding: 6px 8px;
@@ -762,7 +762,7 @@
         right: 16px;
         width: 40px;
         height: 40px;
-        background-color: #FFCF62;
+        background-color: rgba(255, 255, 102, 1);
         border-radius: 4px;
         transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
 
@@ -777,7 +777,7 @@
         }
 
         &.added {
-          background-color: #04B19E;
+          background-color:  rgb(50, 133, 42);
           opacity: 1;
           visibility: visible;
         }
