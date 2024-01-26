@@ -34,7 +34,7 @@ const FilterSelect = () => {
           setProductsmExpensiveFirst()
           break
         case 'popular':
-          updateCategoryOption('По популярости')
+          updateCategoryOption('По популярности')
           setProductsmByPopularity()
           break
         default:

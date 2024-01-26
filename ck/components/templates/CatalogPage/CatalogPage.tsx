@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
 import CatalogItem from '@/components/modules/CatalogPage/CatalogItem'
+import ReactPaginate from 'react-paginate'
 
 const CatalogPage = () => {
   const [spinner, setSpinner] = useState(false)
@@ -79,6 +80,19 @@ const CatalogPage = () => {
             )}
             
           </div>
+          <ReactPaginate 
+          containerClassName={styles.catalog__bottom__list}
+          pageClassName={styles.catalog__bottom__list__item}
+          pageLinkClassName={styles.catalog__bottom__list__item__link}
+          previousClassName={styles.catalog__bottom__list__prev}
+          nextClassName={styles.catalog__bottom__list__next}
+          breakClassName={styles.catalog__bottom__list__break}
+          breakLinkClassName={`${styles.catalog__bottom__list__break__link} ${darkModeClass}`}
+          breakLabel="..."
+          pageCount={0/* pagesCount */}
+         /*  forcePage={currentPage}
+          onPageChange={handlePageChange} */
+          />
         </div>
       </div>
     </section>
