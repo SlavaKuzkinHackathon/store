@@ -6,14 +6,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { withClickOutside } from '@/utils/withClickOutside'
 import styles from '@/styles/cartPopup/index.module.scss'
 import ShoppingCartSvg from '@/components/elements/ShoppingCartSvg/ShoppingCartSvg'
-import { $shopingCart } from '@/context/shoping-cart'
 import Link from 'next/link'
+import { $shoppingCart } from '@/context/shopping-cart'
 
 const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode)
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
-    const shoppingCart = useStore($shopingCart)
+    const shoppingCart = useStore($shoppingCart)
 
     const toggleCartDropDown = () => setOpen(!open)
 

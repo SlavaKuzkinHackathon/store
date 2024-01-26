@@ -45,6 +45,7 @@ export const UpdateProductItem = ({ product }: ProductItemProps) => {
         id: product.id,
         name,
         description,
+        model,
         price,
         in_stock,
         rating,

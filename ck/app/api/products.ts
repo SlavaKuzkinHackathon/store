@@ -121,7 +121,7 @@ export const updateProduct = async (
     formData.append('description', product.description)
   }
   if (product.model) {
-    formData.append('description', product.model)
+    formData.append('model', product.model)
   }
   if (product.price) {
     formData.append('price', product.price.toString())
