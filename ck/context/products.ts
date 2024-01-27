@@ -1,4 +1,6 @@
+import { IFilterCheckboxItem } from '@/types/catalog'
 import { IProducts, IProduct } from '@/types/product'
+import { productModels } from '@/utils/catalog'
 import { createDomain } from 'effector-next'
 
 const products = createDomain()
@@ -8,6 +10,8 @@ export const setProductsm = products.createEvent<IProducts>()
 export const setProductsmCheapFirst = products.createEvent()
 export const setProductsmExpensiveFirst = products.createEvent()
 export const setProductsmByPopularity = products.createEvent()
+
+export const setProductsmModels = products.createEvent<IFilterCheckboxItem[]>()
 
 
 export const $productsm = products
@@ -27,13 +31,6 @@ export const $productsm = products
   }))
 
 
-
-
-  //export const createProduct = products.createEvent<IProducts>()
-/* 
-export const $products = products
-.createStore<IProducts[]>([])
-.on(setProducts, (_, products) => products)
-.on(createProduct, (state, product) => [...state, product]) */
-
-//export const setProducts = products.createEvent<IProducts[]>()
+  export const $productsmModels = products
+  .createStore<IFilterCheckboxItem[]>(productModels as IFilterCheckboxItem[])
+  .on(setProductsmModels, (_, productsm) => productsm)

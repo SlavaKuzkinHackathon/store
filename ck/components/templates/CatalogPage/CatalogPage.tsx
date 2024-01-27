@@ -3,7 +3,6 @@ import FilterSelect from '@/components/modules/CatalogPage/FilterSelect'
 import ModelsBlock from '@/components/modules/CatalogPage/ModelsBlock'
 import { $mode } from '@/context/mode'
 import { $productsm, setProductsm } from '@/context/products'
-import styles from '@/styles/catalog/index.module.scss'
 import { useStore } from 'effector-react'
 import { AnimatePresence } from 'framer-motion'
 import { toast } from 'react-toastify'
@@ -14,6 +13,7 @@ import ReactPaginate from 'react-paginate'
 import { IQueryParams } from '@/types/catalog'
 import { useRouter } from 'next/router'
 import { IProduct, IProducts } from '@/types/productsm'
+import styles from '@/styles/catalog/index.module.scss'
 
 const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const mode = useStore($mode)
