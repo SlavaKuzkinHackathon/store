@@ -14,7 +14,6 @@ export interface IModelsBlockItemProps {
 export interface IQueryParams {
   offset: string
   firs: string
-  //boiler: string
   product: string
   priceFrom: string
   priceTo: string

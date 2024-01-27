@@ -83,7 +83,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       }
 
       if (isValidOffset) {
-        if (+query.offset > Math.ceil(data.count / 20)) {
+        if (+query.offset > Math.ceil(data.count / 3)) {
           router.push(
             {
               query: {

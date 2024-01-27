@@ -82,26 +82,113 @@ https://github.com/TeemPresents/shop-ytb-client
 {
   "name": "Диван №1",
   "description": "Прямой 1900*800",
+  "model": "Диван прямой",
   "price": 9000,
   "in_stock": 3,
-  "rating": 1
+  "rating": 3
 }
 
 {
   "name": "Диван №2",
   "description": "Угловой 2900*800",
+  "model": "Угловой диван",
+  "price": 8000,
+  "in_stock": 5,
+  "rating": 5
+}
+
+{
+  "name": "Диван №3",
+  "description": "Угловой 2200*1800",
+  "model": "Угловой диван",
   "price": 8000,
   "in_stock": 5,
   "rating": 1
 }
 
 {
-  "name": "Диван №3",
-  "description": "Угловой 2200*1800",
-  "price": 8000,
-  "in_stock": 5
+  "name": "Диван №5",
+  "description": "Угловой 2300*1900",
+  "model": "Угловой диван",
+  "price": 85600,
+  "in_stock": 5,
+  "rating": 9
+}
+
+{
+  "name": "Диван №6",
+  "description": "Угловой 2300*1900",
+  "model": "Угловой диван",
+  "price": 68600,
+  "in_stock": 2,
+  "rating": 8
 }
 
 
-////08.21.09 
+{
+  "name": "Диван селена №88 ",
+  "description": "Прямой 2250*850",
+  "model": "Диван прямой",
+  "price": 25000,
+  "in_stock": 5,
+  "rating": 7
+}
+
+{
+  "name": "Диван селена №77 ",
+  "description": "Прямой 2350*950",
+  "model": "Диван прямой",
+  "price": 22600,
+  "in_stock": 1,
+  "rating": 2
+}
+
+{
+  "name": "Диван селена №79 ",
+  "description": "Прямой 2450*1050",
+  "model": "Диван прямой",
+  "price": 23500,
+  "in_stock": 3,
+  "rating": 3
+}
+
+{
+  "name": "Диван селена №80 ",
+  "description": "Прямой 2150*1050",
+  "model": "Диван прямой",
+  "price": 21500,
+  "in_stock": 1,
+  "rating": 1
+}
+
+{
+  "name": "Диван №333",
+  "description": "Угловой 2300*1800",
+  "model": "Угловой диван",
+  "price": 88000,
+  "in_stock": 5,
+  "rating": 6
+}
+
+{
+  "name": "Диван №137",
+  "description": "Угловой 2510*1800",
+  "model": "Угловой диван",
+  "price": 89000,
+  "in_stock": 9,
+  "rating": 5
+}
+
+{
+  "name": "Диван №187",
+  "description": "Угловой 2560*1750",
+  "model": "Угловой диван",
+  "price": 79000,
+  "in_stock": 5,
+  "rating": 7
+}
+
+
+
+////08.39.19 
 

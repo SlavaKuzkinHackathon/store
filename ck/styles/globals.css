@@ -128,7 +128,7 @@ a {
 }
 
 .selected a {
-  background-color: #1C629E;
+  background-color: rgb(94, 190, 87);
   color: #f2f2f2;
 }
 

@@ -64,21 +64,63 @@ https://github.com/TeemPresents/shop-ytb-client
 {
   "name": "Диван №1",
   "description": "Прямой 1900*800",
+  "model": "Диван прямой",
   "price": 9000,
-  "in_stock": 3
+  "in_stock": 3,
+  "rating": 3
 }
 
 {
   "name": "Диван №2",
   "description": "Угловой 2900*800",
+  "model": "Угловой диван",
   "price": 8000,
-  "in_stock": 5
+  "in_stock": 5,
+  "rating": 5
 }
 
 {
   "name": "Диван №3",
   "description": "Угловой 2200*1800",
+  "model": "Угловой диван",
   "price": 8000,
-  "in_stock": 5
+  "in_stock": 5,
+  "rating": 1
 }
 
+{
+  "name": "Диван №5",
+  "description": "Угловой 2300*1900",
+  "model": "Угловой диван",
+  "price": 85600,
+  "in_stock": 5,
+  "rating": 9
+}
+
+{
+  "name": "Диван №6",
+  "description": "Угловой 2300*1900",
+  "model": "Угловой диван",
+  "price": 68600,
+  "in_stock": 2,
+  "rating": 8
+}
+
+
+{
+  "name": "Диван селена №88 ",
+  "description": "Прямой 2250*850",
+  "model": "Диван прямой",
+  "price": 25000,
+  "in_stock": 5,
+  "rating": 7
+}
+
+{
+  "name": "Диван селена №77 ",
+  "description": "Прямой 2350*950",
+  "model": "Диван прямой",
+  "price": 22600,
+  "in_stock": 1,
+  "rating": 2
+}
