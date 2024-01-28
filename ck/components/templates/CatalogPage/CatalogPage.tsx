@@ -14,12 +14,15 @@ import { IQueryParams } from '@/types/catalog'
 import { useRouter } from 'next/router'
 import { IProduct, IProducts } from '@/types/productsm'
 import styles from '@/styles/catalog/index.module.scss'
+import CatalogFilters from '@/components/modules/CatalogPage/CatalogFilters'
 
 const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const mode = useStore($mode)
   const products = useStore($productsm)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const [spinner, setSpinner] = useState(false)
+  const [priceRange, setPriceRange] = useState([5000, 150000])
+  const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
   const pageCount = Math.ceil(products.count / 20)
   const isValidOffset =
     query.offset && !isNaN(+query.offset) && +query.offset > 0
@@ -28,6 +31,12 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   )
 
   const router = useRouter()
+  const resetFilterBtnDisabled = !(
+    isPriceRangeChanged ||
+    isAnyBoilerManufacturerChecked ||
+    isAnyPartsManufacturerChecked
+  )
+  const { toggleOpen, open, closePopup } = usePopup()
 
   useEffect(() => {
     loadProducts()
@@ -145,7 +154,18 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         </div>
         <div className={styles.catalog__bottom}>
           <div className={styles.catalog__bottom__inner}>
-            <div>Filters</div>
+            <CatalogFilters 
+            priceRange={priceRange}
+            setIsPriceRangeChanged={setIsPriceRangeChanged}
+            setPriceRange={setPriceRange}
+            resetFilterBtnDisabled={resetFilterBtnDisabled}
+            //resetFilters={resetFilters}
+            isPriceRangeChanged={isPriceRangeChanged}
+            currentPage={currentPage}
+            //setIsFilterInQuery={setIsFilterInQuery}
+            closePopup={closePopup}
+            filtersMobileOpen={open}
+            />
             {spinner ? (
               <ul className={skeletonStyles.skeleton}>
                 {Array.from(new Array(8)).map((_, i) => (

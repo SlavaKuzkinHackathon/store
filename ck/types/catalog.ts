@@ -24,7 +24,7 @@ export interface IFilterCheckboxItem {
   title: string
   checked: boolean
   id?: string
-  //event: Event<IFilterCheckboxItem>
+  event: Event<IFilterCheckboxItem>
 }
 
 export interface IFilterModelAccordionProps {
@@ -61,7 +61,7 @@ export interface ICatalogFilterDesktopProps
   extends ICatalogBaseTypes,
     ICatalogFiltersBaseTypes {
   spinner: boolean
-  applyFilters: VoidFunction
+  //applyFilters: VoidFunction
 }
 
 export interface ICatalogFilterMobileProps
