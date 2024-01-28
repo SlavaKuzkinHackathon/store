@@ -41,18 +41,18 @@ interface ICatalogBaseTypes {
 }
 
 interface ICatalogFiltersBaseTypes {
-  resetFilterBtnDisabled: boolean
-  resetFilters: VoidFunction
+  //resetFilterBtnDisabled: boolean
+  //resetFilters: VoidFunction
 }
 
 export interface ICatalogFiltersProps
   extends ICatalogBaseTypes,
     ICatalogFiltersBaseTypes {
-  isPriceRangeChanged: boolean
-  currentPage: number
-  setIsFilterInQuery: (arg0: boolean) => void
-  closePopup: VoidFunction
-  filtersMobileOpen: boolean
+ // isPriceRangeChanged: boolean
+ // currentPage: number
+  //setIsFilterInQuery: (arg0: boolean) => void
+  //closePopup: VoidFunction
+  //filtersMobileOpen: boolean
 }
 
 export type IPriceRangeProps = ICatalogBaseTypes

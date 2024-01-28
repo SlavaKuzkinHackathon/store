@@ -2,7 +2,7 @@ import { getProductsPaginateFx } from '@/app/api/products'
 import FilterSelect from '@/components/modules/CatalogPage/FilterSelect'
 import ModelsBlock from '@/components/modules/CatalogPage/ModelsBlock'
 import { $mode } from '@/context/mode'
-import { $productsm, setProductsm } from '@/context/products'
+import { $productsm, $productsmModels, setProductsm } from '@/context/products'
 import { useStore } from 'effector-react'
 import { AnimatePresence } from 'framer-motion'
 import { toast } from 'react-toastify'
@@ -19,6 +19,7 @@ import CatalogFilters from '@/components/modules/CatalogPage/CatalogFilters'
 const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const mode = useStore($mode)
   const products = useStore($productsm)
+  const productModels = useStore($productsmModels)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const [spinner, setSpinner] = useState(false)
   const [priceRange, setPriceRange] = useState([5000, 150000])
@@ -31,19 +32,18 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   )
 
   const router = useRouter()
-  const resetFilterBtnDisabled = !(
-    isPriceRangeChanged ||
-    isAnyBoilerManufacturerChecked ||
-    isAnyPartsManufacturerChecked
-  )
-  const { toggleOpen, open, closePopup } = usePopup()
+
+  const isAnyProductsModelerChecked = productModels.some((item) => item.checked)
+  const resetFilterBtnDisabled = (!isPriceRangeChanged || isAnyProductsModelerChecked)
+
+  //const { toggleOpen, open, closePopup } = usePopup()
 
   useEffect(() => {
     loadProducts()
   }, [])
 
   console.log(products.rows);
-  
+
   const loadProducts = async () => {
     try {
       setSpinner(true)
@@ -129,7 +129,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
 
       setCurrentPage(selected)
       setProductsm(result)
-    } catch (error) {}
+    } catch (error) { }
   }
 
   return (
@@ -145,35 +145,34 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
           <div className={styles.catalog__top__inner}>
             <button
               className={`${styles.catalog__top__reset} ${darkModeClass}`}
-              disabled={true}
+              disabled={resetFilterBtnDisabled}
             >
-              Сбросить фильтр
+              Сбросить фильтры
             </button>
             <FilterSelect />
           </div>
         </div>
         <div className={styles.catalog__bottom}>
           <div className={styles.catalog__bottom__inner}>
-            <CatalogFilters 
-            priceRange={priceRange}
-            setIsPriceRangeChanged={setIsPriceRangeChanged}
-            setPriceRange={setPriceRange}
-            resetFilterBtnDisabled={resetFilterBtnDisabled}
+            <CatalogFilters
+              priceRange={priceRange}
+              setIsPriceRangeChanged={setIsPriceRangeChanged}
+              setPriceRange={setPriceRange}
+            //resetFilterBtnDisabled={resetFilterBtnDisabled}
             //resetFilters={resetFilters}
-            isPriceRangeChanged={isPriceRangeChanged}
-            currentPage={currentPage}
+            //isPriceRangeChanged={isPriceRangeChanged}
+            // currentPage={currentPage}
             //setIsFilterInQuery={setIsFilterInQuery}
-            closePopup={closePopup}
-            filtersMobileOpen={open}
+            //closePopup={closePopup}
+            //filtersMobileOpen={open}
             />
             {spinner ? (
               <ul className={skeletonStyles.skeleton}>
                 {Array.from(new Array(8)).map((_, i) => (
                   <li
                     key={i}
-                    className={`${skeletonStyles.skeleton__item} ${
-                      mode === 'dark' ? `${skeletonStyles.dark_mode}` : ''
-                    }`}
+                    className={`${skeletonStyles.skeleton__item} ${mode === 'dark' ? `${skeletonStyles.dark_mode}` : ''
+                      }`}
                   >
                     <div className={skeletonStyles.skeleton__item__light} />
                   </li>

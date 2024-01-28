@@ -64,7 +64,7 @@ const PriceRange = ({
                 borderRadius: '4px',
                 background: getTrackBackground({
                   values: priceRange,
-                  colors: ['#B1CEFA', '#247CC8', '#B1CEFA'],
+                  colors: ['rgb(137, 200, 156)', 'rgb(50, 133, 42)', 'rgb(137, 200, 156)'],
                   min: MIN,
                   max: MAX,
                 }),
@@ -88,7 +88,7 @@ const PriceRange = ({
                 width: '20px',
                 borderRadius: '50%',
                 background: '#FFFFFF',
-                border: '3px solid #1C629E',
+                border: '3px solid rgb(50, 133, 42)',
                 boxShadow: '0px 12px 8px -6px rgba(174, 181, 239, 0.2)',
               }}
             />

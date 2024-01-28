@@ -10,13 +10,13 @@ const CatalogFilters = ({
   priceRange,
   setPriceRange,
   setIsPriceRangeChanged,
-  resetFilterBtnDisabled,
-  resetFilters,
-  isPriceRangeChanged,
-  currentPage,
-  setIsFilterInQuery,
-  closePopup,
-  filtersMobileOpen,
+  //resetFilterBtnDisabled,
+  //resetFilters,
+  //isPriceRangeChanged,
+  //currentPage,
+  //setIsFilterInQuery,
+  //closePopup,
+  //filtersMobileOpen,
 }: ICatalogFiltersProps) => {
   const isMobile = useMediaQuery(820)
   const [spinner, setSpinner] = useState(false)
@@ -30,10 +30,10 @@ const CatalogFilters = ({
           priceRange={priceRange}
           setPriceRange={setPriceRange}
           setIsPriceRangeChanged={setIsPriceRangeChanged}
-          resetFilterBtnDisabled={resetFilterBtnDisabled}
+          //resetFilterBtnDisabled={resetFilterBtnDisabled}
           spinner={spinner}
-          resetFilters={resetFilters}
-          applyFilters={applyFilters}
+          //resetFilters={resetFilters}
+          //applyFilters={applyFilters}
         />
       )}
     </>
