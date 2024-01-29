@@ -42,7 +42,7 @@ interface ICatalogBaseTypes {
 
 interface ICatalogFiltersBaseTypes {
   resetFilterBtnDisabled: boolean
-  //resetFilters: VoidFunction
+  resetFilters: VoidFunction
 }
 
 export interface ICatalogFiltersProps

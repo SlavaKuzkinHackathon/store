@@ -17,7 +17,8 @@ const CatalogFiltersDesctop = ({
   setPriceRange,
   setIsPriceRangeChanged,
   resetFilterBtnDisabled,
-  spinner
+  spinner,
+  resetFilters
 }: ICatalogFilterDesktopProps) => {
   const mode = useStore($mode)
   const productModels = useStore($productsmModels)
@@ -72,7 +73,7 @@ const CatalogFiltersDesctop = ({
         <button
           className={styles.filters__actions__reset}
           disabled={resetFilterBtnDisabled}
-          //onClick={resetFilters}
+          onClick={resetFilters}
         >
           Сбросить
         </button>

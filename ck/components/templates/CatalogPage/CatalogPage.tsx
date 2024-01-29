@@ -6,6 +6,7 @@ import {
   $productsm,
   $productsmModels,
   setProductsm,
+  setProductsmModels,
   updateProductsmModels,
 } from '@/context/products'
 import { useStore } from 'effector-react'
@@ -139,6 +140,25 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     } catch (error) {}
   }
 
+
+  const resetFilters = async () => {
+    try {
+      const data = await getProductsPaginateFx(
+        '/products/all?limit=20&offset=0'
+      )
+
+      setProductsmModels(
+        productModels.map((item) => ({...item, checked: false}))
+      )
+
+      setProductsm(data)
+      setPriceRange([5000, 150000])
+      setIsPriceRangeChanged(false)
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+
   return (
     <section className={styles.catalog}>
       <div className={`container ${styles.catalog__container}`}>
@@ -159,6 +179,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
             <button
               className={`${styles.catalog__top__reset} ${darkModeClass}`}
               disabled={resetFilterBtnDisabled}
+              onClick={resetFilters}
             >
               Сбросить фильтры
             </button>
@@ -172,8 +193,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               setIsPriceRangeChanged={setIsPriceRangeChanged}
               setPriceRange={setPriceRange}
               resetFilterBtnDisabled={resetFilterBtnDisabled}
-              //resetFilterBtnDisabled={resetFilterBtnDisabled}
-              //resetFilters={resetFilters}
+              resetFilters={resetFilters}
               //isPriceRangeChanged={isPriceRangeChanged}
               // currentPage={currentPage}
               //setIsFilterInQuery={setIsFilterInQuery}

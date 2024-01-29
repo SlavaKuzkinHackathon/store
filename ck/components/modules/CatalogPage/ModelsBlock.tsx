@@ -5,7 +5,7 @@ import { useStore } from 'effector-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import ModelsBlockItem from './ModelsBlockItem'
 
-const ModelsBlock = ({title, event, modelsList}: IModelsBlockProps) => {
+const ModelsBlock = ({ title, event, modelsList }: IModelsBlockProps) => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
@@ -20,11 +20,11 @@ const ModelsBlock = ({title, event, modelsList}: IModelsBlockProps) => {
     >
       <h3 className={styles.manufacturers__title}>{title}</h3>
       <ul className={styles.manufacturers__list}>
-        {checkedItems.map((item) => (
-          <AnimatePresence key={item.id}>
-            <ModelsBlockItem  item={item} event={event} />
-          </AnimatePresence>
-        ))}
+        <AnimatePresence>
+          {checkedItems.map((item) => (
+            <ModelsBlockItem key={item.id} item={item} event={event} />
+          ))}
+        </AnimatePresence>
       </ul>
     </motion.div>
   )
