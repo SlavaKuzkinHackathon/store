@@ -2,8 +2,8 @@ import { Event } from 'effector-next'
 
 export interface IModelsBlockProps {
   title: string
-  //event: Event<IFilterCheckboxItem>
-  //modelsList: IFilterCheckboxItem[]
+  event: Event<IFilterCheckboxItem>
+  modelsList: IFilterCheckboxItem[]
 }
 
 export interface IModelsBlockItemProps {
@@ -41,7 +41,7 @@ interface ICatalogBaseTypes {
 }
 
 interface ICatalogFiltersBaseTypes {
-  //resetFilterBtnDisabled: boolean
+  resetFilterBtnDisabled: boolean
   //resetFilters: VoidFunction
 }
 

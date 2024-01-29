@@ -2,11 +2,14 @@ import { $mode } from '@/context/mode'
 import styles from '@/styles/catalog/index.module.scss'
 import { IModelsBlockProps } from '@/types/catalog'
 import { useStore } from 'effector-react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import ModelsBlockItem from './ModelsBlockItem'
 
-const ModelsBlock = ({title}: IModelsBlockProps) => {
+const ModelsBlock = ({title, event, modelsList}: IModelsBlockProps) => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+
+  const checkedItems = modelsList.filter((item) => item.checked)
 
   return (
     <motion.div
@@ -17,8 +20,10 @@ const ModelsBlock = ({title}: IModelsBlockProps) => {
     >
       <h3 className={styles.manufacturers__title}>{title}</h3>
       <ul className={styles.manufacturers__list}>
-        {[].map((item) => (
-          <li key={item} />
+        {checkedItems.map((item) => (
+          <AnimatePresence key={item.id}>
+            <ModelsBlockItem  item={item} event={event} />
+          </AnimatePresence>
         ))}
       </ul>
     </motion.div>

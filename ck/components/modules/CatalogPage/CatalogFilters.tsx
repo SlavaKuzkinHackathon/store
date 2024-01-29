@@ -10,7 +10,7 @@ const CatalogFilters = ({
   priceRange,
   setPriceRange,
   setIsPriceRangeChanged,
-  //resetFilterBtnDisabled,
+  resetFilterBtnDisabled,
   //resetFilters,
   //isPriceRangeChanged,
   //currentPage,
@@ -30,7 +30,7 @@ const CatalogFilters = ({
           priceRange={priceRange}
           setPriceRange={setPriceRange}
           setIsPriceRangeChanged={setIsPriceRangeChanged}
-          //resetFilterBtnDisabled={resetFilterBtnDisabled}
+          resetFilterBtnDisabled={resetFilterBtnDisabled}
           spinner={spinner}
           //resetFilters={resetFilters}
           //applyFilters={applyFilters}
