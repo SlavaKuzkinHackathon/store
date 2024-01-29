@@ -13,6 +13,7 @@ export const setProductsmByPopularity = products.createEvent()
 
 export const setProductsmModels = products.createEvent<IFilterCheckboxItem[]>()
 export const updateProductsmModels = products.createEvent<IFilterCheckboxItem>()
+export const setFilteredModels = products.createEvent<IProducts>()
 
 const updateModeler = (
   modelels: IFilterCheckboxItem[],
@@ -51,3 +52,8 @@ export const $productsmModels = products
   .on(updateProductsmModels, (state, payload) => [
     ...updateModeler(state, payload.id as string, { checked: payload.checked }),
   ])
+
+
+  export const $filteredModels = products
+  .createStore<IProducts>({} as IProducts)
+  .on(setFilteredModels, (_, productsm) => productsm)

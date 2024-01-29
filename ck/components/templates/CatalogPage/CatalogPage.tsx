@@ -194,8 +194,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               setPriceRange={setPriceRange}
               resetFilterBtnDisabled={resetFilterBtnDisabled}
               resetFilters={resetFilters}
-              //isPriceRangeChanged={isPriceRangeChanged}
-              // currentPage={currentPage}
+              isPriceRangeChanged={isPriceRangeChanged}
+              currentPage={currentPage}
               //setIsFilterInQuery={setIsFilterInQuery}
               //closePopup={closePopup}
               //filtersMobileOpen={open}

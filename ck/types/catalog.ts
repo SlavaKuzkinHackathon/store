@@ -48,8 +48,8 @@ interface ICatalogFiltersBaseTypes {
 export interface ICatalogFiltersProps
   extends ICatalogBaseTypes,
     ICatalogFiltersBaseTypes {
- // isPriceRangeChanged: boolean
- // currentPage: number
+    isPriceRangeChanged: boolean
+    currentPage: number
   //setIsFilterInQuery: (arg0: boolean) => void
   //closePopup: VoidFunction
   //filtersMobileOpen: boolean
@@ -61,7 +61,7 @@ export interface ICatalogFilterDesktopProps
   extends ICatalogBaseTypes,
     ICatalogFiltersBaseTypes {
   spinner: boolean
-  //applyFilters: VoidFunction
+  applyFilters: VoidFunction
 }
 
 export interface ICatalogFilterMobileProps
