@@ -134,7 +134,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
             : ''
         }${
           isFilterInQuery && router.query.priceFrom && router.query.priceTo
-            ? `&priceFrom=${router.query.priceFrom}&priceTo=${router.query.priceTo}  `
+            ? `&priceFrom=${router.query.priceFrom}&priceTo=${router.query.priceTo}`
             : ''
         }`
       )
@@ -160,6 +160,15 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       const data = await getProductsPaginateFx(
         '/products/all?limit=20&offset=0'
       )
+
+      const params = router.query
+
+      delete params.model
+      delete params.priceFrom
+      delete params.priceTo
+      params.first = 'cheap'
+
+      router.push({query : {...params}}, undefined, {shallow: true})
 
       setProductsmModels(
         productModels.map((item) => ({ ...item, checked: false }))

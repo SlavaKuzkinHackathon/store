@@ -188,7 +188,32 @@ https://github.com/TeemPresents/shop-ytb-client
   "rating": 7
 }
 
+{
+  "name": "Тахта №187",
+  "description": " 2560*1750",
+  "model": "Тахта",
+  "price": 79000,
+  "in_stock": 5,
+  "rating": 7
+}
 
+{
+  "name": "Тахта детская",
+  "description": "1500*1750",
+  "model": "Тахта",
+  "price": 6000,
+  "in_stock": 5,
+  "rating": 3
+}
 
-////09.47.09 
+{
+  "name": "Тахта сердечко",
+  "description": "1500*1150",
+  "model": "Тахта",
+  "price": 7000,
+  "in_stock": 6,
+  "rating": 5
+}
+
+////09.51.01 
 
