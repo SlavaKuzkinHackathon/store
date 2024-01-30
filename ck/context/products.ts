@@ -13,7 +13,7 @@ export const setProductsmByPopularity = products.createEvent()
 
 export const setProductsmModels = products.createEvent<IFilterCheckboxItem[]>()
 export const updateProductsmModels = products.createEvent<IFilterCheckboxItem>()
-export const setFilteredModels = products.createEvent<IProducts>()
+export const setFilteredModels = products.createEvent()
 
 const updateModeler = (
   modelels: IFilterCheckboxItem[],
