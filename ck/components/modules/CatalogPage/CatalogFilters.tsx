@@ -20,8 +20,7 @@ const CatalogFilters = ({
   resetFilters,
   isPriceRangeChanged,
   currentPage,
-
-  //setIsFilterInQuery,
+  setIsFilterInQuery,
   //closePopup,
   //filtersMobileOpen,
 }: ICatalogFiltersProps) => {
@@ -31,6 +30,7 @@ const CatalogFilters = ({
   const router = useRouter()
 
   const applyFilters = async () => {
+    setIsFilterInQuery(true)
     try {
       setSpinner(true)
 
@@ -38,20 +38,20 @@ const CatalogFilters = ({
       const priceTo = Math.ceil(priceRange[1])
 
       const priceQuery = isPriceRangeChanged
-        ? `priceFrom=${priceFrom}&priceTo=${priceTo}`
+        ? `&priceFrom=${priceFrom}&priceTo=${priceTo}`
         : ''
 
-      const models = productModels
+      const products = productModels
         .filter((item) => item.checked)
         .map((item) => item.title)
 
-      const encodedModelsQuery = encodeURIComponent(JSON.stringify(models))
+      const encodedModelsQuery = encodeURIComponent(JSON.stringify(products))
 
-      const modelQuery = `&model=${encodedModelsQuery}`
+      const modelQuery = `&products=${encodedModelsQuery}`
 
       const initialPage = currentPage > 0 ? 0 : currentPage
 
-      if (models.length && isPriceRangeChanged) {
+      if (products.length && isPriceRangeChanged) {
         router.push(
           {
             query: {
@@ -93,7 +93,7 @@ const CatalogFilters = ({
         setFilteredModels(data)
         return
       }
-      if(models.length){
+      if(products.length){
         router.push(
           {
             query: {

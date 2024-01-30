@@ -3,6 +3,7 @@ import FilterSelect from '@/components/modules/CatalogPage/FilterSelect'
 import ModelsBlock from '@/components/modules/CatalogPage/ModelsBlock'
 import { $mode } from '@/context/mode'
 import {
+  $filteredModels,
   $productsm,
   $productsmModels,
   setProductsm,
@@ -26,10 +27,12 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const mode = useStore($mode)
   const products = useStore($productsm)
   const productModels = useStore($productsmModels)
+  const filteredModels = useStore($filteredModels)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const [spinner, setSpinner] = useState(false)
   const [priceRange, setPriceRange] = useState([5000, 150000])
   const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
+  const [isFilterInQuery, setIsFilterInQuery] = useState(false)
   const pageCount = Math.ceil(products.count / 20)
   const isValidOffset =
     query.offset && !isNaN(+query.offset) && +query.offset > 0
@@ -48,7 +51,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
 
   useEffect(() => {
     loadProducts()
-  }, [])
+  }, [filteredModels, isFilterInQuery])
 
   console.log(products.rows)
 
@@ -81,17 +84,21 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
             { shallow: true }
           )
           setCurrentPage(0)
-          setProductsm(data)
+          setProductsm(isFilterInQuery ? filteredModels : data)
           return
         }
-      }
-      const offset = +query.offset - 1
-      const result = await getProductsPaginateFx(
-        `/products/all?limit=20&offset=${offset}`
-      )
+        const offset = +query.offset - 1
+        const result = await getProductsPaginateFx(
+          `/products/all?limit=20&offset=${offset}`
+        )
 
-      setCurrentPage(offset)
-      setProductsm(result)
+        setCurrentPage(offset)
+        setProductsm(isFilterInQuery ? filteredModels : result)
+      }
+
+      setCurrentPage(0)
+      setProductsm(isFilterInQuery ? filteredModels : data)
+      return
     } catch (error) {
       toast.error((error as Error).message)
     } finally {
@@ -111,17 +118,25 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       )
 
       if (selected > pageCount) {
-        resetPagination(data)
+        resetPagination(isFilterInQuery ? filteredModels : data)
         return
       }
 
       if (isValidOffset && +query.offset > Math.ceil(data.count / 2)) {
-        resetPagination(data)
+        resetPagination(isFilterInQuery ? filteredModels : data)
         return
       }
 
       const result = await getProductsPaginateFx(
-        `/products/all?limit=20&offset=${selected}`
+        `/products/all?limit=20&offset=${selected}${
+          isFilterInQuery && router.query.model
+            ? `&model=${router.query.model}`
+            : ''
+        }${
+          isFilterInQuery && router.query.priceFrom && router.query.priceTo
+            ? `&priceFrom=${router.query.priceFrom}&priceTo=${router.query.priceTo}  `
+            : ''
+        }`
       )
 
       router.push(
@@ -140,7 +155,6 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     } catch (error) {}
   }
 
-
   const resetFilters = async () => {
     try {
       const data = await getProductsPaginateFx(
@@ -148,7 +162,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       )
 
       setProductsmModels(
-        productModels.map((item) => ({...item, checked: false}))
+        productModels.map((item) => ({ ...item, checked: false }))
       )
 
       setProductsm(data)
@@ -196,7 +210,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               resetFilters={resetFilters}
               isPriceRangeChanged={isPriceRangeChanged}
               currentPage={currentPage}
-              //setIsFilterInQuery={setIsFilterInQuery}
+              setIsFilterInQuery={setIsFilterInQuery}
               //closePopup={closePopup}
               //filtersMobileOpen={open}
             />

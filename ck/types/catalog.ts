@@ -50,7 +50,7 @@ export interface ICatalogFiltersProps
     ICatalogFiltersBaseTypes {
     isPriceRangeChanged: boolean
     currentPage: number
-  //setIsFilterInQuery: (arg0: boolean) => void
+    setIsFilterInQuery: (arg0: boolean) => void
   //closePopup: VoidFunction
   //filtersMobileOpen: boolean
 }
