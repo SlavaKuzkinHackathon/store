@@ -15,6 +15,9 @@ export const setProductsmModels = products.createEvent<IFilterCheckboxItem[]>()
 export const updateProductsmModels = products.createEvent<IFilterCheckboxItem>()
 export const setFilteredModels = products.createEvent()
 
+export const setProductsmModelsFromQuery = products.createEvent<string[]>()
+
+
 const updateModeler = (
   modelels: IFilterCheckboxItem[],
   id: string,
@@ -29,6 +32,23 @@ const updateModeler = (
     }
     return item
   })
+
+
+const updateModelerFromQuery = (
+  modelels: IFilterCheckboxItem[],
+  modelsFromQuery: string[]
+) =>
+  modelels.map((item) => {
+    if (modelsFromQuery.find((title) => title === item.title)) {
+      return {
+        ...item,
+        checked: true,
+      }
+    }
+    return item
+  })
+
+
 
 export const $productsm = products
   .createStore<IProducts>({} as IProducts)
@@ -46,14 +66,16 @@ export const $productsm = products
     rows: state.rows.sort((a, b) => b.rating - a.rating),
   }))
 
+
 export const $productsmModels = products
   .createStore<IFilterCheckboxItem[]>(productModels as IFilterCheckboxItem[])
   .on(setProductsmModels, (_, productsm) => productsm)
   .on(updateProductsmModels, (state, payload) => [
     ...updateModeler(state, payload.id as string, { checked: payload.checked }),
   ])
+  .on(setProductsmModelsFromQuery, (state, modelsFromQuery) => [...updateModelerFromQuery(state, modelsFromQuery),])
 
 
-  export const $filteredModels = products
+export const $filteredModels = products
   .createStore<IProducts>({} as IProducts)
   .on(setFilteredModels, (_, productsm) => productsm)
