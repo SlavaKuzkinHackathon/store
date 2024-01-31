@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@/hooks/useMediaQuery'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CatalogFiltersDesctop from './CatalogFiltersDesctop'
 import {
   ICatalogFilterDesktopProps,
@@ -11,6 +11,7 @@ import { useStore } from 'effector-react'
 import { $productsmModels, setFilteredModels } from '@/context/products'
 import { useRouter } from 'next/router'
 import { getProductsPaginateFx } from '@/app/api/products'
+import { getQueryParamOnFirstRender } from '@/utils/common'
 
 const CatalogFilters = ({
   priceRange,
@@ -28,6 +29,54 @@ const CatalogFilters = ({
   const [spinner, setSpinner] = useState(false)
   const productModels = useStore($productsmModels)
   const router = useRouter()
+
+  useEffect(() => {
+    applyFiltersFromQuery()
+  }, [])
+
+  const applyFiltersFromQuery = async () => {
+    try {
+      const priceFromQueryValue = getQueryParamOnFirstRender('priceFrom', router)
+      const priceToQueryValue = getQueryParamOnFirstRender('priceTo', router)
+      const modelQueryValue = JSON.parse(decodeURIComponent(
+        getQueryParamOnFirstRender('model', router) as string
+      ))
+      const isValidModelQuery = Array.isArray(modelQueryValue) && !!modelQueryValue?.length
+
+      const modelQuery = `&model=${getQueryParamOnFirstRender('model', router)}`
+
+      const priceQuery = `&priceFrom=${priceFromQueryValue}&priceTo=${priceToQueryValue}`
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+
+  async function updateParamAndFiters<T>(updatedParams: T, path: string) {
+
+    const params = router.query
+
+    delete params.model
+    delete params.priceFrom
+    delete params.priceTo
+
+    router.push({ query: { ...params } }, undefined, { shallow: true })
+
+    router.push(
+      {
+        query: {
+          ...params,
+          ...updatedParams,
+        },
+      },
+      undefined,
+      { shallow: true }
+    )
+    const data = await getProductsPaginateFx(
+      `/products/all?limit=20&offset=${path}`
+    )
+
+    setFilteredModels(data)
+  }
 
   const applyFilters = async () => {
     setIsFilterInQuery(true)
@@ -52,66 +101,32 @@ const CatalogFilters = ({
       const initialPage = currentPage > 0 ? 0 : currentPage
 
       if (products.length && isPriceRangeChanged) {
-        router.push(
-          {
-            query: {
-              ...router.query,
-              model: encodedModelsQuery,    //products
-              priceFrom,
-              priceTo,
-              offset: initialPage + 1,
-            },
-          },
-          undefined,
-          { shallow: true }
-        )
-        const data = await getProductsPaginateFx(
-          `/products/all?limit=20&offset=${initialPage}${priceQuery}${modelQuery}`
-        )
-
-        setFilteredModels(data)
+        updateParamAndFiters({
+          model: encodedModelsQuery,
+          priceFrom,
+          priceTo,
+          offset: initialPage + 1,
+        }, `${initialPage}${priceQuery}${modelQuery}`)
         return
       }
 
-      if(isPriceRangeChanged){
-        router.push(
-          {
-            query: {
-              ...router.query,
-              priceFrom,
-              priceTo,
-              offset: initialPage + 1,
-            },
-          },
-          undefined,
-          { shallow: true }
-        )
-        const data = await getProductsPaginateFx(
-          `/products/all?limit=20&offset=${initialPage}${priceQuery}`
-        )
-
-        setFilteredModels(data)
+      if (isPriceRangeChanged) {
+        updateParamAndFiters({
+          priceFrom,
+          priceTo,
+          offset: initialPage + 1,
+        }, `${initialPage}${priceQuery}`)
         return
       }
-      if(products.length){
-        router.push(
-          {
-            query: {
-              ...router.query,
-              model: encodedModelsQuery,    //products
-              offset: initialPage + 1,
-            },
-          },
-          undefined,
-          { shallow: true }
-        )
-        const data = await getProductsPaginateFx(
-          `/products/all?limit=20&offset=${initialPage}${modelQuery}`
-        )
 
-        setFilteredModels(data)
+      if (products.length) {
+        updateParamAndFiters({
+          model: encodedModelsQuery,
+          offset: initialPage + 1,
+        }, `${initialPage}${modelQuery}`)
         return
       }
+      
     } catch (error) {
       toast.error((error as Error).message)
     } finally {

@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Select from 'react-select'
 
-const FilterSelect = () => {
+const FilterSelect = ({ setSpinner }: { setSpinner: (arg0: boolean) => void }) => {
   const mode = useStore($mode)
   const products = useStore($productsm)
 
@@ -57,7 +57,7 @@ const FilterSelect = () => {
   }, undefined, { shallow: true })
 
   const handleSortOptionChange = (selectedOption: SelectOptionType) => {
-    // setSpinner(true)
+      setSpinner(true)
     setCategoryOption(selectedOption)
 
     switch ((selectedOption as IOption).value) {
@@ -74,6 +74,7 @@ const FilterSelect = () => {
         updateRouteParam('popular')
         break;
     }
+    setTimeout(() => setSpinner(false), 1000)
   }
 
 
