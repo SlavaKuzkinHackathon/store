@@ -8,11 +8,16 @@ import {
 import PriceRange from './PriceRange'
 import { toast } from 'react-toastify'
 import { useStore } from 'effector-react'
-import { $productsmModels, setFilteredModels, setProductsmModelsFromQuery } from '@/context/products'
+import {
+  $productsmModels,
+  setFilteredModels,
+  setProductsmModelsFromQuery,
+} from '@/context/products'
 import { useRouter } from 'next/router'
 import { getProductsPaginateFx } from '@/app/api/products'
 import { getQueryParamOnFirstRender } from '@/utils/common'
 import CatalogFiltersMobile from './CatalogFiltersMobile'
+import { checkQueryParams } from '@/utils/catalog'
 
 const CatalogFilters = ({
   priceRange,
@@ -37,52 +42,54 @@ const CatalogFilters = ({
 
   const applyFiltersFromQuery = async () => {
     try {
-      const priceFromQueryValue = getQueryParamOnFirstRender('priceFrom', router)
-      const priceToQueryValue = getQueryParamOnFirstRender('priceTo', router)
-      const modelQueryValue = JSON.parse(decodeURIComponent(
-        getQueryParamOnFirstRender('model', router) as string
-      ))
-      const isValidModelQuery = Array.isArray(modelQueryValue) && !!modelQueryValue?.length
+      const {
+        isValidModelQuery,
+        isValidPriceQuery,
+        priceFromQueryValue,
+        priceToQueryValue,
+        modelQueryValue,
+      } = checkQueryParams(router)
 
       const modelQuery = `&products=${getQueryParamOnFirstRender('model', router)}`
 
       const priceQuery = `&priceFrom=${priceFromQueryValue}&priceTo=${priceToQueryValue}`
 
-      if (isValidModelQuery && priceFromQueryValue && priceToQueryValue) {
-       updateParamAndFitersFromQuery(() => {
-        setIsFilterInQuery(true)
-        setPriceRange([+priceFromQueryValue, +priceToQueryValue])
-        setIsPriceRangeChanged(true)
-        setProductsmModelsFromQuery(modelQueryValue)
+      if (isValidModelQuery && isValidPriceQuery) {
+        updateParamAndFitersFromQuery(() => {
+          setIsFilterInQuery(true)
+          setPriceRange([+priceFromQueryValue, +priceToQueryValue])
+          setIsPriceRangeChanged(true)
+          setProductsmModelsFromQuery(modelQueryValue)
         }, `${currentPage}${priceQuery}${modelQuery}`)
         return
       }
 
-      if (priceFromQueryValue && priceToQueryValue) {
+      if (isValidPriceQuery) {
         updateParamAndFitersFromQuery(() => {
-         setIsFilterInQuery(true)
-         setPriceRange([+priceFromQueryValue, +priceToQueryValue])
-         setIsPriceRangeChanged(true)
-         }, `${currentPage}${priceQuery}`)
-         return
-       }
- 
-       if (isValidModelQuery) {
-        updateParamAndFitersFromQuery(() => {
-         setIsFilterInQuery(true)
-         setIsPriceRangeChanged(true)
-         setProductsmModelsFromQuery(modelQueryValue)
-         }, `${currentPage}${modelQuery}`)
-         return
-       }
- 
+          setIsFilterInQuery(true)
+          setPriceRange([+priceFromQueryValue, +priceToQueryValue])
+          setIsPriceRangeChanged(true)
+        }, `${currentPage}${priceQuery}`)
+        return
+      }
 
+      if (isValidModelQuery) {
+        updateParamAndFitersFromQuery(() => {
+          setIsFilterInQuery(true)
+          setIsPriceRangeChanged(true)
+          setProductsmModelsFromQuery(modelQueryValue)
+        }, `${currentPage}${modelQuery}`)
+        return
+      }
     } catch (error) {
       toast.error((error as Error).message)
     }
   }
 
-  const updateParamAndFitersFromQuery = async (callback: VoidFunction, path: string) => {
+  const updateParamAndFitersFromQuery = async (
+    callback: VoidFunction,
+    path: string
+  ) => {
     callback()
 
     const data = await getProductsPaginateFx(
@@ -90,11 +97,9 @@ const CatalogFilters = ({
     )
 
     setFilteredModels(data)
-
   }
 
   async function updateParamAndFiters<T>(updatedParams: T, path: string) {
-
     const params = router.query
 
     delete params.model
@@ -143,32 +148,40 @@ const CatalogFilters = ({
       const initialPage = currentPage > 0 ? 0 : currentPage
 
       if (products.length && isPriceRangeChanged) {
-        updateParamAndFiters({
-          model: encodedModelsQuery,
-          priceFrom,
-          priceTo,
-          offset: initialPage + 1,
-        }, `${initialPage}${priceQuery}${modelQuery}`)
+        updateParamAndFiters(
+          {
+            model: encodedModelsQuery,
+            priceFrom,
+            priceTo,
+            offset: initialPage + 1,
+          },
+          `${initialPage}${priceQuery}${modelQuery}`
+        )
         return
       }
 
       if (isPriceRangeChanged) {
-        updateParamAndFiters({
-          priceFrom,
-          priceTo,
-          offset: initialPage + 1,
-        }, `${initialPage}${priceQuery}`)
+        updateParamAndFiters(
+          {
+            priceFrom,
+            priceTo,
+            offset: initialPage + 1,
+          },
+          `${initialPage}${priceQuery}`
+        )
         return
       }
 
       if (products.length) {
-        updateParamAndFiters({
-          model: encodedModelsQuery,
-          offset: initialPage + 1,
-        }, `${initialPage}${modelQuery}`)
+        updateParamAndFiters(
+          {
+            model: encodedModelsQuery,
+            offset: initialPage + 1,
+          },
+          `${initialPage}${modelQuery}`
+        )
         return
       }
-
     } catch (error) {
       toast.error((error as Error).message)
     } finally {
@@ -180,15 +193,15 @@ const CatalogFilters = ({
     <>
       {isMobile ? (
         <CatalogFiltersMobile
-        closePopup={closePopup}
-        spinner={spinner}
-        applyFilters={applyFilters}
-        priceRange={priceRange}
-        setIsPriceRangeChanged={setIsPriceRangeChanged}
-        setPriceRange={setPriceRange}
-        resetFilterBtnDisabled={resetFilterBtnDisabled}
-        resetFilters={resetFilters}
-        filtersMobileOpen={filtersMobileOpen}
+          closePopup={closePopup}
+          spinner={spinner}
+          applyFilters={applyFilters}
+          priceRange={priceRange}
+          setIsPriceRangeChanged={setIsPriceRangeChanged}
+          setPriceRange={setPriceRange}
+          resetFilterBtnDisabled={resetFilterBtnDisabled}
+          resetFilters={resetFilters}
+          filtersMobileOpen={filtersMobileOpen}
         />
       ) : (
         <CatalogFiltersDesctop

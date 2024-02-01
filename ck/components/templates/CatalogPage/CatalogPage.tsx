@@ -23,6 +23,7 @@ import { IProduct, IProducts } from '@/types/productsm'
 import styles from '@/styles/catalog/index.module.scss'
 import CatalogFilters from '@/components/modules/CatalogPage/CatalogFilters'
 import { usePopup } from '@/hooks/usePopup'
+import { checkQueryParams } from '@/utils/catalog'
 
 const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const mode = useStore($mode)
@@ -129,13 +130,18 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         return
       }
 
+      const {
+        isValidModelQuery,
+        isValidPriceQuery,
+      } = checkQueryParams(router)
+
       const result = await getProductsPaginateFx(
         `/products/all?limit=20&offset=${selected}${
-          isFilterInQuery && router.query.model
+          isFilterInQuery && isValidModelQuery
             ? `&model=${router.query.model}`
             : ''
         }${
-          isFilterInQuery && router.query.priceFrom && router.query.priceTo
+          isFilterInQuery && isValidPriceQuery
             ? `&priceFrom=${router.query.priceFrom}&priceTo=${router.query.priceTo}`
             : ''
         }`

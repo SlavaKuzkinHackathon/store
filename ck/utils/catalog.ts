@@ -1,11 +1,11 @@
-import { idGenerator } from "./common"
+import { NextRouter } from 'next/router'
+import { getQueryParamOnFirstRender, idGenerator } from './common'
 
 const createModelCheckboxObj = (title: string) => ({
   title,
   checked: false,
   id: idGenerator(),
 })
-
 
 export const productModels = [
   'Угловой диван',
@@ -14,7 +14,64 @@ export const productModels = [
   'Тахта',
 ].map(createModelCheckboxObj)
 
+const checkPriceFromQuery = (price: number) =>
+  price && !isNaN(price) && price >= 0 && price <= 10000
 
+export const checkQueryParams = (router: NextRouter) => {
+  const priceFromQueryValue = getQueryParamOnFirstRender(
+    'priceFrom',
+    router
+  ) as string
+  const priceToQueryValue = getQueryParamOnFirstRender(
+    'priceTo',
+    router
+  ) as string
+
+  const modelQueryValue = JSON.parse(
+    decodeURIComponent(getQueryParamOnFirstRender('model', router) as string)
+  )
+
+  const isValidModelQuery =
+    Array.isArray(modelQueryValue) && !!modelQueryValue?.length
+
+  const isValidPriceQuery =
+    checkPriceFromQuery(+priceFromQueryValue) &&
+    checkPriceFromQuery(+priceToQueryValue)
+
+  return {
+    isValidModelQuery,
+    isValidPriceQuery,
+    priceFromQueryValue,
+    priceToQueryValue,
+    modelQueryValue,
+  }
+}
+
+/*
+
+ const priceFromQueryValue = getQueryParamOnFirstRender(
+        'priceFrom',
+        router
+      ) as string
+
+      const priceToQueryValue = getQueryParamOnFirstRender(
+        'priceTo',
+        router
+      ) as string
+
+      const modelQueryValue = JSON.parse(
+        decodeURIComponent(
+          getQueryParamOnFirstRender('model', router) as string
+        )
+      )
+
+      const isValidModelQuery =
+        Array.isArray(modelQueryValue) && !!modelQueryValue?.length
+
+      const isValidPriceQuery =
+        checkPriceFromQuery(+priceFromQueryValue) &&
+        checkPriceFromQuery(+priceToQueryValue)
+*/
 
 /* import { NextRouter } from 'next/router'
 import { getQueryParamOnFirstRender, idGenerator } from './common'
