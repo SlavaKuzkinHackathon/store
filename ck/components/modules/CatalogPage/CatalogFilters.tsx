@@ -2,22 +2,18 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 import React, { useEffect, useState } from 'react'
 import CatalogFiltersDesctop from './CatalogFiltersDesctop'
 import {
-  ICatalogFilterDesktopProps,
   ICatalogFiltersProps,
 } from '@/types/catalog'
-import PriceRange from './PriceRange'
 import { toast } from 'react-toastify'
 import { useStore } from 'effector-react'
 import {
   $productsmModels,
-  setFilteredModels,
   setProductsmModelsFromQuery,
 } from '@/context/products'
 import { useRouter } from 'next/router'
-import { getProductsPaginateFx } from '@/app/api/products'
 import { getQueryParamOnFirstRender } from '@/utils/common'
 import CatalogFiltersMobile from './CatalogFiltersMobile'
-import { checkQueryParams } from '@/utils/catalog'
+import { checkQueryParams, updateParamAndFiters, updateParamAndFitersFromQuery } from '@/utils/catalog'
 
 const CatalogFilters = ({
   priceRange,
@@ -82,48 +78,17 @@ const CatalogFilters = ({
         return
       }
     } catch (error) {
-      toast.error((error as Error).message)
+      const err = error as Error
+
+      if (err.message === 'URI malformed') {
+        toast.warning('Неправильный url для фильтров')
+        return
+      }
+
+      toast.error(err.message)
     }
   }
 
-  const updateParamAndFitersFromQuery = async (
-    callback: VoidFunction,
-    path: string
-  ) => {
-    callback()
-
-    const data = await getProductsPaginateFx(
-      `/products/all?limit=20&offset=${path}`
-    )
-
-    setFilteredModels(data)
-  }
-
-  async function updateParamAndFiters<T>(updatedParams: T, path: string) {
-    const params = router.query
-
-    delete params.model
-    delete params.priceFrom
-    delete params.priceTo
-
-    router.push({ query: { ...params } }, undefined, { shallow: true })
-
-    router.push(
-      {
-        query: {
-          ...params,
-          ...updatedParams,
-        },
-      },
-      undefined,
-      { shallow: true }
-    )
-    const data = await getProductsPaginateFx(
-      `/products/all?limit=20&offset=${path}`
-    )
-
-    setFilteredModels(data)
-  }
 
   const applyFilters = async () => {
     setIsFilterInQuery(true)
@@ -155,7 +120,8 @@ const CatalogFilters = ({
             priceTo,
             offset: initialPage + 1,
           },
-          `${initialPage}${priceQuery}${modelQuery}`
+          `${initialPage}${priceQuery}${modelQuery}`,
+          router
         )
         return
       }
@@ -167,7 +133,8 @@ const CatalogFilters = ({
             priceTo,
             offset: initialPage + 1,
           },
-          `${initialPage}${priceQuery}`
+          `${initialPage}${priceQuery}`,
+          router
         )
         return
       }
@@ -178,7 +145,8 @@ const CatalogFilters = ({
             model: encodedModelsQuery,
             offset: initialPage + 1,
           },
-          `${initialPage}${modelQuery}`
+          `${initialPage}${modelQuery}`,
+          router
         )
         return
       }
