@@ -22,6 +22,7 @@ import { useRouter } from 'next/router'
 import { IProduct, IProducts } from '@/types/productsm'
 import styles from '@/styles/catalog/index.module.scss'
 import CatalogFilters from '@/components/modules/CatalogPage/CatalogFilters'
+import { usePopup } from '@/hooks/usePopup'
 
 const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const mode = useStore($mode)
@@ -47,7 +48,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     isPriceRangeChanged || isAnyProductsModelerChecked
   )
 
-  //const { toggleOpen, open, closePopup } = usePopup()
+  const { toggleOpen, open, closePopup } = usePopup()
 
   useEffect(() => {
     loadProducts()
@@ -225,8 +226,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               isPriceRangeChanged={isPriceRangeChanged}
               currentPage={currentPage}
               setIsFilterInQuery={setIsFilterInQuery}
-              //closePopup={closePopup}
-              //filtersMobileOpen={open}
+              closePopup={closePopup}
+              filtersMobileOpen={open}
             />
             {spinner ? (
               <ul className={skeletonStyles.skeleton}>

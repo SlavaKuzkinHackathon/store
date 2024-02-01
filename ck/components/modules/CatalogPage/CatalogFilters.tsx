@@ -12,6 +12,7 @@ import { $productsmModels, setFilteredModels, setProductsmModelsFromQuery } from
 import { useRouter } from 'next/router'
 import { getProductsPaginateFx } from '@/app/api/products'
 import { getQueryParamOnFirstRender } from '@/utils/common'
+import CatalogFiltersMobile from './CatalogFiltersMobile'
 
 const CatalogFilters = ({
   priceRange,
@@ -22,8 +23,8 @@ const CatalogFilters = ({
   isPriceRangeChanged,
   currentPage,
   setIsFilterInQuery,
-  //closePopup,
-  //filtersMobileOpen,
+  closePopup,
+  filtersMobileOpen,
 }: ICatalogFiltersProps) => {
   const isMobile = useMediaQuery(820)
   const [spinner, setSpinner] = useState(false)
@@ -178,7 +179,17 @@ const CatalogFilters = ({
   return (
     <>
       {isMobile ? (
-        <div />
+        <CatalogFiltersMobile
+        closePopup={closePopup}
+        spinner={spinner}
+        applyFilters={applyFilters}
+        priceRange={priceRange}
+        setIsPriceRangeChanged={setIsPriceRangeChanged}
+        setPriceRange={setPriceRange}
+        resetFilterBtnDisabled={resetFilterBtnDisabled}
+        resetFilters={resetFilters}
+        filtersMobileOpen={filtersMobileOpen}
+        />
       ) : (
         <CatalogFiltersDesctop
           priceRange={priceRange}
