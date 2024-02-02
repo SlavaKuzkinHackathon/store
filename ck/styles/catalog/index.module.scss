@@ -12,7 +12,7 @@
     font-family: 'Manrope';
     font-weight: 500;
     font-size: 55px;
-    color: #2D2D2D;
+    color: #2d2d2d;
 
     &.dark_mode {
       color: #f2f2f2;
@@ -56,12 +56,12 @@
       padding: 9px 16px;
       cursor: pointer;
       background-color: transparent;
-      border: 1px solid #FF0000;
+      border: 1px solid #ff0000;
       border-radius: 40px;
-      color: #4E4C4C;
+      color: #4e4c4c;
 
       @media (max-width: 820px) {
-        display: none
+        display: none;
       }
 
       &.dark_mode {
@@ -106,7 +106,7 @@
 
       &__text {
         font-size: 14px;
-        color: #FAFBFC;
+        color: #fafbfc;
       }
     }
 
@@ -119,7 +119,7 @@
         margin-bottom: 12px;
         font-weight: 500;
         font-size: 14px;
-        color: #7B7B7B;
+        color: #7b7b7b;
 
         &.dark_mode {
           color: #f2f2f2;
@@ -136,18 +136,22 @@
 
         &__item {
           position: relative;
-          border: 1px solid #D5D5D5;
+          border: 1px solid #d5d5d5;
           border-radius: 40px;
           padding: 11px 44px 11px 16px;
           display: flex;
           align-items: center;
           margin-bottom: 13px;
-          transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+          transition:
+            background-color 0.2s ease-in-out,
+            border-color 0.2s ease-in-out;
 
           &:hover {
-            background-color: #E9F1FD;
+            background-color: #e9f1fd;
             border-color: rgb(243, 255, 198);
-            transition: background-color .2s ease-in-out, border-color .2s ease-in-out;
+            transition:
+              background-color 0.2s ease-in-out,
+              border-color 0.2s ease-in-out;
           }
 
           &:not(:last-child) {
@@ -159,7 +163,7 @@
             font-weight: 500;
             font-size: 14px;
             cursor: default;
-            color: #7B7B7B;
+            color: #7b7b7b;
           }
 
           &__btn {
@@ -173,22 +177,21 @@
             border-radius: 50%;
             cursor: pointer;
             border: none;
-            background-color: #FFFFFF;
+            background-color: #ffffff;
 
             span {
               svg {
                 fill: rgb(50, 133, 42);
-                transition: fill .2s ease-in-out;
+                transition: fill 0.2s ease-in-out;
               }
             }
 
             &:hover span svg {
-              fill: #FF0000;
-              transition: fill .2s ease-in-out;
+              fill: #ff0000;
+              transition: fill 0.2s ease-in-out;
             }
           }
         }
-
       }
     }
   }
@@ -207,7 +210,7 @@
       }
 
       @media (max-width: 820px) {
-        display: block
+        display: block;
       }
     }
 
@@ -227,25 +230,25 @@
         left: -100vw;
         position: absolute;
         top: -13px;
-        transition: left .3s ease-in-out;
+        transition: left 0.3s ease-in-out;
         background-color: #ffffff;
         bottom: 0;
         z-index: 12;
 
         &.open {
           left: 0;
-          transition: left .3s ease-in-out;
+          transition: left 0.3s ease-in-out;
         }
       }
 
       &.dark_mode {
-        background-color: #2D2D2D;
+        background-color: #2d2d2d;
       }
 
       &__top {
         padding-bottom: 12px;
         margin-bottom: 12px;
-        border-bottom: 1px solid #E1E1E1;
+        border-bottom: 1px solid #32852a;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
@@ -257,8 +260,8 @@
         margin-bottom: 24px;
         font-weight: 400;
         font-size: 24px;
-        color: #2D2D2D;
-        border-bottom: 1px solid #E1E1E1;
+        color: #2d2d2d;
+        border-bottom: 1px solid #32852a;
 
         @media (max-width: 820px) {
           background-color: transparent;
@@ -281,8 +284,8 @@
       &__reset {
         font-weight: 500;
         font-size: 14px;
-        color: #FAFBFC;
-        background-color: #FF0000;
+        color: #fafbfc;
+        background-color: #ff0000;
         border-radius: 40px;
         border: none;
         padding: 6px 8px;
@@ -297,9 +300,8 @@
     .filters {
       &__manufacturer {
         &__inner {
-          border-bottom: 1px solid #E1E1E1;
+          border-bottom: 1px solid #32852a;
           margin-bottom: 16px;
-
 
           @media (max-width: 820px) {
             border-bottom: none;
@@ -319,11 +321,11 @@
           font-family: 'Roboto';
           cursor: pointer;
           font-size: 18px;
-          color: #2D2D2D;
+          color: #2d2d2d;
 
           @media (max-width: 820px) {
             padding-bottom: 12px;
-            border-bottom: 1px solid #E1E1E1;
+            border-bottom: 1px solid #32852a;
           }
 
           &.dark_mode {
@@ -384,24 +386,24 @@
           }
 
           &::-webkit-scrollbar-track {
-            background-color: #E1E1E1;
+            background-color: #32852a;
             border-radius: 5px;
           }
 
           &::-webkit-scrollbar-thumb {
-            background-color: #9E9E9E;
-            background: #9E9E9E;
+            background-color: #9e9e9e;
+            background: #9e9e9e;
             border-radius: 5px;
           }
 
           &__item {
             cursor: pointer;
             padding: 6.5px 0;
-            transition: opacity .2s ease-in-out;
+            transition: opacity 0.2s ease-in-out;
 
             &:hover {
               opacity: 0.7;
-              transition: opacity .2s ease-in-out;
+              transition: opacity 0.2s ease-in-out;
             }
 
             input {
@@ -419,7 +421,7 @@
               cursor: pointer;
               user-select: none;
               width: 100%;
-              color: #4E4C4C;
+              color: #4e4c4c;
             }
 
             &.dark_mode label {
@@ -427,10 +429,10 @@
             }
 
             span:before {
-              content:'';
+              content: '';
               //-webkit-appearance: none;
               background-color: transparent;
-              border: 2px solid #F0F0F0;
+              border: 2px solid #f0f0f0;
               border-radius: 4px;
               width: 18px;
               height: 18px;
@@ -475,11 +477,11 @@
             height: 40px;
             padding-left: 12px;
             background-color: transparent;
-            border: 1px solid #D5D5D5;
+            border: 1px solid #d5d5d5;
             border-radius: 4px;
             font-weight: 400;
             font-size: 14px;
-            color: #9E9E9E;
+            color: #9e9e9e;
 
             @media (max-width: 820px) {
               width: 120px;
@@ -493,7 +495,7 @@
           &__border {
             width: 13px;
             height: 1px;
-            background-color:#4E4C4C ;
+            background-color: #4e4c4c;
           }
 
           &.dark_mode .filters__price__inputs__border {
@@ -509,9 +511,9 @@
 
         @media (max-width: 820px) {
           padding-top: 24px;
-          border-top: 1px solid #E1E1E1;
+          border-top: 1px solid #32852a;
         }
-
+        //#32852a
         button {
           padding: 8px;
           border: none;
@@ -526,7 +528,7 @@
           background-color: rgb(50, 133, 42);
           border-radius: 4px;
           margin-bottom: 24px;
-          color: #FAFBFC;
+          color: #fafbfc;
 
           &:disabled {
             opacity: 0.5;
@@ -536,7 +538,7 @@
 
         &__reset {
           color: rgb(50, 133, 42);
-          background-color: #EBF5FD;
+          background-color: #ebf5fd;
           border: 1px solid rgb(50, 133, 42);
           border-radius: 4px;
 
@@ -555,7 +557,7 @@
         left: -100vw;
         position: absolute;
         top: 0;
-        transition: left .3s ease-in-out;
+        transition: left 0.3s ease-in-out;
         background-color: #ffffff;
         bottom: 0;
         z-index: 12;
@@ -565,17 +567,15 @@
 
         &.open {
           left: 0;
-          transition: left .3s ease-in-out;
+          transition: left 0.3s ease-in-out;
         }
 
         &.dark_mode {
-          background-color: #2D2D2D;
+          background-color: #2d2d2d;
         }
       }
     }
 
-
-    
     &__list {
       margin: 0;
       padding: 0;
@@ -583,7 +583,7 @@
       display: flex;
       align-items: center;
       align-self: center;
-  
+
       @media (max-width: 450px) {
         width: 100%;
         overflow-x: auto;
@@ -609,7 +609,7 @@
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          color: #5E5E5E;
+          color: #5e5e5e;
         }
       }
 
@@ -676,7 +676,6 @@
       margin-bottom: 35px;
     }
 
-
     &__item {
       position: relative;
       align-self: flex-start;
@@ -684,7 +683,9 @@
       border-radius: 4px;
       overflow: hidden;
       padding: 24px 16px;
-      transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+      transition:
+        transform 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
 
       @media (max-width: 560px) {
         padding: 16px 8px;
@@ -693,13 +694,27 @@
 
       &:hover {
         transform: scale(1.03);
-        transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+        transition:
+          transform 0.2s ease-in-out,
+          box-shadow 0.2s ease-in-out;
         box-shadow: -1px 4px 30px rgba(0, 0, 0, 0.16);
 
         @media (max-width: 820px) {
           transform: scale(1);
         }
       }
+
+      /*    .image {
+        min-width: 18px;
+        flex: 1 0 100%;
+        margin-bottom: 10px;
+      
+        img {
+          height:65px;
+          -o-object-fit: cover;
+          object-fit: cover;
+        }
+      } */
 
       img {
         width: 100%;
@@ -718,7 +733,7 @@
         font-weight: 400;
         margin-bottom: 24px;
         font-size: 18px;
-        color: #4E4C4C;
+        color: #4e4c4c;
 
         @media (max-width: 560px) {
           font-size: 15px;
@@ -733,7 +748,7 @@
         display: block;
         margin-bottom: 24px;
         font-size: 14px;
-        color: #7B7B7B;
+        color: #7b7b7b;
 
         @media (max-width: 560px) {
           font-size: 13px;
@@ -744,7 +759,7 @@
       &__price {
         font-weight: 500;
         font-size: 20px;
-        color: #2D2D2D;
+        color: #2d2d2d;
 
         @media (max-width: 560px) {
           position: absolute;
@@ -766,7 +781,9 @@
         height: 40px;
         background-color: rgba(255, 255, 102, 1);
         border-radius: 4px;
-        transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+        transition:
+          opacity 0.2s ease-in-out,
+          visibility 0.2s ease-in-out;
 
         @media (max-width: 820px) {
           opacity: 1;
@@ -779,7 +796,7 @@
         }
 
         &.added {
-          background-color:  rgb(50, 133, 42);
+          background-color: rgb(50, 133, 42);
           opacity: 1;
           visibility: visible;
         }
@@ -792,7 +809,9 @@
       &:hover &__cart {
         opacity: 1;
         visibility: visible;
-        transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+        transition:
+          opacity 0.2s ease-in-out,
+          visibility 0.2s ease-in-out;
       }
 
       &.dark_mode &__title {
@@ -800,7 +819,7 @@
       }
 
       &.dark_mode &__code {
-        color: #7B7B7B;
+        color: #7b7b7b;
       }
 
       &.dark_mode &__price {
