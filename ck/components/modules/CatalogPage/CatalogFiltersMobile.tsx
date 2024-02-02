@@ -27,12 +27,9 @@ const CatalogFiltersMobile =({
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const productModels = useStore($productsmModels)
-  const [openBoilers, setOpenBoilers] = useState(false)
-  const [openParts, setOpenParts] = useState(false)
-  const handleOpenBoilers = () => setOpenBoilers(true)
-  const handleCloseBoilers = () => setOpenBoilers(false)
-  const handleOpenParts = () => setOpenParts(true)
-  const handleCloseParts = () => setOpenParts(false)
+  const [openModels, setOpenModels] = useState(false)
+  const handleOpenModels = () => setOpenModels(true)
+  const handleCloseModels = () => setOpenModels(false)
   const isAnyProductModelerChecked = productModels.some(
     (item) => item.checked
   )
@@ -66,7 +63,7 @@ return (
         <div className={styles.filters__boiler_manufacturers}>
           <button
             className={`${styles.filters__manufacturer__btn} ${darkModeClass}`}
-            onClick={handleOpenBoilers}
+            onClick={handleOpenModels}
           >
             Модели мебели
           </button>
@@ -78,8 +75,8 @@ return (
             applyFilters={applyFiltersAndClosePopup}
             modelsList={productModels}
             resetAllModels={resetAllProductModel}
-            handleClosePopup={handleCloseBoilers}
-            openPopup={openBoilers}
+            handleClosePopup={handleCloseModels}
+            openPopup={openModels}
           />
         </div>
         

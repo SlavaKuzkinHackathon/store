@@ -24,6 +24,7 @@ import styles from '@/styles/catalog/index.module.scss'
 import CatalogFilters from '@/components/modules/CatalogPage/CatalogFilters'
 import { usePopup } from '@/hooks/usePopup'
 import { checkQueryParams } from '@/utils/catalog'
+import FilterSvg from '@/components/elements/FilterSvg/FilterSvg'
 
 const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const mode = useStore($mode)
@@ -104,7 +105,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     } catch (error) {
       toast.error((error as Error).message)
     } finally {
-      setTimeout(() => setSpinner(false),1000)
+      setTimeout(() => setSpinner(false), 1000)
     }
   }
 
@@ -130,10 +131,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         return
       }
 
-      const {
-        isValidModelQuery,
-        isValidPriceQuery,
-      } = checkQueryParams(router)
+      const { isValidModelQuery, isValidPriceQuery } = checkQueryParams(router)
 
       const result = await getProductsPaginateFx(
         `/products/all?limit=20&offset=${selected}${
@@ -162,7 +160,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       setProductsm(result)
     } catch (error) {
       toast.error((error as Error).message)
-    }finally{
+    } finally {
       setTimeout(() => setSpinner(false), 1000)
     }
   }
@@ -180,7 +178,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       delete params.priceTo
       params.first = 'cheap'
 
-      router.push({query : {...params}}, undefined, {shallow: true})
+      router.push({ query: { ...params } }, undefined, { shallow: true })
 
       setProductsmModels(
         productModels.map((item) => ({ ...item, checked: false }))
@@ -218,7 +216,16 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
             >
               Сбросить фильтры
             </button>
-            <FilterSelect setSpinner={setSpinner}/>
+            <button
+              className={styles.catalog__top__mobile_btn}
+              onClick={toggleOpen}
+            >
+              <span className={styles.catalog__top__mobile_btn__svg}>
+                <FilterSvg />
+              </span>
+              <span className={styles.catalog__top__mobile_btn__text}>Фильтр</span>
+            </button>
+            <FilterSelect setSpinner={setSpinner} />
           </div>
         </div>
         <div className={styles.catalog__bottom}>
