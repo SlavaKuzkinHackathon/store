@@ -19,14 +19,14 @@ class ShoppingCartItem {
   @ApiProperty({ example: 5 })
   in_stock: number;
 
-  @ApiProperty({ example: 'Sailun' })
-  divans_manufacturer: string;
+  @ApiProperty({ example: 'Диван прямой' })
+  model: string;
 
   @ApiProperty({ example: 1 })
   userId: number;
 
   @ApiProperty({ example: 1 })
-  divansId: number;
+  productId: number;
 
   @ApiProperty({ example: 3 })
   count: number;

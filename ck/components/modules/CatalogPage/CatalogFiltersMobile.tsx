@@ -7,7 +7,10 @@ import FiltersPopupTop from "./FiltersPopupTop"
 import FiltersPopup from "./FiltersPopup"
 import { useState } from "react"
 import { useMediaQuery } from "@/hooks/useMediaQuery"
-import { $productsmModels, setProductsmModels, updateProductsmModels } from "@/context/products"
+import { $productsmModels, setProductsm, setProductsmModels, updateProductsmModels } from "@/context/products"
+import router from "next/router"
+import { toast } from "react-toastify"
+import { getProductsPaginateFx } from "@/app/api/products"
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import styles from '@/styles/catalog/index.module.scss'
 
@@ -36,15 +39,45 @@ const CatalogFiltersMobile =({
 
   const isMobile = useMediaQuery(820)
 
-  const resetAllProductModel = () =>
+ /*  const resetAllProductModel = () =>
   setProductsmModels(
     productModels.map((item) => ({ ...item, checked: false }))
-    )
+    ) */
 
+    const resetAllProductModel = async () => {
+    try {
+      const data = await getProductsPaginateFx(
+        '/products/all?limit=20&offset=0'
+      )
+
+      const params = router.query
+
+      delete params.model
+      delete params.priceFrom
+      delete params.priceTo
+      params.first = 'cheap'
+
+      router.push({ query: { ...params } }, undefined, { shallow: true })
+
+      setProductsmModels(
+        productModels.map((item) => ({ ...item, checked: false }))
+      )
+
+      setProductsm(data)
+      setPriceRange([5000, 150000])
+      setIsPriceRangeChanged(false)
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  } 
+
+  
   const applyFiltersAndClosePopup = () => {
     applyFilters()
     closePopup()
   }
+
+
 
 return (
     <div

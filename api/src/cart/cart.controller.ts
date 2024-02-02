@@ -22,7 +22,7 @@ import {
 import { RolesGuard } from 'src/role/role.guard';
 import { Roles } from 'src/role/role-auth.decorators';
   
-  @Controller('cart')
+  @Controller('shopping-cart')
   export class CartController {
     constructor(private readonly cartService: CartService) {}
   
@@ -49,9 +49,9 @@ import { Roles } from 'src/role/role-auth.decorators';
     @Patch('/count/:id')
     updateCount(
       @Body() { count }: { count: number },
-      @Param('id') divansId: string,
+      @Param('id') productId: string,
     ) {
-      return this.cartService.updateCount(count, divansId);
+      return this.cartService.updateCount(count, productId);
     }
   
     @ApiOkResponse({ type: TotalPriceResponse })
@@ -61,16 +61,16 @@ import { Roles } from 'src/role/role-auth.decorators';
     @Patch('/total-price/:id')
     updateTotalPrice(
       @Body() { total_price }: { total_price: number },
-      @Param('id') divansId: string,
+      @Param('id') productId: string,
     ) {
-      return this.cartService.updateTotalPrice(total_price, divansId);
+      return this.cartService.updateTotalPrice(total_price, productId);
     }
   
     @Roles('USER')
     @UseGuards(RolesGuard)
     @Delete('/one/:id')
-    removeOne(@Param('id') divansId: string) {
-      return this.cartService.remove(divansId);
+    removeOne(@Param('id') productId: string) {
+      return this.cartService.remove(productId);
     }
   
     @Roles('USER')

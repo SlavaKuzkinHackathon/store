@@ -19,7 +19,7 @@ export class UserService {
   ) {}
 
   findOne(filter: {
-    where: { id?: string; username?: string; email?: string };
+    where: { id?: string; name?: string; email?: string };
   }): Promise<User> {
     return this.userRepository.findOne({ ...filter });
   }
