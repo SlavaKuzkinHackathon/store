@@ -2,8 +2,13 @@ import React from 'react'
 import Head from 'next/head'
 import CatalogPage from '@/components/templates/CatalogPage/CatalogPage'
 import { IQueryParams } from '@/types/catalog'
+import useRedirectByUserCheck from '@/hooks/useRedirectByUserCheck'
+import { useStore } from 'effector-react'
+import { $auth } from '@/context/user'
 
-const Catalog = ({query} : { query: IQueryParams}) => {
+const Catalog = ({ query }: { query: IQueryParams }) => {
+  const auth = useStore($auth)
+  //const { shouldLoadContent } = useRedirectByUserCheck()
   return (
     <>
       <Head>
@@ -13,7 +18,8 @@ const Catalog = ({query} : { query: IQueryParams}) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <main>
-        <CatalogPage query={query}/>
+        <CatalogPage query={query} />
+        {/* {shouldLoadContent &&<CatalogPage query={query}/>}  */}
         <div className="overlay" />
       </main>
     </>
@@ -22,7 +28,7 @@ const Catalog = ({query} : { query: IQueryParams}) => {
 
 export async function getServerSideProps(context: { query: IQueryParams }) {
   return {
-    props: {query: {...context.query}}
+    props: { query: { ...context.query } },
   }
 }
 

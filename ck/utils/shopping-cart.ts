@@ -30,7 +30,8 @@ export const toggleCartItem = async (
 
     updateShoppingCart(data)
   } catch (error) {
-    toast.error((error as Error).message)
+    //toast.error((error as Error).message)
+    console.log("Вы не авторизованны для добавления товара");
   }
 }
 
@@ -39,7 +40,8 @@ export const removeItemFromCart = async (productId: number) => {
     await removeFromCartFx(`/shopping-cart/one/${productId}`)
     removeShoppingCartItem(productId)
   } catch (error) {
-    toast.error((error as Error).message)
+    //toast.error((error as Error).message)
+    console.log("Вы не авторизованны для удаления товара");
   }
 }
 

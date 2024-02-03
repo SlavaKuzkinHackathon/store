@@ -26,7 +26,7 @@ export interface ISignInFx {
 
 export interface IUser {
   name: string
-  userId: number | string
+  id: number | string
   email: string
   roles: [{ id: number; value: string }]
 }

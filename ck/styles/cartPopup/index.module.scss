@@ -86,7 +86,7 @@
 
     &__title {
       margin: 0;
-      color: #1c629e;
+      color: #32852a;
       font-size: 24px;
       font-weight: 400;
       padding-left: 60px;
@@ -105,7 +105,7 @@
       overflow-y: auto;
       padding-top: 10px;
       list-style-type: none;
-      border-top: 1px solid #e1e1e1;
+      border-top: 1px solid #32852a;
 
       &::-webkit-scrollbar {
         width: 8px;
@@ -128,7 +128,7 @@
         &:not(:last-child) {
           margin-bottom: 16px;
           padding-bottom: 16px;
-          border-bottom: 1px solid #e1e1e1;
+          border-bottom: 1px solid #32852a;
         }
 
         &__top {
@@ -201,7 +201,7 @@
           justify-content: space-between;
           width: 88px;
           height: 29px;
-          border: 1px solid #66b1f1;
+          border: 1px solid #5ffc51;
           border-radius: 4px;
 
           button {
@@ -263,7 +263,7 @@
     }
 
     &__footer {
-      border-top: 1px solid #e1e1e1;
+      border-top: 1px solid #32852a;
       padding-top: 12px;
       display: flex;
       flex-direction: column;
@@ -286,14 +286,13 @@
 
       &__price {
         font-size: 24px;
-        color: #205684;
+        color: #32852a;
         white-space: nowrap;
       }
-
       &__btn {
         cursor: pointer;
         border: 1px solid transparent;
-        background-color: #1c629e;
+        background-color: #32852a;
         border-radius: 4px;
         padding: 10px 32px;
         font-size: 20px;

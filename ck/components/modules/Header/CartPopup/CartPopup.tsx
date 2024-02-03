@@ -10,13 +10,14 @@ import Link from 'next/link'
 import { $shoppingCart, setShoppingCart } from '@/context/shopping-cart'
 import CartPopupItem from './CartPopupItem'
 import { getCartItemsFx } from '@/app/api/shopping-cart'
-import { $user } from '@/context/user'
+import { $auth, $user } from '@/context/user'
 import { toast } from 'react-toastify'
 
 const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode)
     const user = useStore($user)
+    const auth = useStore($auth)
     const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
     const shoppingCart = useStore($shoppingCart)
 
@@ -24,26 +25,26 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
 
     useEffect(() => {
       loadCartItems()
-    }, [])
+    }, [user.id])
 
     const loadCartItems = async () => {
       try {
-        const catrItems = await getCartItemsFx(`/shopping-cart/${user.userId}`)
+        const catrItems = await getCartItemsFx(`/shopping-cart/${user.id}`)
 
         setShoppingCart(catrItems)
       } catch (error) {
-        toast.error((error as Error).message)
+        //toast.error((error as Error).message)
+        console.log("Вы не авторизованны");
+        
       }
     }
-
-
     return (
       <div className={styles.cart} ref={ref}>
         <button
           className={`${styles.cart__btn} ${darkModeClass}`}
           onClick={toggleCartDropDown}
         >
-          {!!shoppingCart.length && (
+          {auth && !!shoppingCart.length && (
             <span className={styles.cart__btn__count}>
               {shoppingCart.length}
             </span>
@@ -53,7 +54,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
           </span>
           <span className={styles.cart__text}>Корзина</span>
         </button>
-        <AnimatePresence>
+       { auth && ( <AnimatePresence>
           {open && (
             <motion.ul
               initial={{ opacity: 0, scale: 0 }}
@@ -98,7 +99,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
               </div>
             </motion.ul>
           )}
-        </AnimatePresence>
+        </AnimatePresence>)}
       </div>
     )
   }

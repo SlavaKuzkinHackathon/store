@@ -26,7 +26,7 @@ const CatalogItem = ({item}: {item: IProduct}) => {
   const isInCart = shoppingCart.some((cartItem) => cartItem.productId === item.id)
   
 
-  const toggleToCart = () => toggleCartItem(user.name, item.id, isInCart)
+  const toggleToCart = () => toggleCartItem( user.name, item.id, isInCart)
 
   return(
      <li className={`${styles.catalog__list__item} ${darkModeClass}`}>

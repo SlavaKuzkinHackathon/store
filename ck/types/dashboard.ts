@@ -1,4 +1,4 @@
-import { IProduct } from './product'
+import { IProduct } from './productsm'
 
 export interface IDashboardSlider {
   items: IProduct[]

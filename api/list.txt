@@ -54,10 +54,12 @@ CREATE SCHEMA public;
 -удаление данных, и создание схемы в БД
 
 drop table products;
+drop table cart;
 
 
 
 select * from users;
+select * from cart;
 select * from roles;
 select * from users_roles;
 select * from products;

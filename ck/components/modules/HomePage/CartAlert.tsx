@@ -11,6 +11,8 @@ const CartAlert = ({ count, closeAlert }: ICartAlertProps) => {
   //const totalPrice = useStore($totalPrice)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
+  
+
   const showCountMessage = (count: string) => {
     if (count.endsWith('1')) {
       return 'товар'
