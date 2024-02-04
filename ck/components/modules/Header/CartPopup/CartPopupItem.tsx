@@ -1,14 +1,17 @@
+/* eslint-disable @next/next/no-img-element */
 import DeleteSvg from '@/components/elements/DeleteSvg/DeleteSvg'
 import { $mode } from '@/context/mode'
-import styles from '@/styles/cartPopup/index.module.scss'
-import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { IShoppingCartItem } from '@/types/shopping-cart'
 import { formatPrice } from '@/utils/common'
 import { getImageURL } from '@/utils/getImageURL'
-import { removeItemFromCart } from '@/utils/shopping-cart'
+import { removeItemFromCart, updateTotalPrice } from '@/utils/shopping-cart'
 import { useStore } from 'effector-react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import styles from '@/styles/cartPopup/index.module.scss'
+import spinnerStyles from '@/styles/spinner/index.module.scss'
+import CartItemCounter from '@/components/elements/CartItemCounter/CartItemCounter'
+import { usePrice } from '@/hooks/usePrice'
 
 const CartPopupItem = ({ item }: { item: IShoppingCartItem }) => {
   const mode = useStore($mode)
@@ -16,10 +19,8 @@ const CartPopupItem = ({ item }: { item: IShoppingCartItem }) => {
   const spinnerDarkModeClass =
     mode === 'dark' ? `${spinnerStyles.dark_mode}` : ''
 
-  const [spinner, setSpinner] = useState(false)
-
-  const deleteCartItem = () => removeItemFromCart(item.productId, )
-
+  const { price, spinner, decreasePrice, deleteCartItem, increasePrice } =
+    usePrice(item.count, item.productId, item.price)
 
   return (
     <li className={styles.cart__popup__list__item}>
@@ -41,7 +42,7 @@ const CartPopupItem = ({ item }: { item: IShoppingCartItem }) => {
             {spinner ? (
               <span
                 className={`${spinnerStyles.spinner} ${spinnerDarkModeClass}`}
-                style={{top: 0, left: 0, width: 20, height: 20}}
+                style={{ top: 0, left: 0, width: 20, height: 20 }}
               />
             ) : (
               <DeleteSvg />
@@ -50,16 +51,24 @@ const CartPopupItem = ({ item }: { item: IShoppingCartItem }) => {
         </button>
       </div>
       <div className={styles.cart__popup__list__item__bottom}>
-        { item.in_stock === 0 ? (
+        {item.in_stock === 0 ? (
           <span className={styles.cart__popup__list__item__empty}>
-              Нет на складе
+            Нет на складе
           </span>
         ) : (
-          <div />
+          <CartItemCounter
+            totalCount={item.in_stock}
+            productId={item.productId}
+            initialCount={item.count}
+            increasePrice={increasePrice}
+            decreasePrice={decreasePrice}
+          />
         )}
-        <span className={`${styles.cart__popup__list__item__price} ${darkModeClass}`}>
-          {formatPrice(item.price)} ₽
-          </span>
+        <span
+          className={`${styles.cart__popup__list__item__price} ${darkModeClass}`}
+        >
+          {formatPrice(price)} ₽
+        </span>
       </div>
     </li>
   )
