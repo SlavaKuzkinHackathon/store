@@ -3,6 +3,7 @@ import { Op } from 'sequelize';
 import { Product } from '../models/product.model';
 
 
+export class FindOneResponse extends Product {}
 
 export class PaginateAndFilterResponse {
     @ApiProperty({ example: 10 })

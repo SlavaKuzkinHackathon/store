@@ -19,13 +19,29 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './models/product.model';
 import { ProductService } from './product.service';
-import { PaginateAndFilterResponse } from './types';
+import { FindOneResponse, PaginateAndFilterResponse } from './types';
 
 @ApiTags('Товары')
 @Controller('products')
 export class ProductController {
   constructor(private productService: ProductService) {}
 
+  
+  @ApiOkResponse({ type: FindOneResponse })
+  @ApiOperation({ summary: 'Получение одного товара' })
+  @ApiResponse({
+    status: 200,
+    type: Product,
+    description: 'Возвращаются данные товара',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Товара не существует',
+  })
+  @Get('find/:id')
+  getOne(@Param('id') id: string) {
+    return this.productService.findOne(id);
+  }
 
 
 

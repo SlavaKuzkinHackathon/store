@@ -17,7 +17,7 @@ const CartPopupItem = ({ item }: { item: IShoppingCartItem }) => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const spinnerDarkModeClass =
-    mode === 'dark' ? `${spinnerStyles.dark_mode}` : ''
+    mode === 'dark' ?  '' : `${spinnerStyles.dark_mode}` 
 
   const { price, spinner, decreasePrice, deleteCartItem, increasePrice } =
     usePrice(item.count, item.productId, item.price)

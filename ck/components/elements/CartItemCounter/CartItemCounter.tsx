@@ -56,8 +56,6 @@ const CartItemCounter = ({
     }
   }
 
-  console.log(increase);
-  
 
   const decrease = async () => {
     try {
