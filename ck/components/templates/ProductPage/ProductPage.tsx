@@ -22,7 +22,7 @@ import {
 } from '@/context/products'
 //import PartAccordion from '@/components/modules/PartPage/PartAccordion'
 import { removeFromCartFx } from '@/app/api/shopping-cart'
-import styles from '@/styles/part/index.module.scss'
+import styles from '@/styles/product/index.module.scss'
 import DashboardSlider from '@/components/modules/HomePage/DashboardSlider'
 
 const ProductPage = () => {

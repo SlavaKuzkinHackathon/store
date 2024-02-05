@@ -220,7 +220,7 @@ https://github.com/TeemPresents/shop-ytb-client
 
 
 
-////31.19 
+////32.57 
 
 //TODO
 1. Адаптив изображений
