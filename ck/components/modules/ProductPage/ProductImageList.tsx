@@ -23,6 +23,7 @@ const PartImagesList = () => {
         <>
           <div className={styles.part__images__main}>
             <img src={currentImgSrc || images[0]} alt={productOne.name} />
+         {/* src={getImageURL(item.image)} alt={item.name} */}
           </div>
           <ul className={styles.part__images__list}>
             {images.map((item, i) => (
