@@ -18,7 +18,7 @@ const HomePage = () => {
   const [spinner, setSpinner] = useState(false)
 
   const shoppingCart = useStore($shoppingCart)
-  const [showAlert, setShowAlert] = useState(!!1 /**shoppingCart.length */)
+  const [showAlert, setShowAlert] = useState(!! shoppingCart.length )
 
   const mode = useStore($mode)
   const auth = useStore($auth)

@@ -32,7 +32,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
 
     useEffect(() => {
       loadCartItems()
-    }, [user.id])
+    }, [auth])
 
     useEffect(() => {
       setTotalPrice(
@@ -71,7 +71,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
         </button>
         
           <AnimatePresence>
-            {open && (
+            {auth && open && (
               <motion.ul
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
