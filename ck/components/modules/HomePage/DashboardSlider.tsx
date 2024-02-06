@@ -17,7 +17,7 @@ import { getImageURL } from '@/utils/getImageURL'
 const DashboardSlider = ({
   items,
   spinner,
-  goToPartPage,
+  goToProductPage,
 }: IDashboardSlider) => {
   const isMedia768 = useMediaQuery(768)
   const isMedia1366 = useMediaQuery(1366)
@@ -52,7 +52,6 @@ const DashboardSlider = ({
     width: isMedia1366 ? (isMedia800 ? (isMedia560 ? 160 : 252) : 317) : 344,
   }
 
-
   return (
     <Slider {...settings} className={styles.dashboard__slider}>
       {spinner ? (
@@ -74,10 +73,16 @@ const DashboardSlider = ({
             key={item.id}
             style={width}
           >
-             <img src={getImageURL(item.image)} alt={item.name} /> 
+            <Link
+              href={goToProductPage ? `/catalog/${item.id}` : '/catalog'}
+              passHref
+              legacyBehavior
+            >
+              <img src={getImageURL(item.image)} alt={item.name} />
+            </Link>
             <div className={styles.dashboard__slide__inner}>
               <Link
-                href={goToPartPage ? `/catalog/${item.id}` : '/catalog'}
+                href={goToProductPage ? `/catalog/${item.id}` : '/catalog'}
                 passHref
                 legacyBehavior
               >
@@ -88,8 +93,7 @@ const DashboardSlider = ({
                 </a>
               </Link>
               <span className={styles.dashboard__slide__code}>
-                Описание: {item.description
-                }
+                Описание: {item.description}
               </span>
               <span className={styles.dashboard__slide__price}>
                 {formatPrice(item.price)} ₽

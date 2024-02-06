@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import CatalogPage from '@/components/templates/CatalogPage/CatalogPage'
 import { IQueryParams } from '@/types/catalog'
 import useRedirectByUserCheck from '@/hooks/useRedirectByUserCheck'
 import { useStore } from 'effector-react'
@@ -8,15 +7,18 @@ import { $auth } from '@/context/user'
 import { $productOne, setProductOne } from '@/context/productOne'
 import { getProductFx } from '@/app/api/products'
 import { toast } from '@/components/templates/toasts'
+import ProductPage from '@/components/templates/ProductPage/ProductPage'
+import { useRouter } from 'next/router'
 
-const ProductPage = ({ query }: { query: IQueryParams }) => {
+const CatalogProductPage = ({ query }: { query: IQueryParams }) => {
   const auth = useStore($auth)
   const { shouldLoadContent } = useRedirectByUserCheck()
   const productOne = useStore($productOne)
+  const router = useRouter()
 
   useEffect(() => {
     loadProductOne()
-  }, [])
+  }, [router.asPath])
 
   const loadProductOne = async () => {
     try {
@@ -40,9 +42,9 @@ const ProductPage = ({ query }: { query: IQueryParams }) => {
       </Head>
       <main>
          {shouldLoadContent && 
-          <h1>{productOne.name}</h1>
+          <ProductPage />
          }  
-        
+        <div className="overlay" />
       </main>
     </>
   )
@@ -54,4 +56,4 @@ export async function getServerSideProps(context: { query: IQueryParams }) {
   }
 }
 
-export default ProductPage
+export default CatalogProductPage

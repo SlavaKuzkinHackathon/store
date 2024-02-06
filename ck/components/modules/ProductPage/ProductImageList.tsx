@@ -1,40 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
 import { useStore } from 'effector-react'
-import { useState } from 'react'
 import { $productOne } from '@/context/productOne'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
-import ProductImagesItem from './ProductImagesItem'
-import ProductSlider from './ProductSlider'
+import { getImageURL } from '@/utils/getImageURL'
 import styles from '@/styles/product/index.module.scss'
 
 const PartImagesList = () => {
   const productOne = useStore($productOne)
   const isMobile = useMediaQuery(850)
-  const images = productOne.image
-    ? (JSON.parse(productOne.image) as string[])
-    : []
-  const [currentImgSrc, setCurrentImgSrc] = useState('')
+  const isMobile700 = useMediaQuery(700)
+  const isMobile530 = useMediaQuery(530)
 
   return (
     <div className={styles.part__images}>
       {isMobile ? (
-        <ProductSlider images={images} />
+       <div
+        className={styles.part__slide}
+        style={{ width: isMobile530 ? 228 : isMobile700 ? 350 : 593 }}
+      >
+        <img src={getImageURL(productOne.image)} alt={productOne.name}  />
+      </div>
       ) : (
         <>
           <div className={styles.part__images__main}>
-            <img src={currentImgSrc || images[0]} alt={productOne.name} />
-         {/* src={getImageURL(item.image)} alt={item.name} */}
+            <img src={getImageURL(productOne.image)} alt={productOne.name}/>
           </div>
-          <ul className={styles.part__images__list}>
-            {images.map((item, i) => (
-              <ProductImagesItem
-                key={i}
-                alt={`image-${i + 1}`}
-                callback={setCurrentImgSrc}
-                src={item}
-              />
-            ))}
-          </ul>
         </>
       )}
     </div>

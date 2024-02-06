@@ -19,7 +19,7 @@ const Catalog = ({ query }: { query: IQueryParams }) => {
       </Head>
       <main>
         {shouldLoadContent && <CatalogPage query={query} />}
-        {/* <div className="overlay" /> */}
+        <div className="overlay" /> 
       </main>
     </>
   )
