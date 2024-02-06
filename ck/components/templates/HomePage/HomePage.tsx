@@ -18,7 +18,7 @@ const HomePage = () => {
   const [spinner, setSpinner] = useState(false)
 
   const shoppingCart = useStore($shoppingCart)
-  const [showAlert, setShowAlert] = useState(!! shoppingCart.length )
+  const [showAlert, setShowAlert] = useState(!!shoppingCart.length)
 
   const mode = useStore($mode)
   const auth = useStore($auth)
@@ -80,13 +80,10 @@ const HomePage = () => {
                 className={`${styles.dashboard__alert} ${darkModeClass}`}
               >
                 <CartAlert
-                  count={
-                    shoppingCart.length
-                    /**reduce(
-                  (defaultCount, item) => defaultCount + item.count,
-                  0
-                ) */
-                  }
+                  count={shoppingCart.reduce(
+                    (defaultCount, item) => defaultCount + item.count,
+                    0
+                  )}
                   closeAlert={closeAlert}
                 />
               </motion.div>

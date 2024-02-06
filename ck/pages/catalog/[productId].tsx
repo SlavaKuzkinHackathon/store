@@ -9,11 +9,11 @@ import { getProductFx } from '@/app/api/products'
 import { toast } from '@/components/templates/toasts'
 import ProductPage from '@/components/templates/ProductPage/ProductPage'
 import { useRouter } from 'next/router'
-import Custom404 from '../404'
+import Custom404 from '../[404]'
 
 const CatalogProductPage = ({ query }: { query: IQueryParams }) => {
-  const auth = useStore($auth)
   const { shouldLoadContent } = useRedirectByUserCheck()
+  const auth = useStore($auth)
   const productOne = useStore($productOne)
   const router = useRouter()
   const [error, setError] = useState(false)
