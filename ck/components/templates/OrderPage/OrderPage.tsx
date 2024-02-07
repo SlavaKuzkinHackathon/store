@@ -1,22 +1,46 @@
+import { makePaymentFx } from '@/app/api/payment'
+import { removeFromCartFx } from '@/app/api/shopping-cart'
 import OrderAccordion from '@/components/modules/OrderPage/OrderAccordion'
 import { $mode } from '@/context/mode'
-import { $shoppingCart, $totalPrice } from '@/context/shopping-cart'
+import { $shoppingCart, $totalPrice, setShoppingCart } from '@/context/shopping-cart'
+import { $user } from '@/context/user'
 import styles from '@/styles/order/index.module.scss'
 import { formatPrice } from '@/utils/common'
 import { useStore } from 'effector-react'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+import spinnerStyles from '@/styles/spinner/index.module.scss'
+
 
 const OrderPage = () => {
   const mode = useStore($mode)
+  const user = useStore($user)
   const shoppingCart = useStore($shoppingCart)
   const totalPrice = useStore($totalPrice)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const [orderIsReady, setOrderIsReady] = useState(false)
   const [agreement, setAgreement] = useState(false)
-  //const spinner = useStore(makePaymentFx.pending)
-  //const router = useRouter()
+  const spinner = useStore(makePaymentFx.pending)
+  const router = useRouter()
 
   const handleAgreementChange = () => setAgreement(!agreement)
+
+  const makePay = async () => {
+    try {
+      const data = await makePaymentFx({
+        url: '/payment',
+        amount: totalPrice,
+
+      })
+      router.push(data.confirmation.confirmation_url)
+
+      await removeFromCartFx(`/shopping-cart/all/${user.id}`)
+      setShoppingCart([])
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
 
   return (
     <section className={styles.order}>
@@ -56,9 +80,16 @@ const OrderPage = () => {
               <button
                 disabled={!(orderIsReady && agreement)}
                 className={styles.order__pay__btn}
+                onClick={makePay}
               >
-                {' '}
-                Подтвердить заказ{' '}
+                {spinner ? (
+                  <span
+                    className={spinnerStyles.spinner}
+                    style={{ top: '6px', left: '47%' }}
+                  />
+                ) : (
+                  'Подтвердить заказ'
+                )}
               </button>
               <label
                 className={`${styles.order__pay__rights} ${darkModeClass}`}

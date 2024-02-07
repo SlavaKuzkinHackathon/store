@@ -20,7 +20,7 @@ const OrderAccordion = ({
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const isMobail550 = useMediaQuery(550)
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(true)
   const shoppingCart = useStore($shoppingCart)
   const totalPrice = useStore($totalPrice)
   const toggleAccordion = () => setExpanded(!expanded)
