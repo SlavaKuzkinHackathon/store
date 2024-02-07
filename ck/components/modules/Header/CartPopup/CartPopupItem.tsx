@@ -4,14 +4,12 @@ import { $mode } from '@/context/mode'
 import { IShoppingCartItem } from '@/types/shopping-cart'
 import { formatPrice } from '@/utils/common'
 import { getImageURL } from '@/utils/getImageURL'
-import { removeItemFromCart, updateTotalPrice } from '@/utils/shopping-cart'
 import { useStore } from 'effector-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import styles from '@/styles/cartPopup/index.module.scss'
-import spinnerStyles from '@/styles/spinner/index.module.scss'
 import CartItemCounter from '@/components/elements/CartItemCounter/CartItemCounter'
 import { usePrice } from '@/hooks/usePrice'
+import styles from '@/styles/cartPopup/index.module.scss'
+import spinnerStyles from '@/styles/spinner/index.module.scss'
 
 const CartPopupItem = ({ item }: { item: IShoppingCartItem }) => {
   const mode = useStore($mode)

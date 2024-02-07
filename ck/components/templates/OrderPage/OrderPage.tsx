@@ -1,14 +1,22 @@
+import OrderAccordion from '@/components/modules/OrderPage/OrderAccordion'
 import { $mode } from '@/context/mode'
 import { $shoppingCart, $totalPrice } from '@/context/shopping-cart'
 import styles from '@/styles/order/index.module.scss'
 import { formatPrice } from '@/utils/common'
 import { useStore } from 'effector-react'
+import { useState } from 'react'
 
 const OrderPage = () => {
   const mode = useStore($mode)
   const shoppingCart = useStore($shoppingCart)
   const totalPrice = useStore($totalPrice)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+  const [orderIsReady, setOrderIsReady] = useState(false)
+  const [agreement, setAgreement] = useState(false)
+  //const spinner = useStore(makePaymentFx.pending)
+  //const router = useRouter()
+
+  const handleAgreementChange = () => setAgreement(!agreement)
 
   return (
     <section className={styles.order}>
@@ -18,7 +26,10 @@ const OrderPage = () => {
         </h1>
         <div className={styles.order__inner}>
           <div className={styles.order__cart}>
-            <div />
+            <OrderAccordion
+              setOrderIsReady={setOrderIsReady}
+              showDoneIcon={orderIsReady}
+            />
           </div>
           <div className={styles.order__pay}>
             <h3 className={`${styles.order__pay__title} ${darkModeClass}`}>
@@ -42,7 +53,27 @@ const OrderPage = () => {
                   {formatPrice(totalPrice)} ₽
                 </span>
               </div>
-              <button> Перейти к оформлению </button>
+              <button
+                disabled={!(orderIsReady && agreement)}
+                className={styles.order__pay__btn}
+              >
+                {' '}
+                Подтвердить заказ{' '}
+              </button>
+              <label
+                className={`${styles.order__pay__rights} ${darkModeClass}`}
+              >
+                <input
+                  className={styles.order__pay__rights__input}
+                  type="checkbox"
+                  onChange={handleAgreementChange}
+                  checked={agreement}
+                />
+                <span className={styles.order__pay__rights__text}>
+                  <strong>Согласен с условиями</strong> Правил пользования
+                  торговой площадкой и правилами возврата
+                </span>
+              </label>
             </div>
           </div>
         </div>

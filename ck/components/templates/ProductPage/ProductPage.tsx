@@ -81,7 +81,7 @@ const ProductPage = () => {
                       {isInCart ? <CartHoverCheckedSvg /> : <CartHoverSvg />}
                     </span>
                     {isInCart ? (
-                      <span>Добавлено в карзину</span>
+                      <span>Добавлено в корзину</span>
                     ) : (
                       <span>Положить в корзину</span>
                     )}

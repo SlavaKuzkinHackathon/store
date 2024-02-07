@@ -130,12 +130,12 @@
       }
 
       &:hover {
-        background-color: #04B19E;
+        background-color: #32852a;
         transition: background-color .2s ease-in-out;
       }
 
       &.in_cart {
-        background-color: #04B19E;
+        background-color: #32852a;
         transition: background-color .2s ease-in-out;
       }
 
@@ -320,8 +320,8 @@
         right: 33px;
         width: 6px;
         height: 6px;
-        border-right: 1.5px solid #1C629E;
-        border-bottom: 1.5px solid #1C629E;
+        border-right: 1.5px solid #32852a;
+        border-bottom: 1.5px solid #32852a;
         transform: rotate(45deg);
       }
 

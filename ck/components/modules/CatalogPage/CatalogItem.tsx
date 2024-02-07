@@ -3,24 +3,24 @@ import Link from 'next/link'
 import { $mode } from '@/context/mode'
 import { useStore } from 'effector-react'
 import React from 'react'
-import { useEffect, useState } from 'react'
 import { getImageURL } from '@/utils/getImageURL'
 import { IProduct } from '@/types/productsm'
 import { formatPrice } from '@/utils/common'
-import spinnerStyles from '@/styles/spinner/index.module.scss'
-import styles from '@/styles/catalog/index.module.scss'
 import CartHoverCheckedSvg from '@/components/elements/CartHoverCheckedSvg/CartHoverCheckedSvg'
 import CartHoverSvg from '@/components/elements/CartHoverSvg/CartHoverSvg'
 import { $shoppingCart } from '@/context/shopping-cart'
 import { toggleCartItem } from '@/utils/shopping-cart'
 import { $user } from '@/context/user'
+import { removeFromCartFx } from '@/app/api/shopping-cart'
+import spinnerStyles from '@/styles/spinner/index.module.scss'
+import styles from '@/styles/catalog/index.module.scss'
 
 const CatalogItem = ({ item }: { item: IProduct }) => {
 
-  const [spinner, setSpinner] = useState(false)
   const mode = useStore($mode)
   const user = useStore($user)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+  const spinner = useStore(removeFromCartFx.pending)
 
   const shoppingCart = useStore($shoppingCart)
   const isInCart = shoppingCart.some((cartItem) => cartItem.productId === item.id)

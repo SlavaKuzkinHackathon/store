@@ -61,7 +61,10 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
         >
           {auth && !!shoppingCart.length && (
             <span className={styles.cart__btn__count}>
-              {shoppingCart.length}
+              {shoppingCart.reduce(
+                (defaultCount, item) => defaultCount + item.count,
+                0
+              )}
             </span>
           )}
           <span className={styles.cart__svg}>
@@ -69,54 +72,55 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
           </span>
           <span className={styles.cart__text}>Корзина</span>
         </button>
-        
-          <AnimatePresence>
-            {auth && open && (
-              <motion.ul
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0 }}
-                className={`${styles.cart__popup} ${darkModeClass}`}
-                style={{ transformOrigin: 'right top' }}
-              >
-                <h3 className={styles.cart__popup__title}>Корзина</h3>
-                <ul className={styles.cart__popup__list}>
-                  {shoppingCart.length ? (
-                    shoppingCart.map((item) => (
-                      <CartPopupItem key={item.id} item={item} />
-                    ))
-                  ) : (
-                    <li className={styles.cart__popup__empty}>
-                      <span
-                        className={`${styles.cart__popup__empty__text} ${darkModeClass}`}
-                      >
-                        Корзина пуста
-                      </span>
-                    </li>
-                  )}
-                </ul>
-                <div className={styles.cart__popup__footer}>
-                  <div className={styles.cart__popup__footer__total}>
+
+        <AnimatePresence>
+          {auth && open && (
+            <motion.ul
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={`${styles.cart__popup} ${darkModeClass}`}
+              style={{ transformOrigin: 'right top' }}
+            >
+              <h3 className={styles.cart__popup__title}>Корзина</h3>
+              <ul className={styles.cart__popup__list}>
+                {shoppingCart.length ? (
+                  shoppingCart.map((item) => (
+                    <CartPopupItem key={item.id} item={item} />
+                  ))
+                ) : (
+                  <li className={styles.cart__popup__empty}>
                     <span
-                      className={`${styles.cart__popup__footer__text} ${darkModeClass}`}
+                      className={`${styles.cart__popup__empty__text} ${darkModeClass}`}
                     >
-                      Общая сумма заказа:
+                      Корзина пуста
                     </span>
-                    <span className={styles.cart__popup__footer__price}>{formatPrice(totalPrice)} ₽</span>
-                  </div>
-                  <Link href="/order" passHref legacyBehavior>
-                    <button
-                      className={styles.cart__popup__footer__btn}
-                      disabled={!shoppingCart.length}
-                    >
-                      Оформить заказ
-                    </button>
-                  </Link>
+                  </li>
+                )}
+              </ul>
+              <div className={styles.cart__popup__footer}>
+                <div className={styles.cart__popup__footer__total}>
+                  <span
+                    className={`${styles.cart__popup__footer__text} ${darkModeClass}`}
+                  >
+                    Общая сумма заказа:
+                  </span>
+                  <span className={styles.cart__popup__footer__price}>
+                    {formatPrice(totalPrice)} ₽
+                  </span>
                 </div>
-              </motion.ul>
-            )}
-          </AnimatePresence>
-       
+                <Link href="/order" passHref legacyBehavior>
+                  <button
+                    className={styles.cart__popup__footer__btn}
+                    disabled={!shoppingCart.length}
+                  >
+                    Оформить заказ
+                  </button>
+                </Link>
+              </div>
+            </motion.ul>
+          )}
+        </AnimatePresence>
       </div>
     )
   }
