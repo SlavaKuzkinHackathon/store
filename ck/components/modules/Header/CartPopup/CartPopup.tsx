@@ -43,7 +43,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
           0
         )
       )
-    }, [shoppingCart])
+    }, [shoppingCart, auth])
 
     const loadCartItems = async () => {
       try {

@@ -1,4 +1,4 @@
-import { makePaymentFx } from '@/app/api/payment'
+import { checkPaymentFx, makePaymentFx } from '@/app/api/payment'
 import { removeFromCartFx } from '@/app/api/shopping-cart'
 import OrderAccordion from '@/components/modules/OrderPage/OrderAccordion'
 import { $mode } from '@/context/mode'
@@ -8,7 +8,7 @@ import styles from '@/styles/order/index.module.scss'
 import { formatPrice } from '@/utils/common'
 import { useStore } from 'effector-react'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 
@@ -24,6 +24,13 @@ const OrderPage = () => {
   const spinner = useStore(makePaymentFx.pending)
   const router = useRouter()
 
+  useEffect(() => {
+    const paymentId = sessionStorage.getItem('paymentId')
+    if (paymentId) {
+      checkPayment(paymentId)
+    }
+  },[])
+
   const handleAgreementChange = () => setAgreement(!agreement)
 
   const makePay = async () => {
@@ -31,15 +38,42 @@ const OrderPage = () => {
       const data = await makePaymentFx({
         url: '/payment',
         amount: totalPrice,
-
       })
-      router.push(data.confirmation.confirmation_url)
 
-      await removeFromCartFx(`/shopping-cart/all/${user.id}`)
-      setShoppingCart([])
+      console.log(data);
+      
+      sessionStorage.setItem('paymentId', data.id)
+
+
+      router.push(data.confirmation.confirmation_url)
     } catch (error) {
       toast.error((error as Error).message)
     }
+  }
+
+  const checkPayment = async (paymentId: string) => {
+    try {
+      const data = await checkPaymentFx({
+        url: '/payment/info',
+        paymentId,
+      })
+
+      if (data.status === 'succeeded') {
+        resetCart()
+        return
+      }
+
+      sessionStorage.removeItem('paymentId')
+    } catch (error) {
+      console.log((error as Error).message)
+      resetCart()
+    }
+  }
+
+  const resetCart = async () => {
+    sessionStorage.removeItem('paymentId')
+    await removeFromCartFx(`/shopping-cart/all/${user.id}`)
+    setShoppingCart([])
   }
 
   return (
