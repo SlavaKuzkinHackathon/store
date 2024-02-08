@@ -9,8 +9,13 @@ const OnlineStoreContent = () => (
       </Link>
     </li>
     <li className={styles.footer__top__item__list__item}>
-      <Link href="/shiping-payment" passHref legacyBehavior>
+      <Link href="/shipping-payment" passHref legacyBehavior>
         <a className={styles.footer__top__item__list__item__link}>Доставка и оплата</a>
+      </Link>
+    </li>
+    <li className={styles.footer__top__item__list__item}>
+      <Link href="/about" passHref legacyBehavior>
+        <a className={styles.footer__top__item__list__item__link}>O компании</a>
       </Link>
     </li>
   </ul>

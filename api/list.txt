@@ -223,7 +223,13 @@ https://github.com/TeemPresents/shop-ytb-client
 /// jess.888@yandex.ru
 /// W*09c8P@u!eP
 
-////1,34.13 
+//// Тестирование платежей карты для оплаты 
+///https://yookassa.ru/developers/payment-acceptance/testing-and-going-live/testing?ysclid=lscvx0x8f4111673945
+
+
+
+
+////1,52.00 
 
 //TODO
 1. Адаптив изображений
