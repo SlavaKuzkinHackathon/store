@@ -2,6 +2,7 @@ import Head from 'next/head'
 import ShippingPayment from '@/components/templates/ShippingPayment/ShippingPayment'
 //import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import { useCallback } from 'react'
+import ContactsPage from '@/components/templates/ContactsPage/ContactsPage'
 
 function Contacts() {
   const getDefaultTextGenerator = useCallback(() => 'Контакты', [])
@@ -20,7 +21,7 @@ function Contacts() {
             getDefaultTextGenerator={getDefaultTextGenerator}
             getTextGenerator={getTextGenerator}
           /> */}
-          <h1>Контакты</h1>
+          <ContactsPage />
           <div className="overlay" />
         </main>
     </>

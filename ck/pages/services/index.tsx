@@ -1,3 +1,4 @@
+import ServicesPage from '@/components/templates/ServicesPage/ServicesPage'
 import Head from 'next/head'
 import React from 'react'
 //import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
@@ -20,7 +21,7 @@ function Services() {
             getDefaultTextGenerator={getDefaultTextGenerator}
             getTextGenerator={getTextGenerator}
           /> */}
-          <h1>Услуги</h1>
+          <ServicesPage />
           <div className="overlay" />
         </main>
     </>

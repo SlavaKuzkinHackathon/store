@@ -21,20 +21,21 @@ const ContactsPage = () => {
             <ul className={`${styles.contacts__list} ${darkModeClass}`}>
               <li className={styles.contacts__list__title}>
                 <h3 className={darkModeClass}>
-                  Магазин деталей для газовых котлов
+                Адреса салонов "Ваша Мебель"
                 </h3>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
-                <span>Офис:</span>
-                <span> г. Москва, ул. ... д....</span>
+                <span>Салон-магазин:</span>
+                <span> г.Новосибирск ТВЦ "Большая Медведица​" ул.Светлановская,50
+                      49 сектор;  2 этаж​.</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
-                <span>Склад:</span>
-                <span> г. Москва, ул. ... д....</span>
+                <span>Магазин-склад:</span>
+                <span> г.Новосибирск ул.Сибиряков-Гвардейцев, 49/1 к1.</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
-                <span>График работы офиса:</span>
-                <span> пн-пс: с 8:00 до 22:00</span>
+                <span>График работы салонов:</span>
+                <span> пн-пс: с 9:00 до 19:00</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>Наш контактный телефон:</span>
@@ -42,7 +43,7 @@ const ContactsPage = () => {
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>Время приемок завок:</span>
-                <span> Пн-Вс: с 8:00 до 22:00</span>
+                <span> Пн-Вс: с 10:00 до 19:00</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>Прием заказов электронным способом на сайте:</span>
@@ -52,7 +53,7 @@ const ContactsPage = () => {
                 <span>E-mail:</span>
                 <span className={styles.contacts__list__item__mail}>
                   {!isMobile560 && <MailSvg />}{' '}
-                  <span>info@zapchasti.com.ru</span>
+                  <span>mebel-petrova.ru.info</span>
                 </span>
               </li>
             </ul>

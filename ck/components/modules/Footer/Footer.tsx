@@ -84,26 +84,26 @@ const Footer = () => {
               </li>
               <li className={styles.footer__top__item__list__item}>
                 <a
-                  href="tel:+79111362322"
+                  href="tel:+79139135547"
                   className={styles.footer__top__item__list__item__link}
                 >
                   <span>Наш контактный телефон: </span>
                   <span>
                     <PhoneSvg />
                   </span>
-                  <span>+7(913)136-23-22</span>
+                  <span>+7(913)913-55-47</span>
                 </a>
               </li>
               <li className={styles.footer__top__item__list__item}>
                 <a
-                  href="mailto:jess.888@yandex.ru"
+                  href="mailto:mebel-petrova@mail.ru"
                   className={styles.footer__top__item__list__item__link}
                 >
                   <span>Email: </span>
                   <span>
                     <MailSvg />
                   </span>
-                  <span>jess.888@yandex.ru</span>
+                  <span>mebel-petrova@mail.ru</span>
                 </a>
               </li>
             </ul>
