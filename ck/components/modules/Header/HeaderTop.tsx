@@ -48,7 +48,7 @@ const HeaderTop = () => {
               </Link>
             </li>
             <li className={styles.header__nav__list__item}>
-              <Link href="/uslugi" passHref legacyBehavior>
+              <Link href="/services" passHref legacyBehavior>
                 <a
                   className={`${styles.header__nav__list__item__link} ${darkModeClass}`}
                   onClick={closePopup}

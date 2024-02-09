@@ -229,7 +229,7 @@ https://github.com/TeemPresents/shop-ytb-client
 
 
 
-////1,52.00 
+////1,52.59
 
 //TODO
 1. Адаптив изображений
