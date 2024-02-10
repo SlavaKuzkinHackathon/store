@@ -27,10 +27,10 @@ const FeedbackForm = () => {
     setSpinner(true)
     emailjs
       .sendForm(
-        'service_4406d2p',
-        'template_88thtrg',
+        'service_9fvr1b2',
+        'template_gamatua',
         formRef.current,
-        'ARtfb1bp4SELm6yXa'
+        'AHq8Cy6FLVaGjte58'
       )
       .then((result) => {
         setSpinner(false)
@@ -79,7 +79,7 @@ const FeedbackForm = () => {
             {spinner ? (
               <span
                 className={spinnerStyles.spinner}
-                style={{ top: '6px', left: '47%' }}
+                style={{ top: '18px', left: '47%' }}
               />
             ) : (
               'Отправить сообщение'

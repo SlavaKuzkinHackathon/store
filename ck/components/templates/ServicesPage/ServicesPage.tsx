@@ -62,6 +62,13 @@ const ServicesPage = ({ isCustomPage = true }) => {
                 Либо опишите суть заказа в форме обратной связи и мы с вами
                 свяжемся.
               </p>
+              <div className={`${styles.contacts__list} ${darkModeClass}`}>
+                <Link href="/services" passHref legacyBehavior>
+                  <a>
+                    Также мы ремонтируем и перетягиваем мягкую мебель
+                  </a>
+                </Link>
+              </div>
             </div>
           )}
           <FeedbackForm />
