@@ -5,13 +5,13 @@ import React from 'react'
 import { useCallback } from 'react'
 
 function Services() {
-  const getDefaultTextGenerator = useCallback(() => 'Ремонт и перетяжка мебели', [])
+  const getDefaultTextGenerator = useCallback(() => 'Изготовление на заказ', [])
   const getTextGenerator = useCallback((param: string) => ({}[param]), [])
 
   return (
     <>
       <Head>
-        <title> Ваша мебель | Ремонт и перетяжка мебели </title>
+        <title> Ваша мебель | Изготовление на заказ </title>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +21,7 @@ function Services() {
             getDefaultTextGenerator={getDefaultTextGenerator}
             getTextGenerator={getTextGenerator}
           /> */}
-          <ServicesPage />
+          <ServicesPage isCustomPage={false} />
           <div className="overlay" />
         </main>
     </>

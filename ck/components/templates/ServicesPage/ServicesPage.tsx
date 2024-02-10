@@ -3,7 +3,9 @@ import { $mode } from '@/context/mode'
 import styles from '@/styles/contacts/index.module.scss'
 import FeedbackForm from '@/components/modules/FeedbackForm/FeedbackForm'
 
-const ServicesPage = ({ isWholesaleBuyersPage = false }) => {
+import Link from 'next/link'
+
+const ServicesPage = ({ isCustomPage = true }) => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
@@ -11,21 +13,29 @@ const ServicesPage = ({ isWholesaleBuyersPage = false }) => {
     <section className={styles.contacts}>
       <div className="container">
         <h2 className={`${styles.contacts__title} ${darkModeClass}`}>
-          {isWholesaleBuyersPage ? 'Ремонт и перетяжка мягкой мебели' : 'Контакты'}
+          {isCustomPage
+            ? 'Ремонт и перетяжка мягкой мебели'
+            : 'Изготовление мягкой мебели на заказ'}
         </h2>
         <div className={styles.contacts__inner}>
-          {isWholesaleBuyersPage ? (
+          {isCustomPage ? (
             <div className={`${styles.contacts__list} ${darkModeClass}`}>
               <p>
-                <span>
-                  Ремонт и перетяжка мебели недорого:{' '}
-                </span>
+                <span>Ремонт и перетяжка мебели недорого: </span>
                 <span>+7 (913) 913-55-47</span>
               </p>
               <p>
                 Либо опишите суть заказа в форме обратной связи и мы с вами
                 свяжемся.
               </p>
+              <div className={`${styles.contacts__list} ${darkModeClass}`}>
+                <Link href="/custom" passHref legacyBehavior>
+                    <a >
+                      Также мы изготавливаем мягкую мебель по индивидуальным
+                      проектам
+                    </a>
+                </Link>
+              </div>
             </div>
           ) : (
             <div className={`${styles.contacts__list} ${darkModeClass}`}>
