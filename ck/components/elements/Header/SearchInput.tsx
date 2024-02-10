@@ -87,6 +87,7 @@ const SearchInput = () => {
     } catch (error) {
       toast.error((error as Error).message)
     }
+    removeClassNamesForOverlayAndBody()
   }
 
   const getProductAndRedirect = async (name: string) => {
@@ -101,6 +102,7 @@ const SearchInput = () => {
     }
 
     router.push(`/catalog/${product.id}`)
+    removeClassNamesForOverlayAndBody()
   }
 
   const onSearchInputChange = (text: string) => {
@@ -147,7 +149,7 @@ const SearchInput = () => {
           components={{
             NoOptionsMessage: spinner ? NoOptionsSpinner : NoOptionsMessage,
           }}
-          placeholder="Сайт работает в тестовом режиме"
+          placeholder="Я ищу..."
           value={searchOption}
           onChange={handleSearchOptionChange}
           styles={{

@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import Custom404 from '../[404]'
 
 const CatalogProductPage = ({ query }: { query: IQueryParams }) => {
-  const { shouldLoadContent } = useRedirectByUserCheck()
+  //const { shouldLoadContent } = useRedirectByUserCheck()
   const auth = useStore($auth)
   const productOne = useStore($productOne)
   const router = useRouter()
