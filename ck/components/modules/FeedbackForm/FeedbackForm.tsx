@@ -1,5 +1,5 @@
 import { $mode } from '@/context/mode'
-import styles from '@/styles/feedbackForm/index.module.scss'
+import { toast } from 'react-toastify'
 import { useStore } from 'effector-react'
 import emailjs from '@emailjs/browser'
 import NameInput from './NameInput'
@@ -10,7 +10,7 @@ import EmailInput from './EmailInput'
 import MessageInput from './MessageInput'
 import { MutableRefObject, useRef, useState } from 'react'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
-import { toast } from 'react-toastify'
+import styles from '@/styles/feedbackForm/index.module.scss'
 
 const FeedbackForm = () => {
   const mode = useStore($mode)

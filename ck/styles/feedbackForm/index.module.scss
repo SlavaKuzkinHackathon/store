@@ -17,7 +17,7 @@
     font-size: 24px;
     padding-bottom: 12px;
     margin-bottom: 24px;
-    border-bottom: 1px solid #E1E1E1;
+    border-bottom: 1px solid #32852a;
     color: #2D2D2D;
 
     @media (max-width: 900px) {
@@ -56,7 +56,7 @@
 
     &__input {
       background-color: transparent;
-      border: 1px solid #D5D5D5;
+      border: 1px solid #32852a;
       border-radius: 4px;
       padding-left: 12px;
       height: 40px;
@@ -73,7 +73,7 @@
       padding: 9px 12px;
       height: 176px;
       background-color: transparent;
-      border: 1px solid #D5D5D5;
+      border: 1px solid #32852a;
       border-radius: 4px;
       resize: vertical;
 
@@ -91,14 +91,14 @@
     &__btn {
       text-align: end;
       padding-top: 24px;
-      border-top: 1px solid #E1E1E1;
+      border-top: 1px solid #32852a;
 
       @media (max-width: 1170px) {
         text-align: initial;
       }
 
       button {
-        height: 40px;
+        height: 65px;
         width: 255px;
         position: relative;
         padding: 8px 32px;
