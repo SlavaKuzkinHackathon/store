@@ -42,7 +42,7 @@ const CatalogProductPage = ({ query }: { query: IQueryParams }) => {
     <>
       <Head>
         <title>
-          Ваша мебель | {shouldLoadContent ? productOne.name : ''}{' '}
+          Ваша мебель | {/* shouldLoadContent ? */ productOne.name /* : '' */}{' '}
         </title>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -52,12 +52,12 @@ const CatalogProductPage = ({ query }: { query: IQueryParams }) => {
       {error ? (
         <Custom404 />
       ) : (
-        shouldLoadContent && (
+        /* shouldLoadContent && ( */
             <main>
               <ProductPage />
               <div className="overlay" />
             </main>
-        )
+        /* ) */
       )}
     </>
   )

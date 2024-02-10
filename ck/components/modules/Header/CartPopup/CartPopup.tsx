@@ -72,7 +72,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
             className={`${styles.cart__btn} ${darkModeClass}`}
             onClick={toggleCartDropDown}
           >
-            {auth && !!shoppingCart.length && (
+            {!!shoppingCart.length && (
               <span className={styles.cart__btn__count}>
                 {shoppingCart.length}
               </span>
@@ -85,7 +85,7 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
         )}
 
         <AnimatePresence>
-          {auth && open && (
+          {open && (
             <motion.ul
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}

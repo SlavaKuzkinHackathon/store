@@ -12,14 +12,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiOkResponse, ApiBody } from '@nestjs/swagger';
 import { Roles } from 'src/role/role-auth.decorators';
 import { RolesGuard } from 'src/role/role.guard';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './models/product.model';
 import { ProductService } from './product.service';
-import { FindOneResponse, PaginateAndFilterResponse } from './types';
+import { FindOneResponse, GetByNameRequest, GetByNameResponse, PaginateAndFilterResponse, SearchRequest, SearchResponse } from './types';
 
 @ApiTags('Товары')
 @Controller('products')
@@ -42,23 +42,6 @@ export class ProductController {
   getOne(@Param('id') id: string) {
     return this.productService.findOne(id);
   }
-
-
-
- /*  @ApiOperation({ summary: 'Получение одного товара' })
-  @ApiResponse({
-    status: 200,
-    type: Product,
-    description: 'Возвращаются данные товара',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Товара не существует',
-  })
-  @Get(':id')
-  async getOne(@Param('id') id: string): Promise<Product> {
-    return await this.productService.getOneProduct(+id);
-  } */
 
   @ApiOperation({ summary: 'Добавление товара' })
   @ApiResponse({
@@ -122,6 +105,32 @@ export class ProductController {
     return await this.productService.getNovelty();
   }
 
+
+  @ApiOkResponse({ type: SearchResponse })
+  @ApiBody({ type: SearchRequest })
+  @ApiOperation({ summary: 'Поиск по имени' })
+  @ApiResponse({
+    status: 200,
+    description: 'Возвращается поиск по имени',
+  })
+  @Post('search')
+  search(@Body() { search }: { search: string }) {
+    return this.productService.searchByString(search);
+  }
+
+
+  @ApiOkResponse({ type: GetByNameResponse })
+  @ApiBody({ type: GetByNameRequest })
+  @ApiOperation({ summary: 'Получение по имени' })
+  @ApiResponse({
+    status: 200,
+    description: 'Возвращается товар по имени',
+  })
+  @Post('name')
+  getByName(@Body() { name }: { name: string }) {
+    return this.productService.findOneByName(name);
+  }
+
   @ApiOperation({ summary: 'Изменение товара' })
   @ApiResponse({
     status: 200,
@@ -162,26 +171,6 @@ export class ProductController {
   async remove(@Param('id') id: string): Promise<string> {
     return await this.productService.removeProduct(+id);
   }
+  
 }
 
-
-
-/*  @ApiOperation({ summary: 'Получение всех каталогов' })
-  @ApiResponse({
-    status: 200,
-    type: [Product],
-    description: 'Возвращаются все каталоги',
-  })
-  @Get()
-  async getAllProducts(): Promise<Product[]> {
-    return await this.productService.getAllProducts();
-  } */
-
-
-  /* 
-  @ApiOkResponse({ type: PaginateAndFilterResponse })
-  @Get()
-  paginateAndFilter(@Query() query) {
-    return this.productService.paginateAndFilter(query);
-  }
- */

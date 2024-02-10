@@ -3,7 +3,20 @@ import { Op } from 'sequelize';
 import { Product } from '../models/product.model';
 
 
+
+
 export class FindOneResponse extends Product {}
+
+
+export class GetByNameResponse extends Product {
+  @ApiProperty({ example: 'Provident incidunt.' })
+  name: string;
+}
+
+export class GetByNameRequest {
+  @ApiProperty({ example: 'Provident incidunt.' })
+  name: string;
+}
 
 export class PaginateAndFilterResponse {
     @ApiProperty({ example: 10 })
@@ -13,6 +26,20 @@ export class PaginateAndFilterResponse {
     rows: Product;
   }
 
+  export class SearchByLetterResponse extends Product {
+    @ApiProperty({ example: 'Provident incidunt.' })
+    name: string;
+  }
+
+  export class SearchResponse extends PaginateAndFilterResponse {
+    @ApiProperty({ type: SearchByLetterResponse, isArray: true })
+    rows: SearchByLetterResponse;
+  }
+
+  export class SearchRequest {
+    @ApiProperty({ example: 'а' })
+    search: string;
+  }
 
 export interface IProductsQuery {
     limit: string;

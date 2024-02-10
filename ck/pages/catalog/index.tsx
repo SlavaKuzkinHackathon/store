@@ -8,17 +8,17 @@ import { $auth } from '@/context/user'
 
 const Catalog = ({ query }: { query: IQueryParams }) => {
   const auth = useStore($auth)
-  const { shouldLoadContent } = useRedirectByUserCheck()
+  //const { shouldLoadContent } = useRedirectByUserCheck()
   return (
     <>
       <Head>
-        <title>Ваша мебель | {shouldLoadContent ? 'Каталог' : ''}</title>
+        <title>Ваша мебель | {/* {shouldLoadContent ? ' */}Каталог{/* ' : ''} */}</title>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <main>
-        {shouldLoadContent && <CatalogPage query={query} />}
+        {/* {shouldLoadContent &&  */}<CatalogPage query={query} />  {/* } */}
         <div className="overlay" /> 
       </main>
     </>

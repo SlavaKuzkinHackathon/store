@@ -9,6 +9,7 @@ import {
   createResponseSchema,
 } from './lib'
 import { ProductSchema } from '@/types/product'
+import { toast } from 'react-toastify'
 
 export const getProductFx = createEffect(async (url: string) => {
   const { data } = await api.get(url)
@@ -156,3 +157,26 @@ export const updateProduct = async (
 export const deleteProduct = async (productId: number): Promise<void> => {
   await api.delete(`${BASE_ROUTE}/${productId}`)
 }
+
+
+
+///search
+export const searchProductFx = createEffect(
+  async ({ url, search }: { url: string; search: string }) => {
+    const { data } = await api.post(url, { search })
+
+    return data.rows
+  }
+)
+
+export const getProductByNameFx = createEffect(
+  async ({ url, name }: { url: string; name: string }) => {
+    try {
+      const { data } = await api.post(url, { name })
+
+      return data
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+)

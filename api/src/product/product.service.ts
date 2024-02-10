@@ -154,13 +154,11 @@ export class ProductService {
     return `Товар ${product.name} с id=${id} удален`;
   }
 
-
   async getAllProducts(): Promise<Product[]> {
     const products = await this.productRepository.findAll();
 
     return products;
   }
-
 
   async paginateAndFilter(
     query: IProductsQuery,
@@ -185,4 +183,21 @@ export class ProductService {
       where: filter,
     });
   }
+
+  async searchByString(
+    str: string,
+  ): Promise<{ count: number; rows: Product[] }> {
+    return this.productRepository.findAndCountAll({
+      limit: 20,
+      where: { name: { [Op.like]: `%${str}%` } },
+    });
+  }
+
+  async findOneByName(name: string): Promise<Product> {
+
+    return this.productRepository.findOne({
+        where: { name }
+    })
+}
+
 }
