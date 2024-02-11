@@ -38,7 +38,7 @@ const SearchInput = () => {
   const borderRef = useRef() as MutableRefObject<HTMLSpanElement>
   const [options, setOptions] = useState([])
   const [inputValue, setInputValue] = useState('')
-  const delayCallback = useDebounceCallback(1000)
+  const delayCallback = useDebounceCallback(500)
   const spinner = useStore(searchProductFx.pending)
   const router = useRouter()
 
@@ -87,7 +87,6 @@ const SearchInput = () => {
     } catch (error) {
       toast.error((error as Error).message)
     }
-    removeClassNamesForOverlayAndBody()
   }
 
   const getProductAndRedirect = async (name: string) => {
@@ -102,14 +101,14 @@ const SearchInput = () => {
     }
 
     router.push(`/catalog/${product.id}`)
-    removeClassNamesForOverlayAndBody()
   }
 
   const onSearchInputChange = (text: string) => {
     document.querySelector('.overlay')?.classList.add('open-search')
     document.querySelector('.body')?.classList.add('overflow-hidden')
 
-    delayCallback(() => searchProduct(text))
+     delayCallback(() => searchProduct(text))
+     removeClassNamesForOverlayAndBody()
   }
 
   const onSearchMenuOpen = () => {
@@ -149,7 +148,7 @@ const SearchInput = () => {
           components={{
             NoOptionsMessage: spinner ? NoOptionsSpinner : NoOptionsMessage,
           }}
-          placeholder="Я ищу..."
+          placeholder="Сайт в тестовом режиме"
           value={searchOption}
           onChange={handleSearchOptionChange}
           styles={{

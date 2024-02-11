@@ -3,7 +3,7 @@ import { removeFromCartFx } from '@/app/api/shopping-cart'
 import OrderAccordion from '@/components/modules/OrderPage/OrderAccordion'
 import { $mode } from '@/context/mode'
 import { $shoppingCart, $totalPrice, setShoppingCart } from '@/context/shopping-cart'
-import { $user } from '@/context/user'
+import { $user, $userCity } from '@/context/user'
 import styles from '@/styles/order/index.module.scss'
 import { formatPrice } from '@/utils/common'
 import { useStore } from 'effector-react'
@@ -16,6 +16,7 @@ import spinnerStyles from '@/styles/spinner/index.module.scss'
 const OrderPage = () => {
   const mode = useStore($mode)
   const user = useStore($user)
+  const userCity = useStore($userCity)
   const shoppingCart = useStore($shoppingCart)
   const totalPrice = useStore($totalPrice)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
@@ -23,6 +24,7 @@ const OrderPage = () => {
   const [agreement, setAgreement] = useState(false)
   const spinner = useStore(makePaymentFx.pending)
   const router = useRouter()
+  
 
   useEffect(() => {
     const paymentId = sessionStorage.getItem('paymentId')
@@ -38,9 +40,13 @@ const OrderPage = () => {
       const data = await makePaymentFx({
         url: '/payment',
         amount: totalPrice,
+        description: `Заказ №1 ${
+          userCity.city.length
+            ? `Город: ${userCity.city}, улица: ${userCity.street},`
+            : ''
+        }`,
       })
 
-      console.log(data);
       
       sessionStorage.setItem('paymentId', data.id)
 

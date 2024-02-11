@@ -24,10 +24,16 @@ JWT_ACCESS_SECRET=123secret
 JWT_REFRESH_SECRET=secret123
 
 CLIENT_URL=http://localhost:3000
+
+
 ------------
 
  .env client
+
 NEXT_PUBLIC_API_BASEURL=http://localhost:5000/
+NEXT_IMAGE_REMOTES=localhost,via.placeholder.com
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_GEOAPI_KEY=ff2a9f17b5f446bc80c01806796ae22e
 
 -----------
 sudo su - postgres 
@@ -238,7 +244,9 @@ https://github.com/TeemPresents/shop-ytb-client
 ///3VPUnBd4xMJb3hv
 //// mailjs GPvxaw3rHZ8W3HJmpup1
 
-
+//// geoapify.com
+////nskdivan@mail.ru
+/// pPutrw9AecuLkR4
 
 ////2,21.56
 
@@ -250,3 +258,7 @@ https://github.com/TeemPresents/shop-ytb-client
 5. count значёк над корзиной(не соответствует количество)
 6. даже по остатку псле корзины считает, что по наличию
 7. overlay не сбрасывается
+8. В платеже выводить товар и количество
+
+
+
