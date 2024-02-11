@@ -1,10 +1,8 @@
 .footer {
   padding-top: 27px;
-  background: linear-gradient(
-    90deg,
-    rgba(170, 201, 58, 1) 21%,
-    rgba(97, 163, 117, 1) 98%
-  );
+  background: linear-gradient(90deg,
+      rgba(170, 201, 58, 1) 21%,
+      rgba(97, 163, 117, 1) 98%);
 
   @media (max-width: 500px) {
     padding-top: 24px;
@@ -97,7 +95,7 @@
             color: #000000;
 
             &:hover {
-              color: rgba(255, 255, 102, 1)  ;
+              color: rgba(255, 255, 102, 1);
               transition: color 0.2s ease-in-out;
             }
           }
@@ -119,6 +117,7 @@
               margin-bottom: 1px;
               padding-left: 30px;
             }
+
             &:nth-child(2) {
               position: absolute;
               top: 19px;
@@ -150,12 +149,12 @@
           }
 
           &:hover span {
-            color: rgba(255, 255, 102, 1)  ;
+            color: rgba(255, 255, 102, 1);
             transition: color 0.2s ease-in-out;
           }
 
           &:hover span svg {
-            stroke: rgba(255, 255, 102, 1)  ;
+            stroke: rgba(255, 255, 102, 1);
             transition: stroke 0.2s ease-in-out;
           }
         }
@@ -406,12 +405,15 @@
         display: flex;
         align-items: center;
 
+
+
         &__item {
           background-repeat: no-repeat;
           background-position: center center;
 
           &:not(:last-child) {
             margin-right: 16px;
+
 
             @media (max-width: 1140px) {
               margin-right: 30px;
@@ -431,12 +433,40 @@
             }
           }
 
-          &_telega {
+          &__telega {
             background-image: url('/img/telegram.svg');
+            opacity: 0.5;
+            transition: 250ms all ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            path {
+              transition: 250ms all ease;
+              height: 100%;
+            }
+
+            &:hover {
+              opacity: 1;
+            }
           }
 
-          &_wsapp {
+          &__wa {
             background-image: url('/img/whatsapp.svg');
+            opacity: 0.5;
+            transition: 250ms all ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            path {
+              transition: 250ms all ease;
+              height: 100%;
+            }
+
+            &:hover {
+              opacity: 1;
+            }
           }
         }
       }

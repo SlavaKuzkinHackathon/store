@@ -131,17 +131,17 @@ const Footer = () => {
               </h3>
               <ul className={styles.footer__bottom__block__social}>
                 <li className={styles.footer__bottom__block__social__item}>
-                  <a
-                    href="#"
-                    className={
-                      styles.footer__bottom__block__social__item_telega
-                    }
-                  />
+                    <a
+                      href="https://t.me/ELENA15031977"
+                      className={
+                        styles.footer__bottom__block__social__item__telega
+                      }
+                    />
                 </li>
                 <li className={styles.footer__bottom__block__social__item}>
                   <a
-                    href="#"
-                    className={styles.footer__bottom__block__social__item_wsapp}
+                    href="https://wa.me/79139135547?text=Здравствуйте,%20интересует%20ваше%20объявление%20о%20диванах."
+                    className={styles.footer__bottom__block__social__item__wa}
                   />
                 </li>
               </ul>
