@@ -1,15 +1,23 @@
 import styles from '@/styles/admin/index.module.scss'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import AdminProductsPage from './products'
 import { NextPage } from 'next'
 import useRedirectByAdmin from '@/hooks/useRedirectByAdmin'
+import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 
 const Admin: NextPage = () => {
   const { shouldAccessAllow } = useRedirectByAdmin(true)
   const [isActive, setIsActive] = useState('products')
 
+  const getDefaultTextGenerator = useCallback(() => 'Админ-панель', [])
+  const getTextGenerator = useCallback((param: string) => ({}[param]), [])
+
   return (
     <>
+    <Breadcrumbs
+            getDefaultTextGenerator={getDefaultTextGenerator}
+            getTextGenerator={getTextGenerator}
+          /> 
       {shouldAccessAllow && (
         <section className={styles.admin}>
           <div className={styles.header}>

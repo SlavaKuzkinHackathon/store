@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Head from 'next/head'
 import { IQueryParams } from '@/types/catalog'
 import useRedirectByUserCheck from '@/hooks/useRedirectByUserCheck'
@@ -10,6 +10,7 @@ import { toast } from '@/components/templates/toasts'
 import ProductPage from '@/components/templates/ProductPage/ProductPage'
 import { useRouter } from 'next/router'
 import Custom404 from '../[404]'
+import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 
 const CatalogProductPage = ({ query }: { query: IQueryParams }) => {
   //const { shouldLoadContent } = useRedirectByUserCheck()
@@ -17,11 +18,23 @@ const CatalogProductPage = ({ query }: { query: IQueryParams }) => {
   const productOne = useStore($productOne)
   const router = useRouter()
   const [error, setError] = useState(false)
-  
+
+  const getDefaultTextGenerator = useCallback(
+    (subpath: string) => subpath.replace('catalog', 'Каталог'),
+    []
+  )
+  const getTextGenerator = useCallback((param: string) => ({})[param], [])
+  const lastCrumb = document.querySelector('.last-crumb') as HTMLElement
 
   useEffect(() => {
     loadProductOne()
   }, [router.asPath])
+
+  useEffect(() => {
+    if (lastCrumb) {
+      lastCrumb.textContent = productOne.name
+    }
+  }, [lastCrumb, productOne])
 
   const loadProductOne = async () => {
     try {
@@ -53,10 +66,14 @@ const CatalogProductPage = ({ query }: { query: IQueryParams }) => {
         <Custom404 />
       ) : (
         /* shouldLoadContent && ( */
-            <main>
-              <ProductPage />
-              <div className="overlay" />
-            </main>
+        <main>
+          <Breadcrumbs
+            getDefaultTextGenerator={getDefaultTextGenerator}
+            getTextGenerator={getTextGenerator}
+          />
+          <ProductPage />
+          <div className="overlay" />
+        </main>
         /* ) */
       )}
     </>

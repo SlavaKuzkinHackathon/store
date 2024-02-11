@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import ShippingPayment from '@/components/templates/ShippingPayment/ShippingPayment'
-//import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import { useCallback } from 'react'
 import ContactsPage from '@/components/templates/ContactsPage/ContactsPage'
+import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 
 function Contacts() {
   const getDefaultTextGenerator = useCallback(() => 'Контакты', [])
@@ -17,10 +17,10 @@ function Contacts() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
         <main>
-          {/* <Breadcrumbs
+           <Breadcrumbs
             getDefaultTextGenerator={getDefaultTextGenerator}
             getTextGenerator={getTextGenerator}
-          /> */}
+          /> 
           <ContactsPage />
           <div className="overlay" />
         </main>

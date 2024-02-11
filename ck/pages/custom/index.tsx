@@ -1,7 +1,7 @@
 import ServicesPage from '@/components/templates/ServicesPage/ServicesPage'
 import Head from 'next/head'
 import React from 'react'
-//import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
+import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import { useCallback } from 'react'
 
 function Services() {
@@ -17,10 +17,10 @@ function Services() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
         <main>
-          {/* <Breadcrumbs
+           <Breadcrumbs
             getDefaultTextGenerator={getDefaultTextGenerator}
             getTextGenerator={getTextGenerator}
-          /> */}
+          /> 
           <ServicesPage isCustomPage={false} />
           <div className="overlay" />
         </main>
